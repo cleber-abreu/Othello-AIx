@@ -20,7 +20,9 @@
             android:id="@+id/editTextLogin"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:width="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:hint="@string/text_login"
             android:capitalize="characters" />
 
         <EditText
@@ -30,7 +32,9 @@
             android:ems="10"
             android:id="@+id/editTextSenha"
             android:layout_marginTop="20dp"
-            android:width="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:hint="@string/text_senha"
             android:layout_gravity="center_horizontal" />
 
         <Button
