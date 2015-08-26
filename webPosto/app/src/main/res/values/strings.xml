@@ -5,4 +5,8 @@
     <string name="text_senha">Senha</string>
     <string name="login_button">Login</string>
     <string name="title_activity_filial">FilialActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

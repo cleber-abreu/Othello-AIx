@@ -60,7 +60,6 @@ public class FilialActivity extends AppCompatActivity {
                 listView.addView(button);
             }
 
-
         } catch (Exception e) {
             System.err.println(e);
         }
