@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">WebPosto</string>
     <string name="title_activity_login">Seja Bem-vindo</string>
-    <string name="label_login">Usuário</string>
-    <string name="label_senha">Senha</string>
+    <string name="text_login">Usuário</string>
+    <string name="text_senha">Senha</string>
     <string name="login_button">Login</string>
+    <string name="title_activity_filial">FilialActivity</string>
 </resources>

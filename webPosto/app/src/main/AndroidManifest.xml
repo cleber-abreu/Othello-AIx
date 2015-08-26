@@ -26,6 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.FilialActivity"
+            android:label="@string/title_activity_filial"
+            android:parentActivityName=".view.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>
