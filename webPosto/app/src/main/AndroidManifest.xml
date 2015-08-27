@@ -42,6 +42,62 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.LoginActivity" />
         </activity>
+        <activity
+            android:name=".view.ContasPagarActivity"
+            android:label="@string/title_activity_contas_pagar"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.ContasReceberActivity"
+            android:label="@string/title_activity_contas_receber"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.VendasActivity"
+            android:label="@string/title_activity_vendas"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.TanquesActivity"
+            android:label="@string/title_activity_tanques"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.TrocaPrecoActivity"
+            android:label="@string/title_activity_troca_preco"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.ProjecaoAbastecimentoActivity"
+            android:label="@string/title_activity_projecao_abastecimento"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.NotificacoesActivity"
+            android:label="@string/title_activity_notificacoes"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

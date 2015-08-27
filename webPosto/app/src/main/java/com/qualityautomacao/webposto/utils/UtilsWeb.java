@@ -23,7 +23,7 @@ import java.net.URI;
 import java.net.URL;
 
 public abstract class UtilsWeb {
-    private static final String IP = "192.168.0.22";
+    private static final String IP = "192.168.1.112";
     private static final String PORTA = "8080";
     private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
     public final static Token token = new Token();

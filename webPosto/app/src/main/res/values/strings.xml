@@ -7,6 +7,24 @@
     <string name="title_activity_filial">FilialActivity</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="title_financeiro">Financeiro</string>
+    <string name="text_contas_pagar">  Contas a Pagar</string>
+    <string name="text_contas_receber">  Contas a Receber</string>
+
+    <string name="title_movimento">Movimento</string>
+    <string name="text_vendas">Vendas</string>
+    <string name="text_tanques">Tanques</string>
+    <string name="text_troca_preco">Troca de Preço</string>
+    <string name="text_projecao_abastecimento">Projeção de Abastecimento</string>
+    <string name="text_notificacoes">Notificações</string>
+    <string name="title_activity_contas_pagar">ContasPagarActivity</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_contas_receber">ContasReceberActivity</string>
+    <string name="title_activity_vendas">VendasActivity</string>
+    <string name="title_activity_tanques">TanquesActivity</string>
+    <string name="title_activity_troca_preco">TrocaPrecoActivity</string>
+    <string name="title_activity_projecao_abastecimento">ProjecaoAbastecimentoActivity</string>
+    <string name="title_activity_notificacoes">NotificacoesActivity</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.qualityautomacao.webposto.utils;
 
-public interface Consumer<T> {
+import java.io.Serializable;
+
+public interface Consumer<T> extends Serializable {
     void accept(T t) throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.qualityautomacao.webposto.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +27,10 @@ public class FilialActivity extends AppCompatActivity {
 
         try {
             final LinearLayout listView = (LinearLayout) findViewById(R.id.linearLayoutFiliais);
+
+            if (listView.getChildCount() > 0)
+                return;
+
             final JSONObject jsonObject = new JSONObject(getIntent().getStringExtra("DADOS"));
             final JSONArray unidades = jsonObject.getJSONArray("DAD");
             final JSONArray obj = jsonObject.getJSONArray("OBJ");
@@ -51,6 +56,8 @@ public class FilialActivity extends AppCompatActivity {
 
                             UtilsWeb.token.unidadeNegocio = jsonArray.getInt(0);
                             UtilsWeb.token.nomeUnidade = jsonArray.getString(1);
+
+                            startActivity(new Intent(FilialActivity.this, MainActivity.class));
                         } catch (Exception e) {
                             System.err.println(e);
                         }
