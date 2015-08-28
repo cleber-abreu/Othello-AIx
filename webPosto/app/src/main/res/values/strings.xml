@@ -7,9 +7,14 @@
     <string name="title_activity_filial">FilialActivity</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="title_tab_venda_hoje">Hoje</string>
+    <string name="title_tab_venda_5">5 Dias</string>
+    <string name="title_tab_venda_15">15 Dias</string>
+    <string name="title_tab_venda_30">30 Dias</string>
+
     <string name="title_financeiro">Financeiro</string>
-    <string name="text_contas_pagar">  Contas a Pagar</string>
-    <string name="text_contas_receber">  Contas a Receber</string>
+    <string name="text_contas_pagar">Contas a Pagar</string>
+    <string name="text_contas_receber">Contas a Receber</string>
 
     <string name="title_movimento">Movimento</string>
     <string name="text_vendas">Vendas</string>
@@ -27,4 +32,7 @@
     <string name="title_activity_troca_preco">TrocaPrecoActivity</string>
     <string name="title_activity_projecao_abastecimento">ProjecaoAbastecimentoActivity</string>
     <string name="title_activity_notificacoes">NotificacoesActivity</string>
+    <string name="produto"></string>
+    <string name="valor"></string>
+    <string name="volume"></string>
 </resources>

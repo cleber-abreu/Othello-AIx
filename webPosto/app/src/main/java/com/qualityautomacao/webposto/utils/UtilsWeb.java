@@ -1,7 +1,7 @@
 package com.qualityautomacao.webposto.utils;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -23,12 +23,15 @@ import java.net.URI;
 import java.net.URL;
 
 public abstract class UtilsWeb {
-    private static final String IP = "192.168.1.112";
+    private static final String IP = "192.168.0.26";
     private static final String PORTA = "8080";
     private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
-    public final static Token token = new Token();
+    public static Token token = null;
 
-    public static void requisitar(final Context context, final String funcao, final String dados, final Consumer<JSONObject> consumer) {
+    public static final int UW_SHOW_PROGRESS_DIALOG = 1 << 0;
+    public static final int UW_SHOW_TOAST_ON_EXCEPTION = 1 << 1;
+
+    public static void requisitar(final Activity context, final String funcao, final String dados, final Consumer<JSONObject> consumer, final int opcoes, final Runnable antes, final Runnable depois) {
 
         new AsyncTask<String, Void, JSONObject>() {
             ProgressDialog progressDialog;
@@ -36,7 +39,12 @@ public abstract class UtilsWeb {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = ProgressDialog.show(context, null, "Aguarde...", true);
+
+                if ((opcoes & UW_SHOW_PROGRESS_DIALOG) == UW_SHOW_PROGRESS_DIALOG)
+                    progressDialog = ProgressDialog.show(context, null, "Aguarde...", true);
+
+                if (antes != null)
+                    antes.run();
             }
 
             @Override
@@ -44,11 +52,23 @@ public abstract class UtilsWeb {
                 super.onPostExecute(jsonObject);
 
                 try {
-                    consumer.accept(jsonObject);
-                } catch (Exception e) {
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                    if (jsonObject != null)
+                        consumer.accept(jsonObject);
+                } catch (final Exception e) {
+                    if ((opcoes & UW_SHOW_TOAST_ON_EXCEPTION) == UW_SHOW_TOAST_ON_EXCEPTION)
+                        context.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+
                 } finally {
-                    progressDialog.dismiss();
+                    if ((opcoes & UW_SHOW_PROGRESS_DIALOG) == UW_SHOW_PROGRESS_DIALOG)
+                        progressDialog.dismiss();
+
+                    if (depois != null)
+                        depois.run();
                 }
             }
 
@@ -76,9 +96,17 @@ public abstract class UtilsWeb {
 
                     String pacote = client.execute(post, responseHandler);
 
-                    JSONObject pacoteJson = new JSONObject(pacote);
+                    final JSONObject pacoteJson = new JSONObject(pacote);
+
                     if (pacoteJson.has("MEN")) {
-                        Toast.makeText(context, pacoteJson.getString("MEN"), Toast.LENGTH_LONG).show();
+                        if ((opcoes & UW_SHOW_TOAST_ON_EXCEPTION) == UW_SHOW_TOAST_ON_EXCEPTION)
+                            context.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, pacoteJson.optString("MEN"), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                         return null;
                     }
 
@@ -90,5 +118,9 @@ public abstract class UtilsWeb {
                 return null;
             }
         }.execute();
+    }
+
+    public static void requisitar(Activity activity, String funcao, String dados, Consumer<JSONObject> consumer) {
+        requisitar(activity, funcao, dados, consumer, UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION, null, null);
     }
 }

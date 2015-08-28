@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.qualityautomacao.webposto.R;
+import com.qualityautomacao.webposto.model.Token;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
@@ -35,10 +36,6 @@ public class FilialActivity extends AppCompatActivity {
             final JSONArray unidades = jsonObject.getJSONArray("DAD");
             final JSONArray obj = jsonObject.getJSONArray("OBJ");
 
-            UtilsWeb.token.rede = obj.getJSONObject(0).getInt("RED_CD_REDE");
-            UtilsWeb.token.usuario = obj.getJSONObject(1).getInt("USU_CD_USUARIO");
-            UtilsWeb.token.perfil = obj.getJSONObject(2).getInt("PER_CD_PERFIL");
-
             final int size = unidades.length();
 
             for (int i = 0; i < size; i++) {
@@ -54,8 +51,12 @@ public class FilialActivity extends AppCompatActivity {
                         try {
                             final JSONArray jsonArray = unidades.getJSONArray(finalI);
 
-                            UtilsWeb.token.unidadeNegocio = jsonArray.getInt(0);
-                            UtilsWeb.token.nomeUnidade = jsonArray.getString(1);
+                            UtilsWeb.token = new Token(
+                                    jsonArray.getInt(0),
+                                    jsonArray.getString(1),
+                                    obj.getJSONObject(1).getInt("USU_CD_USUARIO"),
+                                    obj.getJSONObject(2).getInt("PER_CD_PERFIL"),
+                                    obj.getJSONObject(0).getInt("RED_CD_REDE"));
 
                             startActivity(new Intent(FilialActivity.this, MainActivity.class));
                         } catch (Exception e) {
