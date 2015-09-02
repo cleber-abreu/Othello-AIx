@@ -25,6 +25,9 @@ import java.net.URL;
 public abstract class UtilsWeb {
     private static final String IP = "192.168.0.26";
     private static final String PORTA = "8080";
+//    private static final String IP = "200.98.166.245";
+//    private static final String PORTA = "8181";
+
     private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
     public static Token token = null;
 

@@ -2,10 +2,13 @@ package com.qualityautomacao.webposto.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.qualityautomacao.webposto.R;
+import com.qualityautomacao.webposto.utils.Consumer;
+import com.qualityautomacao.webposto.utils.UtilsWeb;
+
+import org.json.JSONObject;
 
 public class TrocaPrecoActivity extends AppCompatActivity {
 
@@ -16,24 +19,17 @@ public class TrocaPrecoActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_troca_preco, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+        carregarDados();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private void carregarDados() {
+        UtilsWeb.requisitar(this, "CONSULTAR_ALTERA_PRECO", "{}", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) throws Exception {
+                ((ListView) findViewById(R.id.listaCombustivel)).setAdapter(new RowTrocaPrecoAdapter(TrocaPrecoActivity.this, jsonObject));
+            }
+        });
     }
 }

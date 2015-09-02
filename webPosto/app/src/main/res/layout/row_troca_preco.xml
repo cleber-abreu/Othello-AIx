@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textViewProduto"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textViewPrecoAtual"
+        android:layout_alignBottom="@+id/editTextPrecoNovo"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editTextPrecoNovo"
+        android:layout_below="@+id/textViewProduto"
+        android:layout_alignParentEnd="true"/>
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="10dp"
+        android:layout_below="@+id/textViewPrecoAtual"
+        android:layout_alignStart="@+id/textViewPrecoAtual" />
+</RelativeLayout>
