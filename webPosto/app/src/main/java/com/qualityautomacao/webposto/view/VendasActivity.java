@@ -60,7 +60,7 @@ public class VendasActivity extends AppCompatActivity {
         }, 0, new Runnable() {
             @Override
             public void run() {
-                ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+                ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_vendas);
 
                 if (viewPager.getCurrentItem() != dias)
                     return;

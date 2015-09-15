@@ -12,24 +12,4 @@
         android:id="@+id/listaCombustivel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
-
-    <com.qualityautomacao.webposto.view.FloatingActionButton
-        android:id="@+id/fab_1"
-        android:layout_width="@dimen/fab_size"
-        android:layout_height="@dimen/fab_size"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:elevation="@dimen/fab_elevation"
-        android:background="@android:color/darker_gray"
-        android:stateListAnimator="@animator/fab_anim"
-        android:layout_gravity="bottom|right">
-
-        <ImageView
-            android:layout_width="@dimen/fab_icon_size"
-            android:layout_height="@dimen/fab_icon_size"
-            android:src="@drawable/fab_icons"
-            android:layout_gravity="center"
-            android:duplicateParentState="true"/>
-
-    </com.qualityautomacao.webposto.view.FloatingActionButton>
 </FrameLayout>

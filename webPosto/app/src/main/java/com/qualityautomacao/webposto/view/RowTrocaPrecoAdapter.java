@@ -20,7 +20,7 @@ public class RowTrocaPrecoAdapter extends ArrayAdapter<String> {
     private LayoutInflater layoutInflater;
 
     public RowTrocaPrecoAdapter(Activity context, JSONObject jsonObject) throws JSONException {
-        super(context, R.layout.row_vendas);
+        super(context, R.layout.row_troca_preco);
 
         this.list = jsonObject.getJSONArray("OBJ");
 
@@ -29,7 +29,7 @@ public class RowTrocaPrecoAdapter extends ArrayAdapter<String> {
 
     @Override
     public int getCount() {
-        return list.length() + 1;
+        return list.length();
     }
 
     @Override
@@ -39,37 +39,37 @@ public class RowTrocaPrecoAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View convertViewRetorno = layoutInflater.inflate(R.layout.row_troca_preco, null);
 
         try {
             final JSONObject jsonObject = list.optJSONObject(position);
-            ViewHolder holder = new ViewHolder();
+            final ViewHolder holder;
 
-            holder.valorNovo = (EditText) convertViewRetorno.findViewById(R.id.editTextPrecoNovo);
-            holder.descricaoProduto = (TextView) convertViewRetorno.findViewById(R.id.textViewProduto);
-            holder.valorAtual = (TextView) convertViewRetorno.findViewById(R.id.textViewPrecoAtual);
+            if (convertView == null) {
+                convertView = layoutInflater.inflate(R.layout.row_troca_preco, null);
+                holder = new ViewHolder();
 
-            convertViewRetorno.setTag(holder);
+                holder.valorNovo = (EditText) convertView.findViewById(R.id.editTextPrecoNovo);
+                holder.descricaoProduto = (TextView) convertView.findViewById(R.id.textViewProduto);
+                holder.valorAtual = (TextView) convertView.findViewById(R.id.textViewPrecoAtual);
+                holder.produto = (TextView) convertView.findViewById(R.id.textViewProdutoId);
 
-            if (jsonObject != null) {
-                holder.descricaoProduto.setText(jsonObject.getString("PRO_DS_PRODUTO"));
-                holder.valorAtual.setText("R$ " + jsonObject.getString("APP_VL_PRECO"));
-                holder.produto = jsonObject.getInt("APP_CD_PRODUTO");
-            } else {
-                holder.valorNovo.setVisibility(View.INVISIBLE);
-                holder.descricaoProduto.setVisibility(View.INVISIBLE);
-                holder.valorAtual.setVisibility(View.INVISIBLE);
-            }
-        } catch (JSONException e) {
+                convertView.setTag(holder);
+            } else
+                holder = (ViewHolder) convertView.getTag();
+
+            holder.descricaoProduto.setText(jsonObject.getString("PRO_DS_PRODUTO"));
+            holder.valorAtual.setText("R$ " + jsonObject.getString("APP_VL_PRECO"));
+            holder.produto.setText(jsonObject.getString("APP_CD_PRODUTO"));
+        } catch (Exception e) {
             System.err.println(e);
         }
-        return convertViewRetorno;
+        return convertView;
     }
 
     static class ViewHolder {
         EditText valorNovo;
         TextView valorAtual;
         TextView descricaoProduto;
-        int produto;
+        TextView produto;
     }
 }

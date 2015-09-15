@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.qualityautomacao.webposto.view.TrocaPrecoActivity">
+    tools:context="com.qualityautomacao.webposto.view.TrocaPrecoEnviarActivity">
 
-    <item android:id="@+id/action_troca_preco"
-        android:title="@string/menu_troca_preco"
+    <item android:id="@+id/action_enviar_troca_preco"
+        android:title="@string/menu_enviar_troca_preco"
         app:showAsAction="ifRoom"/>
 </menu>

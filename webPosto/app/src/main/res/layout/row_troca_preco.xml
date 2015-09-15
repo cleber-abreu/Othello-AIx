@@ -38,4 +38,10 @@
         android:layout_height="10dp"
         android:layout_below="@+id/textViewPrecoAtual"
         android:layout_alignStart="@+id/textViewPrecoAtual" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/textViewProdutoId"/>
 </RelativeLayout>

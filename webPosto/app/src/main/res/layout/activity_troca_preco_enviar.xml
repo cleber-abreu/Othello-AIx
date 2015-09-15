@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.qualityautomacao.webposto.view.TrocaPrecoEnviarActivity"
+    android:orientation="vertical"
+    android:gravity="top|center">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radioTroca"
+        android:gravity="center">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_inicio_turno"
+            android:id="@+id/radioButtonInicioTurno"
+            android:onClick="alternarComponentes"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_programado"
+            android:id="@+id/radioButtonProgramado"
+            android:onClick="alternarComponentes"
+            android:layout_marginLeft="40dp" />
+    </RadioGroup>
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePickerTrocaPreco"
+        android:datePickerMode="spinner"
+        android:layout_marginTop="-10dp"
+        android:calendarViewShown="false" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePickerTrocaPreco"
+        android:layout_gravity="center_horizontal"
+        android:timePickerMode="spinner"
+        android:layout_marginTop="-30dp"
+        android:layout_marginEnd="4dp"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTurnos"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/turnos" />
+
+</LinearLayout>

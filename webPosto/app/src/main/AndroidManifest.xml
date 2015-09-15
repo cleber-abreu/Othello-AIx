@@ -98,6 +98,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.MainActivity" />
         </activity>
+        <activity
+            android:name=".view.TrocaPrecoEnviarActivity"
+            android:label="@string/title_activity_troca_preco_enviar"
+            android:parentActivityName=".view.TrocaPrecoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qualityautomacao.webposto.view.TrocaPrecoActivity" />
+        </activity>
     </application>
 
 </manifest>

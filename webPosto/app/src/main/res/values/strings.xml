@@ -4,8 +4,8 @@
     <string name="text_login">Usuário</string>
     <string name="text_senha">Senha</string>
     <string name="login_button">Login</string>
-    <string name="title_activity_filial">FilialActivity</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_filial">Filiais</string>
+    <string name="title_activity_main"> </string>
 
     <string name="title_tab_venda_hoje">Hoje</string>
     <string name="title_tab_venda_5">5 Dias</string>
@@ -26,13 +26,26 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_contas_receber">ContasReceberActivity</string>
-    <string name="title_activity_vendas">VendasActivity</string>
-    <string name="title_activity_tanques">TanquesActivity</string>
-    <string name="title_activity_troca_preco">TrocaPrecoActivity</string>
-    <string name="title_activity_projecao_abastecimento">ProjecaoAbastecimentoActivity</string>
-    <string name="title_activity_notificacoes">NotificacoesActivity</string>
+    <string name="title_activity_contas_receber">Contas a Receber</string>
+    <string name="title_activity_vendas">Vendas</string>
+    <string name="title_activity_tanques">Tanques</string>
+    <string name="title_activity_troca_preco">Troca de Preço</string>
+    <string name="title_activity_projecao_abastecimento">Projeção de Abastecimento</string>
+    <string name="title_activity_notificacoes">Notificações</string>
     <string name="produto"></string>
     <string name="valor"></string>
     <string name="volume"></string>
+    <string name="title_activity_troca_preco_enviar"> </string>
+    <string name="radio_inicio_turno">Início de Turno</string>
+    <string name="radio_programado">Programado</string>
+
+    <string-array name="turnos">
+        <item>1º Turno</item>
+        <item>2º Turno</item>
+        <item>3º Turno</item>
+        <item>4º Turno</item>
+    </string-array>
+
+    <string name="menu_enviar_troca_preco">Enviar</string>
+    <string name="menu_troca_preco">Programar</string>
 </resources>
