@@ -1,4 +1,8 @@
 <resources>
+    <string name="gcm_defaultSenderId">1062651524124</string>
+    <string name="serial_id_server">webpostoandroid</string>
+    <string name="dispositivo_sem_google_play_services">Seu dispositivo não possui suporte ao Google Play Services. Este é obrigatório.</string>
+
     <string name="app_name">WebPosto</string>
     <string name="title_activity_login">Seja Bem-vindo</string>
     <string name="text_login">Usuário</string>

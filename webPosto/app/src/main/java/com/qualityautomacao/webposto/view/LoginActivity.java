@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.model.Token;
+import com.qualityautomacao.webposto.notificacao.RegistrationIntentService;
 import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
@@ -17,10 +21,17 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (checkPlayServices()) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
     }
 
     public void login(View view) throws Exception {
@@ -59,10 +70,31 @@ public class LoginActivity extends AppCompatActivity {
                 obj.getJSONObject(0).getInt("RED_CD_REDE")
         );
 
-        startActivity(new Intent(this, MainActivity.class));
+        UtilsWeb.verificarLiberacaoDispositivo(this, new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        });
     }
 
     private void loginMultiplasFiliais(JSONObject jsonObject) {
         startActivity(new Intent(this, FilialActivity.class).putExtra("DADOS", jsonObject.toString()));
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(this, getString(R.string.dispositivo_sem_google_play_services), Toast.LENGTH_LONG).show();
+                finish();
+            }
+            return false;
+        }
+
+        return true;
     }
 }

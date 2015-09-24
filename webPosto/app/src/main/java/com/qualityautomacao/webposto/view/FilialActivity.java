@@ -58,7 +58,12 @@ public class FilialActivity extends AppCompatActivity {
                                     obj.getJSONObject(2).getInt("PER_CD_PERFIL"),
                                     obj.getJSONObject(0).getInt("RED_CD_REDE"));
 
-                            startActivity(new Intent(FilialActivity.this, MainActivity.class));
+                            UtilsWeb.verificarLiberacaoDispositivo(FilialActivity.this, new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(new Intent(FilialActivity.this, MainActivity.class));
+                                }
+                            });
                         } catch (Exception e) {
                             System.err.println(e);
                         }

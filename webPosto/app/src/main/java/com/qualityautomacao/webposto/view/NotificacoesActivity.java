@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.qualityautomacao.webposto.R;
+import com.qualityautomacao.webposto.model.Token;
+import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 public class NotificacoesActivity extends AppCompatActivity {
 
@@ -13,6 +15,8 @@ public class NotificacoesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificacoes);
+
+        UtilsWeb.token = (Token) getIntent().getSerializableExtra("TOKEN");
     }
 
     @Override

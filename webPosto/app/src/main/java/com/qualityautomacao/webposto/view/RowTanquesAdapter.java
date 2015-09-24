@@ -1,9 +1,5 @@
 package com.qualityautomacao.webposto.view;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RowTanquesAdapter extends ArrayAdapter<String> {
     private final JSONArray list;
