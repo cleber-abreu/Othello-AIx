@@ -135,6 +135,10 @@ public abstract class UtilsWeb {
         requisitar(context, funcao, dados, consumer, UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION, null, null);
     }
 
+    public static void requisitar(Context context, String funcao, String dados, int opcoes) {
+        requisitar(context, funcao, dados, null, opcoes, null, null);
+    }
+
     public static void verificarLiberacaoDispositivo(Context context, final Runnable seLiberado) {
         requisitar(context, "MAQUINA", getDados(context), new Consumer<JSONObject>() {
             @Override

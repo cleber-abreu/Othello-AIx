@@ -1,14 +1,10 @@
 package com.qualityautomacao.webposto.model;
 
-import android.os.Parcel;
-
 import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Token implements Serializable {
-    private Parcel parcel;
-
+public final class Token implements Serializable {
     private String toString;
 
     public final int unidadeNegocio;
@@ -17,7 +13,7 @@ public class Token implements Serializable {
     public final int perfil;
     public final int rede;
 
-    public Token(int unidadeNegocio, String nomeUnidade, int usuario, int perfil, int rede) {
+    public Token(final int unidadeNegocio, final String nomeUnidade, final int usuario, final int perfil, final int rede) {
         this.unidadeNegocio = unidadeNegocio;
         this.nomeUnidade = nomeUnidade;
         this.usuario = usuario;
