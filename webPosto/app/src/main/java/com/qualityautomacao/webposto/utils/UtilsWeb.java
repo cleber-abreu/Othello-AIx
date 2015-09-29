@@ -31,14 +31,14 @@ import java.net.URI;
 import java.net.URL;
 
 public abstract class UtilsWeb {
-    private static final String IP = "192.168.1.118";
-    private static final String PORTA = "8080";
+//    private static final String IP = "192.168.0.23";
+//    private static final String PORTA = "8080";
 
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
-//    private static final String IP = "200.98.166.245";
-//    private static final String PORTA = "8181";
+    private static final String IP = "200.98.166.245";
+    private static final String PORTA = "8181";
 
     private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
     public static Token token;
@@ -47,7 +47,7 @@ public abstract class UtilsWeb {
     public static final int UW_SHOW_PROGRESS_DIALOG = 1 << 0;
     public static final int UW_SHOW_TOAST_ON_EXCEPTION = 1 << 1;
 
-    public static void requisitar(final Context context, final String funcao, final String dados, final Consumer<JSONObject> consumer, final int opcoes, final Runnable antes, final Runnable depois) {
+    public static void requisitar(final Request request) {
 
         new AsyncTask<String, Void, JSONObject>() {
             ProgressDialog progressDialog;
@@ -56,11 +56,11 @@ public abstract class UtilsWeb {
             protected void onPreExecute() {
                 super.onPreExecute();
 
-                if ((opcoes & UW_SHOW_PROGRESS_DIALOG) == UW_SHOW_PROGRESS_DIALOG)
-                    progressDialog = ProgressDialog.show(context, null, "Aguarde...", true);
+                if ((request.getOpcoes() & UW_SHOW_PROGRESS_DIALOG) == UW_SHOW_PROGRESS_DIALOG)
+                    progressDialog = ProgressDialog.show(request.getContext(), null, "Aguarde...", true);
 
-                if (antes != null)
-                    antes.run();
+                if (request.getOnPreExecute() != null)
+                    request.getOnPreExecute().run();
             }
 
             @Override
@@ -68,24 +68,24 @@ public abstract class UtilsWeb {
                 super.onPostExecute(jsonObject);
 
                 try {
-                    if (jsonObject != null && consumer != null)
-                        consumer.accept(jsonObject);
+                    if (jsonObject != null && request.getConsumer() != null)
+                        request.getConsumer().accept(jsonObject);
                 } catch (final Exception e) {
-                    if ((opcoes & UW_SHOW_TOAST_ON_EXCEPTION) == UW_SHOW_TOAST_ON_EXCEPTION)
-                        showToast(context, e.getMessage(), Toast.LENGTH_LONG);
+                    if ((request.getOpcoes() & UW_SHOW_TOAST_ON_EXCEPTION) == UW_SHOW_TOAST_ON_EXCEPTION)
+                        showToast(request.getContext(), e.getMessage(), Toast.LENGTH_LONG);
                 } finally {
-                    if ((opcoes & UW_SHOW_PROGRESS_DIALOG) == UW_SHOW_PROGRESS_DIALOG)
+                    if ((request.getOpcoes() & UW_SHOW_PROGRESS_DIALOG) == UW_SHOW_PROGRESS_DIALOG)
                         progressDialog.dismiss();
 
-                    if (depois != null)
-                        depois.run();
+                    if (request.getOnPosExecute() != null)
+                        request.getOnPosExecute().run();
                 }
             }
 
             @Override
             protected JSONObject doInBackground(String... params) {
                 try {
-                    final String stringUrl = BASE_URL + funcao + "/" + dados + "/" + (token == null ? "{}" : token.toString());
+                    final String stringUrl = BASE_URL + request.getFuncao() + "/" + request.getDados() + "/" + (token == null ? "{}" : token.toString());
                     URL url = new URL(stringUrl);
                     URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 
@@ -113,14 +113,18 @@ public abstract class UtilsWeb {
                     final JSONObject pacoteJson = new JSONObject(pacote);
 
                     if (pacoteJson.has("MEN")) {
-                        if ((opcoes & UW_SHOW_TOAST_ON_EXCEPTION) == UW_SHOW_TOAST_ON_EXCEPTION)
-                            showToast(context, pacoteJson.optString("MEN"), Toast.LENGTH_LONG);
+                        if ((request.getOpcoes() & UW_SHOW_TOAST_ON_EXCEPTION) == UW_SHOW_TOAST_ON_EXCEPTION)
+                            showToast(request.getContext(), pacoteJson.optString("MEN"), Toast.LENGTH_LONG);
                         return null;
                     }
 
                     return pacoteJson;
                 } catch (ConnectTimeoutException e){
-                    showToast(context, "Timeout. Verique sua conexão.", Toast.LENGTH_LONG);
+                    if (request.getOnTimeout() != null)
+                        request.getOnTimeout().run();
+                    else
+                        showToast(request.getContext(), "Timeout. Verique sua conexão.", Toast.LENGTH_LONG);
+
                     return null;
                 } catch (Exception e) {
                     System.err.println(e);
@@ -131,21 +135,15 @@ public abstract class UtilsWeb {
         }.execute();
     }
 
-    public static void requisitar(Context context, String funcao, String dados, Consumer<JSONObject> consumer) {
-        requisitar(context, funcao, dados, consumer, UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION, null, null);
-    }
-
-    public static void requisitar(Context context, String funcao, String dados, int opcoes) {
-        requisitar(context, funcao, dados, null, opcoes, null, null);
-    }
-
     public static void verificarLiberacaoDispositivo(Context context, final Runnable seLiberado) {
-        requisitar(context, "MAQUINA", getDados(context), new Consumer<JSONObject>() {
+        requisitar(new Request(context, "MAQUINA")
+                    .setDados(getDados(context))
+                    .onCompleteRequest(new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) throws Exception {
                 seLiberado.run();
             }
-        });
+        }));
     }
 
     private static String getDados(Context context) {

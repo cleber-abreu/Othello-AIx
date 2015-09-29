@@ -1,10 +1,12 @@
 package com.qualityautomacao.webposto.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -13,13 +15,14 @@ import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.model.Token;
 import com.qualityautomacao.webposto.notificacao.RegistrationIntentService;
 import com.qualityautomacao.webposto.utils.Consumer;
+import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
@@ -28,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ((TextView) findViewById(R.id.editTextLogin)).setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+
         if (checkPlayServices()) {
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
@@ -35,17 +40,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) throws Exception {
-        UtilsWeb.requisitar(this, "LOGIN", getDadosLogin().toString(), new Consumer<JSONObject>() {
-            @Override
-            public void accept(JSONObject jsonObject) throws Exception {
-                final int ret = jsonObject.getInt("RET");
+        UtilsWeb.requisitar(new Request(this, "LOGIN")
+                            .setDados(getDadosLogin().toString())
+                            .onCompleteRequest(new Consumer<JSONObject>() {
+                                @Override
+                                public void accept(JSONObject jsonObject) throws Exception {
+                                    final int ret = jsonObject.getInt("RET");
 
-                if (ret == 2)
-                    loginMultiplasFiliais(jsonObject);
-                else if (ret == 0)
-                    loginUnicaFilial(jsonObject);
-            }
-        });
+                                    if (ret == 2)
+                                        loginMultiplasFiliais(jsonObject);
+                                    else if (ret == 0)
+                                        loginUnicaFilial(jsonObject);
+                                }
+                            }));
     }
 
     private JSONObject getDadosLogin() throws Exception {

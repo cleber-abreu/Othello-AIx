@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Consumer;
+import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
@@ -36,18 +37,22 @@ public class TrocaPrecoEnviarActivity extends AppCompatActivity {
     }
 
     private void enviarTrocaPreco() {
-        UtilsWeb.requisitar(this, "ALTERA_PRECO_INCLUIR", getDados(), new Consumer<JSONObject>() {
-            @Override
-            public void accept(JSONObject jsonObject) throws Exception {
-                Toast.makeText(TrocaPrecoEnviarActivity.this, "Troca enviada.", Toast.LENGTH_LONG).show();
-            }
-        }, 0, null, new Runnable() {
-            @Override
-            public void run() {
-                TrocaPrecoEnviarActivity.this.setResult(0);
-                TrocaPrecoEnviarActivity.this.finish();
-            }
-        });
+        UtilsWeb.requisitar(new Request(this, "ALTERA_PRECO_INCLUIR")
+                .setDados(getDados())
+                .onCompleteRequest(new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject jsonObject) throws Exception {
+                        Toast.makeText(TrocaPrecoEnviarActivity.this, "Troca enviada.", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setFlags(0)
+                .onPosExecute(new Runnable() {
+                    @Override
+                    public void run() {
+                        TrocaPrecoEnviarActivity.this.setResult(0);
+                        TrocaPrecoEnviarActivity.this.finish();
+                    }
+                }));
     }
 
     private String getDados() {

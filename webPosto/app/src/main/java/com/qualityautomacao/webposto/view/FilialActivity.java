@@ -1,8 +1,8 @@
 package com.qualityautomacao.webposto.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,7 +14,7 @@ import com.qualityautomacao.webposto.utils.UtilsWeb;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class FilialActivity extends AppCompatActivity {
+public class FilialActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

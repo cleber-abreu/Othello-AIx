@@ -1,8 +1,8 @@
 package com.qualityautomacao.webposto.view;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -12,13 +12,14 @@ import android.widget.RelativeLayout;
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.ConsumerUnchecked;
+import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.TabAction;
 import com.qualityautomacao.webposto.utils.UtilsInterface;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONObject;
 
-public class VendasActivity extends AppCompatActivity {
+public class VendasActivity extends FragmentActivity {
     private ProgressBar progressBar;
 
     @Override
@@ -50,34 +51,37 @@ public class VendasActivity extends AppCompatActivity {
     }
 
     private void carregarDados(final View view, final int dias) {
+        UtilsWeb.requisitar(new Request(this, "RELATORIO_VENDA")
+                .setDados("{\"DATA\" : " + dias + "}")
+                .setFlags(0)
+                .onCompleteRequest(new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject jsonObject) throws Exception {
+                        ((ListView) view).setAdapter(new RowVendasAdapter(VendasActivity.this, jsonObject));
+                    }
+                })
+                .onPreExecute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_vendas);
 
-        UtilsWeb.requisitar(this, "RELATORIO_VENDA", "{\"DATA\" : " + dias + "}", new Consumer<JSONObject>() {
-            @Override
-            public void accept(JSONObject jsonObject) throws Exception {
-                ListView listView = (ListView) view;
-                listView.setAdapter(new RowVendasAdapter(VendasActivity.this, jsonObject));
-            }
-        }, 0, new Runnable() {
-            @Override
-            public void run() {
-                ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_vendas);
+                        if (viewPager.getCurrentItem() != dias)
+                            return;
 
-                if (viewPager.getCurrentItem() != dias)
-                    return;
-
-                if (progressBar != null)
-                    progressBar.setVisibility(View.VISIBLE);
-                else {
-                    progressBar = new ProgressBar(VendasActivity.this);
-                    addContentView(progressBar, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                }
-            }
-        }, new Runnable() {
-            @Override
-            public void run() {
-                if (progressBar != null)
-                    progressBar.setVisibility(View.GONE);
-            }
-        });
+                        if (progressBar != null)
+                            progressBar.setVisibility(View.VISIBLE);
+                        else {
+                            progressBar = new ProgressBar(VendasActivity.this);
+                            addContentView(progressBar, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        }
+                    }
+                })
+                .onPosExecute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (progressBar != null)
+                            progressBar.setVisibility(View.GONE);
+                    }
+                }));
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Consumer;
+import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
@@ -32,12 +33,13 @@ public class TrocaPrecoActivity extends AppCompatActivity {
     }
 
     private void carregarDados() {
-        UtilsWeb.requisitar(this, "CONSULTAR_ALTERA_PRECO", "{}", new Consumer<JSONObject>() {
-            @Override
-            public void accept(JSONObject jsonObject) throws Exception {
-                ((ListView) findViewById(R.id.listaCombustivel)).setAdapter(new RowTrocaPrecoAdapter(TrocaPrecoActivity.this, jsonObject));
-            }
-        });
+        UtilsWeb.requisitar(new Request(this, "CONSULTAR_ALTERA_PRECO")
+                .onCompleteRequest(new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject jsonObject) throws Exception {
+                        ((ListView) findViewById(R.id.listaCombustivel)).setAdapter(new RowTrocaPrecoAdapter(TrocaPrecoActivity.this, jsonObject));
+                    }
+                }));
     }
 
     private void enviarTrocaDePreco() {

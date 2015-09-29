@@ -1,9 +1,9 @@
 <resources>
-    <color name="qualityCor">#C8EBFA</color>
-    <color name="qualityButton">#E4F6FA</color>
+    <color name="qualityCor">#E4F6FA</color>
+    <color name="qualityButton">@android:color/white</color>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/qualityCor</item>
     </style>

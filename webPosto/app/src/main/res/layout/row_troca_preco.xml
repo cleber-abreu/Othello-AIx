@@ -27,11 +27,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/editTextPrecoNovo"
         android:layout_below="@+id/textViewProduto"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:inputType="numberDecimal"/>
 
     <Space
         android:layout_width="20px"
