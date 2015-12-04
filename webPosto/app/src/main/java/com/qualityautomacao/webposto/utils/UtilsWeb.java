@@ -14,9 +14,12 @@ import com.qualityautomacao.webposto.model.Token;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -29,6 +32,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public abstract class UtilsWeb {
 //    private static final String IP = "192.168.0.23";
@@ -40,7 +44,7 @@ public abstract class UtilsWeb {
     private static final String IP = "200.98.166.245";
     private static final String PORTA = "8181";
 
-    private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
+    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
     public static Token token;
     public static String KEY;
 
@@ -137,13 +141,13 @@ public abstract class UtilsWeb {
 
     public static void verificarLiberacaoDispositivo(Context context, final Runnable seLiberado) {
         requisitar(new Request(context, "MAQUINA")
-                    .setDados(getDados(context))
-                    .onCompleteRequest(new Consumer<JSONObject>() {
-            @Override
-            public void accept(JSONObject jsonObject) throws Exception {
-                seLiberado.run();
-            }
-        }));
+                .setDados(getDados(context))
+                .onCompleteRequest(new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject jsonObject) throws Exception {
+                        seLiberado.run();
+                    }
+                }));
     }
 
     private static String getDados(Context context) {
@@ -171,5 +175,54 @@ public abstract class UtilsWeb {
             });
         else
             Toast.makeText(context, mensagem, duracaoMensagem).show();
+    }
+
+    private static String ip() {
+        JSONObject json = null;
+        try {
+            json = new AsyncTask<Void, Void, JSONObject>() {
+                    @Override
+                    protected JSONObject doInBackground(Void... params) {
+                        try {
+                            final String stringUrl = "http://wpadmin.qualityautomacao.com/server/ip/principal";
+                            URL url = new URL(stringUrl);
+                            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+
+                            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+                                public String handleResponse(final HttpResponse response) throws IOException {
+                                    StatusLine statusLine = response.getStatusLine();
+                                    if (statusLine.getStatusCode() >= 300) {
+                                        throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+                                    }
+
+                                    HttpEntity entity = response.getEntity();
+                                    return entity == null ? null : EntityUtils.toString(entity, "UTF-8");
+                                }
+                            };
+
+                            HttpParams httpParams = new BasicHttpParams();
+                            HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT);
+                            HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT);
+
+                            DefaultHttpClient client = new DefaultHttpClient(httpParams);
+                            HttpGet get = new HttpGet(uri.toASCIIString());
+
+                            client.getCredentialsProvider().setCredentials(new AuthScope("wpadmin.qualityautomacao.com", 80), new UsernamePasswordCredentials("dev", "dev@2015"));
+
+                            String pacote = client.execute(get, responseHandler);
+
+                            return new JSONObject(pacote);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        return null;
+                    }
+                }.execute().get();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return json == null ? "" : json.optString("ip_ds_ip");
     }
 }
