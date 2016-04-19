@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.webkit.URLUtil;
 import android.widget.Toast;
 
 import com.qualityautomacao.webposto.BuildConfig;
@@ -32,19 +33,21 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 public abstract class UtilsWeb {
-//    private static final String IP = "192.168.0.23";
-//    private static final String PORTA = "8080";
+    private static final String IP = "192.168.0.53";
+    private static final String PORTA = "8080";
 
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
-    private static final String IP = "200.98.166.245";
-    private static final String PORTA = "8181";
-
-    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
+//    private static final String IP = "200.98.166.245";
+//    private static final String PORTA = "8181";
+//
+//    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
+    private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
     public static Token token;
     public static String KEY;
 
@@ -89,7 +92,7 @@ public abstract class UtilsWeb {
             @Override
             protected JSONObject doInBackground(String... params) {
                 try {
-                    final String stringUrl = BASE_URL + request.getFuncao() + "/" + request.getDados() + "/" + (token == null ? "{}" : token.toString());
+                    final String stringUrl = BASE_URL + request.getFuncao() + "/" + URLEncoder.encode(request.getDados(), "UTF-8") + "/" + (token == null ? "{}" : token.toString());
                     URL url = new URL(stringUrl);
                     URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 

@@ -1,72 +1,73 @@
 package com.qualityautomacao.webposto.view;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Consumer;
-import com.qualityautomacao.webposto.utils.ConsumerUnchecked;
 import com.qualityautomacao.webposto.utils.Request;
-import com.qualityautomacao.webposto.utils.TabAction;
 import com.qualityautomacao.webposto.utils.UtilsInterface;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONObject;
 
-public class VendasActivity extends FragmentActivity {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class VendasActivity extends Activity {
     private ProgressBar progressBar;
+    private EditText dtIni;
+    private EditText dtFim;
+    private ImageButton buscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendas);
 
-        UtilsInterface.setAbas(this, R.layout.fragment_venda, new TabAction(this, R.string.title_tab_venda_hoje, new ConsumerUnchecked<View>() {
-            @Override
-            public void accept(View view) {
-                carregarDados(view, 0);
-            }
-        }), new TabAction(this, R.string.title_tab_venda_5, new ConsumerUnchecked<View>() {
-            @Override
-            public void accept(View view) {
-                carregarDados(view, 1);
-            }
-        }), new TabAction(this, R.string.title_tab_venda_15, new ConsumerUnchecked<View>() {
-            @Override
-            public void accept(View view) {
-                carregarDados(view, 2);
-            }
-        }), new TabAction(this, R.string.title_tab_venda_30, new ConsumerUnchecked<View>() {
-            @Override
-            public void accept(View view) {
-                carregarDados(view, 3);
-            }
-        }));
+        dtIni = ((EditText) findViewById(R.id.dtInicioEditText));
+        dtIni.setText(UtilsInterface.setSevenDaysBefore());
+        UtilsInterface.setDateCalendario(VendasActivity.this, dtIni);
+
+        dtFim = ((EditText) findViewById(R.id.dtFimEditText));
+        dtFim.setText(UtilsInterface.setDate());
+        UtilsInterface.setDateCalendario(VendasActivity.this, dtFim);
+
+        buscar = ((ImageButton) findViewById(R.id.buscarButton));
+        buscar.setOnClickListener(new View.OnClickListener() {
+                                      public void onClick(View view) {
+                                          try {
+                                              carregarDados(view, dtIni.getText().toString(), dtFim.getText().toString());
+                                          } catch (Exception e) {
+                                              e.printStackTrace();
+                                          }
+                                      }
+                                  }
+        );
     }
 
-    private void carregarDados(final View view, final int dias) {
-        UtilsWeb.requisitar(new Request(this, "RELATORIO_VENDA")
-                .setDados("{\"DATA\" : " + dias + "}")
+    private void carregarDados(final View view, final String dtIni, final String dtFim) {
+        UtilsWeb.requisitar(new Request(this, "RELATORIO_VENDA_ANDROID")
+                .setDados(String.format("{\"DATA_INICIO\" : \"%s\",\"DATA_FIM\" : \"%s\"}", dtIni, dtFim))
                 .setFlags(0)
                 .onCompleteRequest(new Consumer<JSONObject>() {
                     @Override
                     public void accept(JSONObject jsonObject) throws Exception {
-                        ((ListView) view).setAdapter(new RowVendasAdapter(VendasActivity.this, jsonObject));
+                        ((ListView) findViewById(R.id.listaVendas)).setAdapter(new RowVendasAdapter(VendasActivity.this, jsonObject));
                     }
                 })
                 .onPreExecute(new Runnable() {
                     @Override
                     public void run() {
-                        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_vendas);
-
-                        if (viewPager.getCurrentItem() != dias)
-                            return;
 
                         if (progressBar != null)
                             progressBar.setVisibility(View.VISIBLE);
