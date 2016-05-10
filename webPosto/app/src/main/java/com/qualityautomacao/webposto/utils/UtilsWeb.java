@@ -37,7 +37,7 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 public abstract class UtilsWeb {
-    private static final String IP = "192.168.0.53";
+    private static final String IP = "DESKTOP-TP9HJM6";
     private static final String PORTA = "8080";
 
     private static final int MINUTO_TIMEOUT = 1;
