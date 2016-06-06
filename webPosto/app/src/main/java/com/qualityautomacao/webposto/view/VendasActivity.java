@@ -35,10 +35,12 @@ public class VendasActivity extends Activity {
         setContentView(R.layout.activity_vendas);
 
         dtIni = ((EditText) findViewById(R.id.dtInicioEditText));
+        dtIni.setFocusable(false);
         dtIni.setText(UtilsInterface.setSevenDaysBefore());
         UtilsInterface.setDateCalendario(VendasActivity.this, dtIni);
 
         dtFim = ((EditText) findViewById(R.id.dtFimEditText));
+        dtFim.setFocusable(false);
         dtFim.setText(UtilsInterface.setDate());
         UtilsInterface.setDateCalendario(VendasActivity.this, dtFim);
 
