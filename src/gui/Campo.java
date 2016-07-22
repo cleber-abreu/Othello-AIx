@@ -15,12 +15,13 @@ public class Campo extends JPanel {
 	private static final Dimension dimBorderH = new Dimension(50, 20);
 	private static final Dimension dimBorderV = new Dimension(20, 50);
 	private static final Dimension dimBorderX = new Dimension(20, 20);
+	private Disco disco = new Disco();
 
 	public Campo() {
 		this.setBackground(defaultBackground);
 		this.setSize(dim);
 		this.setPreferredSize(dim);
-		add(new Disco());
+		add(disco);
 	}
 
 	public Campo(int i) {
@@ -73,6 +74,14 @@ public class Campo extends JPanel {
 				return dimBorderH;
 			}
 		});
+	}
+
+	public Disco getDisco() {
+		return disco;
+	}
+
+	public void setDisco(Disco disco) {
+		this.disco = disco;
 	}
 
 }

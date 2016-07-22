@@ -23,12 +23,12 @@ public class DadosPartida  extends JPanel {
 		add(new Texto("DETALHES DA PARTIDA"), gbc);
 		
 		p1.setBackground(Color.DARK_GRAY);
-		p1.add(new Disco(1));
+		p1.add(new Disco(Estatos.BRANCO_PLACAR));
 		p1.add(new Texto("Jogador 1:"));
 		p1.add(p1Discos);
 		
 		p2.setBackground(Color.DARK_GRAY);
-		p2.add(new Disco(2));
+		p2.add(new Disco(Estatos.PRETO_PLACAR));
 		p2.add(new Texto("Jogador 2:"));
 		p2.add(p2Discos);
 		
@@ -37,8 +37,7 @@ public class DadosPartida  extends JPanel {
 		
 		add(new Texto("PLACAR GERAL"), gbc);
 		gbc.gridx++;
-		add(new Texto("Jogador 1: 0"), gbc);
-		add(new Texto("Jogador 2: 0"), gbc);
+		add(new Texto("Jogador 1 0x0 Jogador 2"), gbc);
 	}
 	
 }

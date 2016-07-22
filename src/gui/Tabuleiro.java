@@ -12,12 +12,14 @@ import javax.swing.border.MatteBorder;
 @SuppressWarnings("serial")
 public class Tabuleiro extends JPanel {
 
+	Campo[][] campos;
+	
 	public Tabuleiro() {
 
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
-		Campo campo;
+		campos = new Campo[10][10];
 		String[] letras = { " ", "A", "B", "C", "D", "E", "F", "G", "H", " " };
 		Border border = null;
 
@@ -28,13 +30,13 @@ public class Tabuleiro extends JPanel {
 				grid.gridy = row;
 
 				if (row == 0 || row == 9) {
-					campo = new Campo(letras[col]);
+					campos[row][col]= new Campo(letras[col]);
 					border = null;
 				} else if ((row != 0 || row != 9) && (col == 0 || col == 9)) {
-					campo = new Campo(row);
+					campos[row][col]= new Campo(row);
 					border = null;
 				} else {
-					campo = new Campo();
+					campos[row][col]= new Campo();
 
 					if (row < 9) {
 						if (col < 9) {
@@ -50,8 +52,8 @@ public class Tabuleiro extends JPanel {
 						}
 					}
 				}
-				campo.setBorder(border);
-				add(campo, grid);
+				campos[row][col].setBorder(border);
+				add(campos[row][col], grid);
 			}
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -59,6 +61,14 @@ public class Tabuleiro extends JPanel {
 				}
 			});
 		}
+		
+		campos[4][4].getDisco().setEstatos(Estatos.BRANCO);
+		campos[5][5].getDisco().setEstatos(Estatos.BRANCO);
+		campos[4][5].getDisco().setEstatos(Estatos.PRETO);
+		campos[5][4].getDisco().setEstatos(Estatos.PRETO);
+		campos[6][6].getDisco().setEstatos(Estatos.BRANCO_OPCAO);
+		campos[6][5].getDisco().setEstatos(Estatos.PRETO_OPCAO);
+		
 	}
 
 }
