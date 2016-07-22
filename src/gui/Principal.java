@@ -30,6 +30,7 @@ public class Principal extends JFrame {
 				frmPrincipal.setLayout(new BorderLayout());
 				frmPrincipal.setBackground(Color.DARK_GRAY);
 				frmPrincipal.add(new Tabuleiro(), BorderLayout.CENTER);
+				frmPrincipal.add(new DadosPartida(), BorderLayout.EAST);
 				frmPrincipal.pack();
 				frmPrincipal.setLocationRelativeTo(null);
 				frmPrincipal.setVisible(true);
