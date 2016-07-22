@@ -1,6 +1,6 @@
 package gui;
 
-public enum Estatos {
+public enum DiscStatus {
 	BRANCO, 
 	PRETO, 
 	VAZIO,
