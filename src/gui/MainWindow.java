@@ -3,13 +3,14 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
-public class Principal extends JFrame {
+public class MainWindow extends JFrame {
 
 	public static void main(String[] args) {
 
@@ -25,15 +26,15 @@ public class Principal extends JFrame {
                 		UnsupportedLookAndFeelException e) {
                 }
 				
-				JFrame frmPrincipal = new JFrame("Othello AIx");
-				frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frmPrincipal.setLayout(new BorderLayout());
-				frmPrincipal.setBackground(Color.DARK_GRAY);
-				frmPrincipal.add(new Tabuleiro(), BorderLayout.CENTER);
-				frmPrincipal.add(new DadosPartida(), BorderLayout.EAST);
-				frmPrincipal.pack();
-				frmPrincipal.setLocationRelativeTo(null);
-				frmPrincipal.setVisible(true);
+				JFrame frmMain = new JFrame("Othello AIx");
+				frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frmMain.setLayout(new BorderLayout());
+				frmMain.setBackground(Color.DARK_GRAY);
+				frmMain.add(new Board(), BorderLayout.CENTER);
+				frmMain.add(new DataPanel(), BorderLayout.EAST);
+				frmMain.pack();
+				frmMain.setLocationRelativeTo(null);
+				frmMain.setVisible(true);
 			}
 		});
 		
