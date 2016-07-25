@@ -54,9 +54,11 @@ public class Disc extends JPanel {
 		} else if (estatos == DiscStatus.BRANCO_PLACAR) {
 			g.setColor(Color.WHITE);
 			setBackground(Color.DARK_GRAY);
+			repaint();
 		} else if (estatos == DiscStatus.PRETO_PLACAR) {
 			g.setColor(Color.BLACK);
 			setBackground(Color.DARK_GRAY);
+			repaint();
 		}
 
 		if (estatos == DiscStatus.BRANCO_OPCAO) {
