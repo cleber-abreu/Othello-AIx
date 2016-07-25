@@ -1,113 +1,130 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class DataPanel  extends JPanel {
 	
-	private JPanel pnlMatch;
-	private JPanel pnlScoreboard;
-	private JPanel pnlScorePlay1;
-	private JPanel pnlScorePlay2;
+	private final static Font fontTittle = new Font(Font.MONOSPACED, Font.BOLD, 14);
+	private final static Font fontText = new Font(Font.MONOSPACED, Font.PLAIN, 14);
+	private final static Font fontNumber = new Font(Font.MONOSPACED, Font.BOLD, 42);
+	
+	private JLabel lblTittleMatch;
+	private JLabel lblTittleScoreboard;
+	private JLabel lblNamePlay1;
+	private JLabel lblNamePlay2;
 	private JLabel lblNumberDiscsPlay1;
 	private JLabel lblNumberDiscsPlay2;
+	private JLabel lblPointsPlay1;
+	private JLabel lblPointsPlay2;
+	private JButton btnNewGame;
 	
 	public DataPanel() {
 		setPreferredSize(new Dimension(220, 420));
 		setBackground(Color.DARK_GRAY);
+		setLayout(new GridBagLayout());
 		
-		pnlMatch = new JPanel();
-		pnlScoreboard = new JPanel();
-		pnlScorePlay1 = new JPanel();
-		pnlScorePlay2 = new JPanel();
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		lblTittleMatch = new JLabel("DETALHES DA PARTIDA");
+		lblTittleScoreboard = new JLabel("PLACAR GERAL");
+		lblNamePlay1 = new JLabel("Jogador 1");
+		lblNamePlay2 = new JLabel("Jogador 2");
 		lblNumberDiscsPlay1 = new JLabel("2");
 		lblNumberDiscsPlay2 = new JLabel("2");
+		lblPointsPlay1 = new JLabel("0");
+		lblPointsPlay2 = new JLabel("0");
+		btnNewGame = new JButton("Nova Partida");
 		
-		pnlMatch.setLayout(new BorderLayout());
-		pnlScoreboard.setLayout(new BorderLayout());
+		lblTittleMatch.setFont(fontTittle);
+		lblTittleScoreboard.setFont(fontTittle);
+		lblNamePlay1.setFont(fontText);
+		lblNamePlay2.setFont(fontText);
+		lblNumberDiscsPlay1.setFont(fontNumber);
+		lblNumberDiscsPlay2.setFont(fontNumber);
+		lblPointsPlay1.setFont(fontTittle);
+		lblPointsPlay2.setFont(fontTittle);
+
+		btnNewGame.setBackground(Color.DARK_GRAY);
 		
-//		pnlMatch.setBorder(new MatteBorder(1, 1, 1, 1, Color.GRAY));
-//		pnlScoreboard.setBorder(new MatteBorder(1, 1, 1, 1, Color.GRAY));
+		lblTittleMatch.setForeground(Color.WHITE);
+		lblTittleScoreboard.setForeground(Color.WHITE);
+		lblNamePlay1.setForeground(Color.WHITE);
+		lblNamePlay2.setForeground(Color.WHITE);
+		lblNumberDiscsPlay1.setForeground(Color.WHITE);
+		lblNumberDiscsPlay2.setForeground(Color.WHITE);
+		lblPointsPlay1.setForeground(Color.WHITE);
+		lblPointsPlay2.setForeground(Color.WHITE);
+		btnNewGame.setForeground(Color.WHITE);
 		
-		pnlMatch.setBackground(Color.DARK_GRAY);
-		pnlScoreboard.setBackground(Color.DARK_GRAY);
-		pnlScorePlay1.setBackground(Color.DARK_GRAY);
-		pnlScorePlay2.setBackground(Color.DARK_GRAY);
+		gbc.insets = new Insets(10, 0, 0, 0);
+		gbc.gridwidth = 3;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		add(lblTittleMatch, gbc);
 		
-		pnlMatch.add(new JLabel("DETALHES DA PARTIDA") {
-			@Override
-			public Color getForeground() {
-				return Color.WHITE;
-			}
-			
-			@Override
-			public Font getFont() {
-				return new Font("Tahoma",Font.BOLD, 14);
-			}
-		}, BorderLayout.NORTH);
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		add(lblNamePlay1, gbc);
 		
-		pnlScorePlay1.add(new Disc(DiscStatus.BRANCO_PLACAR), BorderLayout.CENTER);
-		pnlScorePlay1.add(new JLabel("Jogador 1:") {
-			@Override
-			public Color getForeground() {
-				return Color.WHITE;
-			}
-			
-			@Override
-			public Font getFont() {
-				return new Font("Tahoma",Font.BOLD, 12);
-			}
-		}, BorderLayout.CENTER);
+		gbc.gridwidth = 1;
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		add(lblNamePlay2, gbc);
 		
-		pnlScorePlay2.add(new Disc(DiscStatus.PRETO_PLACAR), BorderLayout.CENTER);
-		pnlScorePlay2.add(new JLabel("Jogador 2:") {
-			@Override
-			public Color getForeground() {
-				return Color.WHITE;
-			}
-			
-			@Override
-			public Font getFont() {
-				return new Font("Tahoma",Font.PLAIN, 14);
-			}
-		}, BorderLayout.CENTER);
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		add(new Disc(DiscStatus.PRETO_PLACAR), gbc);
 		
-		pnlMatch.add(pnlScorePlay1, BorderLayout.CENTER);
-		pnlMatch.add(pnlScorePlay2, BorderLayout.SOUTH);
+		gbc.gridwidth = 1;
+		gbc.gridx = 2;
+		gbc.gridy = 2;
+		add(new Disc(DiscStatus.BRANCO_PLACAR), gbc);
 		
-		pnlScoreboard.add(new JLabel("PLACAR GERAL") {
-			@Override
-			public Color getForeground() {
-				return Color.WHITE;
-			}
-			
-			@Override
-			public Font getFont() {
-				return new Font("Tahoma",Font.BOLD, 14);
-			}
-		}, BorderLayout.NORTH);
-		pnlScoreboard.add(new JLabel("Jogador 1 0x0 Jogador 2") {
-			@Override
-			public Color getForeground() {
-				return Color.WHITE;
-			}
-			
-			@Override
-			public Font getFont() {
-				return new Font("Tahoma",Font.PLAIN, 14);
-			}
-		}, BorderLayout.CENTER);
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		add(lblNumberDiscsPlay1, gbc);
 		
-		add(pnlMatch, BorderLayout.CENTER);
-		add(pnlScoreboard, BorderLayout.CENTER);
+		gbc.gridwidth = 1;
+		gbc.gridx = 2;
+		gbc.gridy = 3;
+		add(lblNumberDiscsPlay2, gbc);
+		
+		gbc.insets = new Insets(10, 0, 0, 0);
+		gbc.gridwidth = 3;
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		add(lblTittleScoreboard, gbc);
+		
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		add(lblPointsPlay1, gbc);
+		
+		gbc.gridwidth = 1;
+		gbc.gridx = 2;
+		gbc.gridy = 5;
+		add(lblPointsPlay2, gbc);
+		
+		gbc.insets = new Insets(10, 0, 0, 0);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridwidth = 3;
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		add(btnNewGame, gbc);
+		
 	}
 	
 }
