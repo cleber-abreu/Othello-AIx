@@ -10,6 +10,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class DataPanel  extends JPanel {
@@ -37,8 +38,8 @@ public class DataPanel  extends JPanel {
 		
 		lblTittleMatch = new JLabel("DETALHES DA PARTIDA");
 		lblTittleScoreboard = new JLabel("PLACAR GERAL");
-		lblNamePlay1 = new JLabel("Jogador 1");
-		lblNamePlay2 = new JLabel("Jogador 2");
+		lblNamePlay1 = new JLabel("Jogador1");
+		lblNamePlay2 = new JLabel("Jogador2");
 		lblNumberDiscsPlay1 = new JLabel("2");
 		lblNumberDiscsPlay2 = new JLabel("2");
 		lblPointsPlay1 = new JLabel("0");
@@ -53,8 +54,10 @@ public class DataPanel  extends JPanel {
 		lblNumberDiscsPlay2.setFont(fontNumber);
 		lblPointsPlay1.setFont(fontTittle);
 		lblPointsPlay2.setFont(fontTittle);
-
-		btnNewGame.setBackground(Color.DARK_GRAY);
+		
+		btnNewGame.setContentAreaFilled(false);
+		btnNewGame.setBorderPainted(true);
+		btnNewGame.setBorder(new MatteBorder(1, 1, 1, 1, Color.GRAY));
 		
 		lblTittleMatch.setForeground(Color.WHITE);
 		lblTittleScoreboard.setForeground(Color.WHITE);
