@@ -9,14 +9,16 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
+import model.FieldStatus;
+
 @SuppressWarnings("serial")
 public class Disc extends JPanel {
 
-	private DiscStatus estatos;
+	private FieldStatus estatos;
 	private Color bgColor = new Color(36, 128, 48);
 
 	public Disc() {
-		estatos = DiscStatus.VAZIO;
+		estatos = FieldStatus.VOID;
 		addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -33,14 +35,14 @@ public class Disc extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (estatos == DiscStatus.VAZIO)
-					estatos = DiscStatus.BRANCO;
+				if (estatos == FieldStatus.VOID)
+					estatos = FieldStatus.WHITE;
 				repaint();
 			}
 		});
 	}
 
-	public Disc(DiscStatus est) {
+	public Disc(FieldStatus est) {
 		estatos = est;
 	}
 
@@ -48,34 +50,34 @@ public class Disc extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (estatos == DiscStatus.BRANCO) {
+		if (estatos == FieldStatus.WHITE) {
 			g.setColor(Color.WHITE);
-		} else if (estatos == DiscStatus.PRETO) {
+		} else if (estatos == FieldStatus.BLACK) {
 			g.setColor(Color.BLACK);
-		} else if (estatos == DiscStatus.BRANCO_PLACAR) {
+		} else if (estatos == FieldStatus.SCORE_WHITE) {
 			g.setColor(Color.WHITE);
 			setBackground(Color.DARK_GRAY);
 			repaint();
-		} else if (estatos == DiscStatus.PRETO_PLACAR) {
+		} else if (estatos == FieldStatus.SCORE_BLACK) {
 			g.setColor(Color.BLACK);
 			setBackground(Color.DARK_GRAY);
 			repaint();
 		}
 
-		if (estatos == DiscStatus.BRANCO_OPCAO) {
+		if (estatos == FieldStatus.OPTION_WHITE) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillOval(15, 15, 10, 10);
 			g.setColor(Color.WHITE);
 			g.drawOval(17, 17, 6, 6);
 			g.dispose();
-		} else if (estatos == DiscStatus.PRETO_OPCAO) {
+		} else if (estatos == FieldStatus.OPTION_BLACK) {
 			g.setColor(Color.DARK_GRAY);
 			g.fillOval(15, 15, 10, 10);
 			g.setColor(Color.BLACK);
 			g.drawOval(17, 17, 6, 6);
 			g.dispose();
 		}
-		else if (estatos != DiscStatus.VAZIO) {
+		else if (estatos != FieldStatus.VOID) {
 			g.fillOval(0, 0, 42, 42);
 			g.dispose();
 		}
@@ -106,11 +108,11 @@ public class Disc extends JPanel {
 		return CENTER_ALIGNMENT;
 	}
 
-	public DiscStatus getEstatos() {
+	public FieldStatus getEstatos() {
 		return estatos;
 	}
 
-	public void setEstatos(DiscStatus estatos) {
+	public void setEstatos(FieldStatus estatos) {
 		this.estatos = estatos;
 	}
 

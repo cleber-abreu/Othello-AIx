@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
+import model.FieldStatus;
+
 @SuppressWarnings("serial")
 public class DataPanel  extends JPanel {
 	
@@ -88,12 +90,12 @@ public class DataPanel  extends JPanel {
 		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		add(new Disc(DiscStatus.PRETO_PLACAR), gbc);
+		add(new Disc(FieldStatus.SCORE_BLACK), gbc);
 		
 		gbc.gridwidth = 1;
 		gbc.gridx = 2;
 		gbc.gridy = 2;
-		add(new Disc(DiscStatus.BRANCO_PLACAR), gbc);
+		add(new Disc(FieldStatus.SCORE_WHITE), gbc);
 		
 		gbc.gridwidth = 1;
 		gbc.gridx = 0;

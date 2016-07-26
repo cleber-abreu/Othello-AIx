@@ -8,11 +8,20 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.Game;
+
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
+	
 
 	public static void main(String[] args) {
 
+		Game game = new Game();
+		Board gameBoard = new Board();
+		gameBoard.paintDiscs(game.getFieldsBlack());
+		gameBoard.paintDiscs(game.getFieldsWhite());
+		gameBoard.paintDiscs(game.getPossibleMoves());
+		
 		EventQueue.invokeLater(new Runnable() {
 			
 			@Override
@@ -29,7 +38,7 @@ public class MainWindow extends JFrame {
 				frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frmMain.setLayout(new BorderLayout());
 				frmMain.setBackground(Color.DARK_GRAY);
-				frmMain.add(new Board(), BorderLayout.CENTER);
+				frmMain.add(gameBoard, BorderLayout.CENTER);
 				frmMain.add(new DataPanel(), BorderLayout.EAST);
 				frmMain.pack();
 				frmMain.setLocationRelativeTo(null);
