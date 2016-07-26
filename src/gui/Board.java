@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -61,14 +62,12 @@ public class Board extends JPanel {
 				}
 			});
 		}
-		
-		fields[4][4].getDisco().setEstatos(DiscStatus.BRANCO);
-		fields[5][5].getDisco().setEstatos(DiscStatus.BRANCO);
-		fields[4][5].getDisco().setEstatos(DiscStatus.PRETO);
-		fields[5][4].getDisco().setEstatos(DiscStatus.PRETO);
-		fields[6][6].getDisco().setEstatos(DiscStatus.BRANCO_OPCAO);
-		fields[6][5].getDisco().setEstatos(DiscStatus.PRETO_OPCAO);
-		
+	}
+	
+	public void paintDiscs(ArrayList<model.Field> fields) {
+		for (model.Field field : fields) {
+			this.fields[field.getRow()][field.getCol()].getDisco().setEstatos(field.getStatus());
+		}
 	}
 
 }
