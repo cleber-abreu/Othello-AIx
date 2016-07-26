@@ -35,6 +35,7 @@ public class Disc extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (estatos == DiscStatus.VAZIO)
 					estatos = DiscStatus.BRANCO;
+				repaint();
 			}
 		});
 	}
