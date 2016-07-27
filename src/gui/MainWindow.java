@@ -9,6 +9,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.Game;
+import controller.Rules;
+import model.FieldStatus;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -20,9 +22,22 @@ public class MainWindow extends JFrame {
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
 		gameBoard.drawDiscs(Game.possibleMoves);
-		
 	}
 
+	public static void changeTurn(FieldStatus status) {
+		gameBoard.clearMoveOptions(Game.possibleMoves);
+		
+		if (status == FieldStatus.BLACK) {
+			Game.possibleMoves = Rules.possibleMoves(Game.fieldsBlack, Game.fieldsWhite);
+			gameBoard.drawMoveOptions(Game.possibleMoves, status);
+		}
+		else if (status == FieldStatus.WHITE) {
+			Game.possibleMoves = Rules.possibleMoves(Game.fieldsBlack, Game.fieldsWhite);
+			gameBoard.drawMoveOptions(Game.possibleMoves, status);
+		}
+					
+	}
+	
 	public static void main(String[] args) {
 
 		gameBoard = new Gameboard();
