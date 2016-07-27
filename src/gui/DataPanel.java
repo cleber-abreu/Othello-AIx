@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -70,6 +72,16 @@ public class DataPanel  extends JPanel {
 		lblPointsPlay1.setForeground(Color.WHITE);
 		lblPointsPlay2.setForeground(Color.WHITE);
 		btnNewGame.setForeground(Color.WHITE);
+		
+		
+		btnNewGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MainWindow.newGame();
+				super.mouseClicked(e);
+			}
+		});
+		
 		
 		gbc.insets = new Insets(10, 0, 0, 0);
 		gbc.gridwidth = 3;

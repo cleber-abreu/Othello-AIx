@@ -68,6 +68,7 @@ public class Gameboard extends JPanel {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()].getDisco().setEstatos(field.getStatus());
 		}
+		repaint();
 	}
 
 }

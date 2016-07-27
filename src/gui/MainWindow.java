@@ -8,13 +8,24 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.Game;
+
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	
+	private static Gameboard gameBoard;
+	
+	public static void newGame() {
+		Game.newGame();
+		gameBoard.drawDiscs(Game.fieldsBlack);
+		gameBoard.drawDiscs(Game.fieldsWhite);
+		gameBoard.drawDiscs(Game.possibleMoves);
+		
+	}
 
 	public static void main(String[] args) {
 
-		Gameboard gameBoard = new Gameboard();
+		gameBoard = new Gameboard();
 		
 		EventQueue.invokeLater(new Runnable() {
 			
