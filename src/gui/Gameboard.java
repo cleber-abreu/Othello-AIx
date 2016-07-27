@@ -37,7 +37,7 @@ public class Gameboard extends JPanel {
 					fields[row][col]= new Field(row);
 					border = null;
 				} else {
-					fields[row][col]= new Field();
+					fields[row][col]= new Field(row, col);
 
 					if (row < 9) {
 						if (col < 9) {
@@ -66,7 +66,7 @@ public class Gameboard extends JPanel {
 	
 	public void drawDiscs(ArrayList<model.Field> fields) {
 		for (model.Field field : fields) {
-			this.fields[field.getRow()][field.getCol()].getDisco().setEstatos(field.getStatus());
+			this.fields[field.getRow()][field.getCol()].getDisco().setDiscStatus(field.getStatus());
 		}
 		repaint();
 	}
