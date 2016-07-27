@@ -16,11 +16,11 @@ public class MainWindow extends JFrame {
 
 	public static void main(String[] args) {
 
-		Game game = new Game();
+		Game.newGame();
 		Board gameBoard = new Board();
-		gameBoard.drawDiscs(game.getFieldsBlack());
-		gameBoard.drawDiscs(game.getFieldsWhite());
-		gameBoard.drawDiscs(game.getPossibleMoves());
+		gameBoard.drawDiscs(Game.fieldsBlack);
+		gameBoard.drawDiscs(Game.fieldsWhite);
+		gameBoard.drawDiscs(Game.possibleMoves);
 		
 		EventQueue.invokeLater(new Runnable() {
 			

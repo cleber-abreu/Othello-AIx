@@ -6,11 +6,11 @@ import model.Field;
 import model.FieldStatus;
 
 public class Game {
-	private ArrayList<Field> fieldsBlack;
-	private ArrayList<Field> fieldsWhite;
-	private ArrayList<Field> possibleMoves;
+	public static ArrayList<Field> fieldsBlack;
+	public static ArrayList<Field> fieldsWhite;
+	public static ArrayList<Field> possibleMoves;
 	
-	public Game() {
+	public static void newGame() {
 		fieldsBlack = new ArrayList<>();
 		fieldsWhite = new ArrayList<>();
 		
@@ -25,28 +25,4 @@ public class Game {
 		}
 	}
 
-	public ArrayList<Field> getFieldsBlack() {
-		return fieldsBlack;
-	}
-
-	public void setFieldsBlack(ArrayList<Field> fieldsBlack) {
-		this.fieldsBlack = fieldsBlack;
-	}
-
-	public ArrayList<Field> getFieldsWhite() {
-		return fieldsWhite;
-	}
-
-	public void setFieldsWhite(ArrayList<Field> fieldsWhite) {
-		this.fieldsWhite = fieldsWhite;
-	}
-
-	public ArrayList<Field> getPossibleMoves() {
-		return possibleMoves;
-	}
-
-	public void setPossibleMoves(ArrayList<Field> possibleMoves) {
-		this.possibleMoves = possibleMoves;
-	}
-	
 }
