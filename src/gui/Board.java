@@ -64,7 +64,7 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void paintDiscs(ArrayList<model.Field> fields) {
+	public void drawDiscs(ArrayList<model.Field> fields) {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()].getDisco().setEstatos(field.getStatus());
 		}
