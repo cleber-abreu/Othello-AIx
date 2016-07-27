@@ -8,68 +8,84 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import controller.Game;
 import model.FieldStatus;
 
 @SuppressWarnings("serial")
 public class Disc extends JPanel {
 
-	private FieldStatus estatos;
 	private Color bgColor = new Color(36, 128, 48);
+	private FieldStatus discStatus;
+	private int row;
+	private int col;
 
-	public Disc() {
-		estatos = FieldStatus.VOID;
-		addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (estatos == FieldStatus.OPTION_BLACK) {
-					estatos = FieldStatus.BLACK;
-					repaint();
-				}
-				else if (estatos == FieldStatus.OPTION_WHITE) {
-					estatos = FieldStatus.WHITE;
-					repaint();
-				}
-			}
-		});
+	public Disc(int row, int col) {
+		discStatus = FieldStatus.VOID;
+		this.row = row;
+		this.col = col;
 	}
 
-	public Disc(FieldStatus est) {
-		estatos = est;
+	public Disc(int row, int col, FieldStatus st) {
+		discStatus = st;
+		System.out.println("new disc");
+		
+		if (discStatus == FieldStatus.OPTION_BLACK || discStatus == FieldStatus.OPTION_WHITE) {
+			addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					System.out.println("mouseClicked");
+					if (discStatus == FieldStatus.OPTION_BLACK) {
+						discStatus = FieldStatus.BLACK;
+						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
+						repaint();
+					}
+					else if (discStatus == FieldStatus.OPTION_WHITE) {
+						discStatus = FieldStatus.WHITE;
+						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
+						repaint();
+					}
+				}
+			});
+		}
+	}
+	
+	public Disc(FieldStatus st) {
+		discStatus = st;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (estatos == FieldStatus.WHITE) {
+		if (discStatus == FieldStatus.WHITE) {
 			g.setColor(Color.WHITE);
-		} else if (estatos == FieldStatus.BLACK) {
+		} else if (discStatus == FieldStatus.BLACK) {
 			g.setColor(Color.BLACK);
-		} else if (estatos == FieldStatus.SCORE_WHITE) {
+		} else if (discStatus == FieldStatus.SCORE_WHITE) {
 			g.setColor(Color.WHITE);
 			setBackground(Color.DARK_GRAY);
 			repaint();
-		} else if (estatos == FieldStatus.SCORE_BLACK) {
+		} else if (discStatus == FieldStatus.SCORE_BLACK) {
 			g.setColor(Color.BLACK);
 			setBackground(Color.DARK_GRAY);
 			repaint();
 		}
 
-		if (estatos == FieldStatus.OPTION_WHITE) {
+		if (discStatus == FieldStatus.OPTION_WHITE) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillOval(15, 15, 10, 10);
 			g.setColor(Color.WHITE);
 			g.drawOval(17, 17, 6, 6);
 			g.dispose();
-		} else if (estatos == FieldStatus.OPTION_BLACK) {
+		} else if (discStatus == FieldStatus.OPTION_BLACK) {
 			g.setColor(Color.DARK_GRAY);
 			g.fillOval(15, 15, 10, 10);
 			g.setColor(Color.BLACK);
 			g.drawOval(17, 17, 6, 6);
 			g.dispose();
 		}
-		else if (estatos != FieldStatus.VOID) {
+		else if (discStatus != FieldStatus.VOID) {
 			g.fillOval(0, 0, 42, 42);
 			g.dispose();
 		}
@@ -100,12 +116,55 @@ public class Disc extends JPanel {
 		return CENTER_ALIGNMENT;
 	}
 
-	public FieldStatus getEstatos() {
-		return estatos;
+	public FieldStatus getDiscStatus() {
+		return discStatus;
 	}
 
-	public void setEstatos(FieldStatus estatos) {
-		this.estatos = estatos;
+	public void setDiscStatus(FieldStatus st) {
+		discStatus = st;
+		
+		if (discStatus == FieldStatus.OPTION_BLACK || discStatus == FieldStatus.OPTION_WHITE) {
+			addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (discStatus == FieldStatus.OPTION_BLACK) {
+						discStatus = FieldStatus.BLACK;
+						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
+						repaint();
+					}
+					else if (discStatus == FieldStatus.OPTION_WHITE) {
+						discStatus = FieldStatus.WHITE;
+						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
+						repaint();
+					}
+				}
+			});
+		}
+	}
+
+	public Color getBgColor() {
+		return bgColor;
+	}
+
+	public void setBgColor(Color bgColor) {
+		this.bgColor = bgColor;
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
 	}
 
 }
