@@ -18,9 +18,9 @@ public class MainWindow extends JFrame {
 
 		Game game = new Game();
 		Board gameBoard = new Board();
-		gameBoard.paintDiscs(game.getFieldsBlack());
-		gameBoard.paintDiscs(game.getFieldsWhite());
-		gameBoard.paintDiscs(game.getPossibleMoves());
+		gameBoard.drawDiscs(game.getFieldsBlack());
+		gameBoard.drawDiscs(game.getFieldsWhite());
+		gameBoard.drawDiscs(game.getPossibleMoves());
 		
 		EventQueue.invokeLater(new Runnable() {
 			

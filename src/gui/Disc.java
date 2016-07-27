@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
-import javax.swing.border.MatteBorder;
 
 import model.FieldStatus;
 
@@ -22,22 +21,15 @@ public class Disc extends JPanel {
 		addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				setBorder(new MatteBorder(1, 1, 1, 1, Color.GREEN));
-				repaint();
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				setBorder(null);
-				repaint();
-			}
-
-			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (estatos == FieldStatus.VOID)
+				if (estatos == FieldStatus.OPTION_BLACK) {
+					estatos = FieldStatus.BLACK;
+					repaint();
+				}
+				else if (estatos == FieldStatus.OPTION_WHITE) {
 					estatos = FieldStatus.WHITE;
-				repaint();
+					repaint();
+				}
 			}
 		});
 	}
