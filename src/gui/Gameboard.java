@@ -11,11 +11,11 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
-public class Board extends JPanel {
+public class Gameboard extends JPanel {
 
 	Field[][] fields;
 	
-	public Board() {
+	public Gameboard() {
 
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
