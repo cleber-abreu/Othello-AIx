@@ -40,7 +40,7 @@ public class Rules {
 			// VERTICAL
 
 			for (int row = field.getRow() + 1; 
-					(row < 7 && containsDisc(fieldsAdv, row, field.getCol())); 
+					(row < 8 && containsDisc(fieldsAdv, row, field.getCol())); 
 					row++) {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, field.getCol())) {
@@ -66,7 +66,7 @@ public class Rules {
 			// HORIZONTAL
 
 			for (int col = field.getCol() + 1; 
-					(col < 7 && containsDisc(fieldsAdv, field.getRow(), col)); 
+					(col < 8 && containsDisc(fieldsAdv, field.getRow(), col)); 
 					col++) {
 				
 				if (!containsDisc(fields, fieldsAdv, field.getRow(), col+1)) {
@@ -88,11 +88,58 @@ public class Rules {
 					possibles.add(new Field(field.getRow(), col-1, possibleStatus));
 				}
 			}
-			
+
 			// DIAGONAL
+
+			for (int row = field.getRow() + 1, col = field.getCol() + 1; 
+					(row < 8 && col < 8 && containsDisc(fieldsAdv, row, col)); 
+					row++, col++) {
+				
+				if (!containsDisc(fields, fieldsAdv, row+1, col+1)) {
+					if (field.getStatus() == FieldStatus.WHITE) {
+						possibleStatus = FieldStatus.OPTION_WHITE;
+					}
+					possibles.add(new Field(row+1, col+1, possibleStatus));
+				}
+			}
 			
+			for (int row = field.getRow() - 1, col = field.getCol() - 1; 
+					(row > 0 && col > 0 && containsDisc(fieldsAdv, row, col)); 
+					row--, col--) {
+				
+				if (!containsDisc(fields, fieldsAdv, row-1, col-1)) {
+					if (field.getStatus() == FieldStatus.WHITE) {
+						possibleStatus = FieldStatus.OPTION_WHITE;
+					}
+					possibles.add(new Field(row-1, col-1, possibleStatus));
+				}
+			}
 			
+			for (int row = field.getRow() + 1, col = field.getCol() - 1; 
+					(row > 0 && col > 0 && containsDisc(fieldsAdv, row, col)); 
+					row++, col--) {
+				
+				if (!containsDisc(fields, fieldsAdv, row+1, col-1)) {
+					if (field.getStatus() == FieldStatus.WHITE) {
+						possibleStatus = FieldStatus.OPTION_WHITE;
+					}
+					possibles.add(new Field(row+1, col-1, possibleStatus));
+				}
+			}
+			
+			for (int row = field.getRow() - 1, col = field.getCol() + 1; 
+					(row > 0 && col > 0 && containsDisc(fieldsAdv, row, col)); 
+					row--, col++) {
+				
+				if (!containsDisc(fields, fieldsAdv, row-1, col+1)) {
+					if (field.getStatus() == FieldStatus.WHITE) {
+						possibleStatus = FieldStatus.OPTION_WHITE;
+					}
+					possibles.add(new Field(row-1, col+1, possibleStatus));
+				}
+			}
 		}
+			
 		return possibles;
 	}
 }
