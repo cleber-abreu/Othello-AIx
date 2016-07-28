@@ -29,11 +29,13 @@ public class MainWindow extends JFrame {
 		
 		if (status == FieldStatus.BLACK) {
 			Game.possibleMoves = Rules.possibleMoves(Game.fieldsBlack, Game.fieldsWhite);
-			gameBoard.drawMoveOptions(Game.possibleMoves, status);
+			gameBoard.drawMoveOptions(Game.possibleMoves, FieldStatus.OPTION_BLACK);
+			gameBoard.drawDiscs(Game.fieldsBlack);
 		}
 		else if (status == FieldStatus.WHITE) {
-			Game.possibleMoves = Rules.possibleMoves(Game.fieldsBlack, Game.fieldsWhite);
-			gameBoard.drawMoveOptions(Game.possibleMoves, status);
+			Game.possibleMoves = Rules.possibleMoves(Game.fieldsWhite, Game.fieldsBlack);
+			gameBoard.drawMoveOptions(Game.possibleMoves, FieldStatus.OPTION_WHITE);
+			gameBoard.drawDiscs(Game.fieldsWhite);
 		}
 					
 	}

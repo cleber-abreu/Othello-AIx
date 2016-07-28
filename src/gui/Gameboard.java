@@ -68,24 +68,27 @@ public class Gameboard extends JPanel {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisco().setDiscStatus(field.getStatus());
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().repaint();
 		}
-		repaint();
 	}
 	
-	public void drawMoveOptions(ArrayList<model.Field> fields, model.FieldStatus st) {
+	public void drawMoveOptions(ArrayList<model.Field> fields, model.FieldStatus status) {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
-					.getDisco().setDiscStatus(st);
+					.getDisco().setDiscStatus(status);
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().repaint();
 		}
-		repaint();
 	}
 	
 	public void clearMoveOptions(ArrayList<model.Field> fields) {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisco().setDiscStatus(model.FieldStatus.VOID);
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().repaint();
 		}
-		repaint();
 	}
 
 }

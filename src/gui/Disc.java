@@ -25,33 +25,9 @@ public class Disc extends JPanel {
 		this.col = col;
 	}
 
-	public Disc(int row, int col, FieldStatus st) {
-		discStatus = st;
-		System.out.println("new disc");
-		
-		if (discStatus == FieldStatus.OPTION_BLACK || discStatus == FieldStatus.OPTION_WHITE) {
-			addMouseListener(new MouseAdapter() {
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					System.out.println("mouseClicked");
-					if (discStatus == FieldStatus.OPTION_BLACK) {
-						discStatus = FieldStatus.BLACK;
-						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
-						repaint();
-					}
-					else if (discStatus == FieldStatus.OPTION_WHITE) {
-						discStatus = FieldStatus.WHITE;
-						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
-						repaint();
-					}
-				}
-			});
-		}
-	}
 	
-	public Disc(FieldStatus st) {
-		discStatus = st;
+	public Disc(FieldStatus status) {
+		discStatus = status;
 	}
 
 	@Override
@@ -78,16 +54,46 @@ public class Disc extends JPanel {
 			g.setColor(Color.WHITE);
 			g.drawOval(17, 17, 6, 6);
 			g.dispose();
+			repaint();
 		} else if (discStatus == FieldStatus.OPTION_BLACK) {
 			g.setColor(Color.DARK_GRAY);
 			g.fillOval(15, 15, 10, 10);
 			g.setColor(Color.BLACK);
 			g.drawOval(17, 17, 6, 6);
 			g.dispose();
+			repaint();
 		}
 		else if (discStatus != FieldStatus.VOID) {
 			g.fillOval(0, 0, 42, 42);
 			g.dispose();
+			repaint();
+		}
+	}
+	
+	public void setDiscStatus(FieldStatus status) {
+		discStatus = status;
+		
+		if (discStatus == FieldStatus.OPTION_BLACK || discStatus == FieldStatus.OPTION_WHITE) {
+			addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (discStatus == FieldStatus.OPTION_BLACK) {
+						discStatus = FieldStatus.BLACK;
+						Game.possibleMoves.remove(Game.getField(row, col));
+						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
+						MainWindow.changeTurn(FieldStatus.WHITE);
+						repaint();
+					}
+					else if (discStatus == FieldStatus.OPTION_WHITE) {
+						discStatus = FieldStatus.WHITE;
+						Game.possibleMoves.remove(Game.getField(row, col));
+						Game.fieldsWhite.add(new model.Field(row, col, discStatus));
+						MainWindow.changeTurn(FieldStatus.BLACK);
+						repaint();
+					}
+				}
+			});
 		}
 	}
 
@@ -118,29 +124,6 @@ public class Disc extends JPanel {
 
 	public FieldStatus getDiscStatus() {
 		return discStatus;
-	}
-
-	public void setDiscStatus(FieldStatus st) {
-		discStatus = st;
-		
-		if (discStatus == FieldStatus.OPTION_BLACK || discStatus == FieldStatus.OPTION_WHITE) {
-			addMouseListener(new MouseAdapter() {
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (discStatus == FieldStatus.OPTION_BLACK) {
-						discStatus = FieldStatus.BLACK;
-						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
-						repaint();
-					}
-					else if (discStatus == FieldStatus.OPTION_WHITE) {
-						discStatus = FieldStatus.WHITE;
-						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
-						repaint();
-					}
-				}
-			});
-		}
 	}
 
 	public Color getBgColor() {
