@@ -31,9 +31,9 @@ public class Rules {
 		return false;
 	}
 
-	public static ArrayList<Field> possibleMoves(ArrayList<Field> fields, ArrayList<Field> fieldsAdv) {
-		ArrayList<Field> possibles = new ArrayList<>();
-		FieldStatus possibleStatus = FieldStatus.OPTION_BLACK;
+	public static ArrayList<Field> moveOptions(ArrayList<Field> fields, ArrayList<Field> fieldsAdv) {
+		ArrayList<Field> options = new ArrayList<>();
+		FieldStatus optionStatus = FieldStatus.OPTION_BLACK;
 
 		for (Field field : fields) {
 
@@ -45,9 +45,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, field.getCol())) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(row+1, field.getCol(), possibleStatus));
+					options.add(new Field(row+1, field.getCol(), optionStatus));
 				}
 			}
 			
@@ -57,9 +57,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, field.getCol())) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(row-1, field.getCol(), possibleStatus));
+					options.add(new Field(row-1, field.getCol(), optionStatus));
 				}
 			}
 			
@@ -71,9 +71,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, field.getRow(), col+1)) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(field.getRow(), col+1, possibleStatus));
+					options.add(new Field(field.getRow(), col+1, optionStatus));
 				}
 			}
 			
@@ -83,9 +83,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, field.getRow(), col-1)) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(field.getRow(), col-1, possibleStatus));
+					options.add(new Field(field.getRow(), col-1, optionStatus));
 				}
 			}
 
@@ -97,9 +97,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, col+1)) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(row+1, col+1, possibleStatus));
+					options.add(new Field(row+1, col+1, optionStatus));
 				}
 			}
 			
@@ -109,9 +109,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col-1)) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(row-1, col-1, possibleStatus));
+					options.add(new Field(row-1, col-1, optionStatus));
 				}
 			}
 			
@@ -121,9 +121,9 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, col-1)) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(row+1, col-1, possibleStatus));
+					options.add(new Field(row+1, col-1, optionStatus));
 				}
 			}
 			
@@ -133,13 +133,13 @@ public class Rules {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col+1)) {
 					if (field.getStatus() == FieldStatus.WHITE) {
-						possibleStatus = FieldStatus.OPTION_WHITE;
+						optionStatus = FieldStatus.OPTION_WHITE;
 					}
-					possibles.add(new Field(row-1, col+1, possibleStatus));
+					options.add(new Field(row-1, col+1, optionStatus));
 				}
 			}
 		}
 			
-		return possibles;
+		return options;
 	}
 }

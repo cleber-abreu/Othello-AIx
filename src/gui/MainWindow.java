@@ -21,20 +21,20 @@ public class MainWindow extends JFrame {
 		Game.newGame();
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
-		gameBoard.drawDiscs(Game.possibleMoves);
+		gameBoard.drawDiscs(Game.moveOptions);
 	}
 
 	public static void changeTurn(FieldStatus status) {
-		gameBoard.clearMoveOptions(Game.possibleMoves);
+		gameBoard.clearMoveOptions(Game.moveOptions);
 		
 		if (status == FieldStatus.BLACK) {
-			Game.possibleMoves = Rules.possibleMoves(Game.fieldsBlack, Game.fieldsWhite);
-			gameBoard.drawMoveOptions(Game.possibleMoves, FieldStatus.OPTION_BLACK);
+			Game.moveOptions = Rules.moveOptions(Game.fieldsBlack, Game.fieldsWhite);
+			gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_BLACK);
 			gameBoard.drawDiscs(Game.fieldsBlack);
 		}
 		else if (status == FieldStatus.WHITE) {
-			Game.possibleMoves = Rules.possibleMoves(Game.fieldsWhite, Game.fieldsBlack);
-			gameBoard.drawMoveOptions(Game.possibleMoves, FieldStatus.OPTION_WHITE);
+			Game.moveOptions = Rules.moveOptions(Game.fieldsWhite, Game.fieldsBlack);
+			gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_WHITE);
 			gameBoard.drawDiscs(Game.fieldsWhite);
 		}
 					
