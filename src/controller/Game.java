@@ -24,5 +24,15 @@ public class Game {
 			
 		}
 	}
+	
+	public static Field getField(int row, int col) {
+		Field field = null;
+		for (Field f : possibleMoves) {
+			if (f.getRow() == row && f.getCol() == col) {
+				return f;
+			}
+		}
+		return field;
+	}
 
 }

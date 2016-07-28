@@ -9,18 +9,40 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.Game;
+import controller.Rules;
+import model.FieldStatus;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	
-
-	public static void main(String[] args) {
-
+	private static Gameboard gameBoard;
+	
+	public static void newGame() {
 		Game.newGame();
-		Board gameBoard = new Board();
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
 		gameBoard.drawDiscs(Game.possibleMoves);
+	}
+
+	public static void changeTurn(FieldStatus status) {
+		gameBoard.clearMoveOptions(Game.possibleMoves);
+		
+		if (status == FieldStatus.BLACK) {
+			Game.possibleMoves = Rules.possibleMoves(Game.fieldsBlack, Game.fieldsWhite);
+			gameBoard.drawMoveOptions(Game.possibleMoves, FieldStatus.OPTION_BLACK);
+			gameBoard.drawDiscs(Game.fieldsBlack);
+		}
+		else if (status == FieldStatus.WHITE) {
+			Game.possibleMoves = Rules.possibleMoves(Game.fieldsWhite, Game.fieldsBlack);
+			gameBoard.drawMoveOptions(Game.possibleMoves, FieldStatus.OPTION_WHITE);
+			gameBoard.drawDiscs(Game.fieldsWhite);
+		}
+					
+	}
+	
+	public static void main(String[] args) {
+
+		gameBoard = new Gameboard();
 		
 		EventQueue.invokeLater(new Runnable() {
 			

@@ -52,7 +52,7 @@ public class Rules {
 			}
 			
 			for (int row = field.getRow() - 1; 
-					(row > 0 && containsDisc(fieldsAdv, row, field.getCol())); 
+					(row > 1 && containsDisc(fieldsAdv, row, field.getCol())); 
 					row--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, field.getCol())) {
@@ -78,7 +78,7 @@ public class Rules {
 			}
 			
 			for (int col = field.getCol() - 1; 
-					(col > 0 && containsDisc(fieldsAdv, field.getRow(), col)); 
+					(col > 1 && containsDisc(fieldsAdv, field.getRow(), col)); 
 					col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, field.getRow(), col-1)) {
@@ -104,7 +104,7 @@ public class Rules {
 			}
 			
 			for (int row = field.getRow() - 1, col = field.getCol() - 1; 
-					(row > 0 && col > 0 && containsDisc(fieldsAdv, row, col)); 
+					(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
 					row--, col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col-1)) {
@@ -116,7 +116,7 @@ public class Rules {
 			}
 			
 			for (int row = field.getRow() + 1, col = field.getCol() - 1; 
-					(row > 0 && col > 0 && containsDisc(fieldsAdv, row, col)); 
+					(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
 					row++, col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, col-1)) {
@@ -128,7 +128,7 @@ public class Rules {
 			}
 			
 			for (int row = field.getRow() - 1, col = field.getCol() + 1; 
-					(row > 0 && col > 0 && containsDisc(fieldsAdv, row, col)); 
+					(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
 					row--, col++) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col+1)) {
