@@ -11,11 +11,11 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
-public class Board extends JPanel {
+public class Gameboard extends JPanel {
 
 	Field[][] fields;
 	
-	public Board() {
+	public Gameboard() {
 
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
@@ -37,7 +37,7 @@ public class Board extends JPanel {
 					fields[row][col]= new Field(row);
 					border = null;
 				} else {
-					fields[row][col]= new Field();
+					fields[row][col]= new Field(row, col);
 
 					if (row < 9) {
 						if (col < 9) {
@@ -64,9 +64,30 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void paintDiscs(ArrayList<model.Field> fields) {
+	public void drawDiscs(ArrayList<model.Field> fields) {
 		for (model.Field field : fields) {
-			this.fields[field.getRow()][field.getCol()].getDisco().setEstatos(field.getStatus());
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().setDiscStatus(field.getStatus());
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().repaint();
+		}
+	}
+	
+	public void drawMoveOptions(ArrayList<model.Field> fields, model.FieldStatus status) {
+		for (model.Field field : fields) {
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().setDiscStatus(status);
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().repaint();
+		}
+	}
+	
+	public void clearMoveOptions(ArrayList<model.Field> fields) {
+		for (model.Field field : fields) {
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().setDiscStatus(model.FieldStatus.VOID);
+			this.fields[field.getRow()][field.getCol()]
+					.getDisco().repaint();
 		}
 	}
 

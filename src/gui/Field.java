@@ -15,13 +15,14 @@ public class Field extends JPanel {
 	private static final Dimension dimBorderH = new Dimension(50, 20);
 	private static final Dimension dimBorderV = new Dimension(20, 50);
 	private static final Dimension dimBorderX = new Dimension(20, 20);
-	private Disc disco = new Disc();
+	private Disc disc;
 
-	public Field() {
+	public Field(int row, int col) {
 		this.setBackground(defaultBackground);
 		this.setSize(dim);
 		this.setPreferredSize(dim);
-		add(disco);
+		disc = new Disc(row, col);
+		add(disc);
 	}
 
 	public Field(int i) {
@@ -77,11 +78,11 @@ public class Field extends JPanel {
 	}
 
 	public Disc getDisco() {
-		return disco;
+		return disc;
 	}
 
-	public void setDisco(Disc disco) {
-		this.disco = disco;
+	public void setDisco(Disc disc) {
+		this.disc = disc;
 	}
 
 }
