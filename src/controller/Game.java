@@ -25,9 +25,40 @@ public class Game {
 		}
 	}
 	
-	public static Field getField(int row, int col) {
+	public static void changeDiscs(int row, int col, FieldStatus status) {
+
+		if (status == FieldStatus.BLACK) {
+			fieldsBlack.addAll(Rules.changeDiscs(getFieldBlack(row, col), fieldsBlack, fieldsWhite));
+		}
+		else {
+			fieldsWhite.addAll(Rules.changeDiscs(getFieldWhite(row, col), fieldsWhite, fieldsBlack));
+		}
+		
+	}
+	
+	public static Field getFieldVoid(int row, int col) {
 		Field field = null;
 		for (Field f : moveOptions) {
+			if (f.getRow() == row && f.getCol() == col) {
+				return f;
+			}
+		}
+		return field;
+	}
+
+	public static Field getFieldBlack(int row, int col) {
+		Field field = null;
+		for (Field f : fieldsBlack) {
+			if (f.getRow() == row && f.getCol() == col) {
+				return f;
+			}
+		}
+		return field;
+	}
+
+	public static Field getFieldWhite(int row, int col) {
+		Field field = null;
+		for (Field f : fieldsWhite) {
 			if (f.getRow() == row && f.getCol() == col) {
 				return f;
 			}

@@ -30,13 +30,13 @@ public class MainWindow extends JFrame {
 		if (status == FieldStatus.BLACK) {
 			Game.moveOptions = Rules.moveOptions(Game.fieldsBlack, Game.fieldsWhite);
 			gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_BLACK);
-			gameBoard.drawDiscs(Game.fieldsBlack);
 		}
 		else if (status == FieldStatus.WHITE) {
 			Game.moveOptions = Rules.moveOptions(Game.fieldsWhite, Game.fieldsBlack);
 			gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_WHITE);
-			gameBoard.drawDiscs(Game.fieldsWhite);
 		}
+		gameBoard.drawDiscs(Game.fieldsBlack);
+		gameBoard.drawDiscs(Game.fieldsWhite);
 					
 	}
 	

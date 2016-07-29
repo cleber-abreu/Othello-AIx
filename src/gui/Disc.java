@@ -25,7 +25,6 @@ public class Disc extends JPanel {
 		this.col = col;
 	}
 
-	
 	public Disc(FieldStatus status) {
 		discStatus = status;
 	}
@@ -80,15 +79,17 @@ public class Disc extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					if (discStatus == FieldStatus.OPTION_BLACK) {
 						discStatus = FieldStatus.BLACK;
-						Game.moveOptions.remove(Game.getField(row, col));
+						Game.moveOptions.remove(Game.getFieldVoid(row, col));
 						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
+						Game.changeDiscs(row, col, discStatus);
 						MainWindow.changeTurn(FieldStatus.WHITE);
 						repaint();
 					}
 					else if (discStatus == FieldStatus.OPTION_WHITE) {
 						discStatus = FieldStatus.WHITE;
-						Game.moveOptions.remove(Game.getField(row, col));
+						Game.moveOptions.remove(Game.getFieldVoid(row, col));
 						Game.fieldsWhite.add(new model.Field(row, col, discStatus));
+						Game.changeDiscs(row, col, discStatus);
 						MainWindow.changeTurn(FieldStatus.BLACK);
 						repaint();
 					}
