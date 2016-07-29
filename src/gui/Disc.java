@@ -83,7 +83,6 @@ public class Disc extends JPanel {
 						Game.fieldsBlack.add(new model.Field(row, col, discStatus));
 						Game.changeDiscs(row, col, discStatus);
 						MainWindow.changeTurn(FieldStatus.WHITE);
-						repaint();
 					}
 					else if (discStatus == FieldStatus.OPTION_WHITE) {
 						discStatus = FieldStatus.WHITE;
@@ -91,7 +90,6 @@ public class Disc extends JPanel {
 						Game.fieldsWhite.add(new model.Field(row, col, discStatus));
 						Game.changeDiscs(row, col, discStatus);
 						MainWindow.changeTurn(FieldStatus.BLACK);
-						repaint();
 					}
 				}
 			});
