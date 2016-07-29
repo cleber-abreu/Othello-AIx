@@ -20,9 +20,6 @@ public class Game {
 		fieldsWhite.add(new Field(5, 5, FieldStatus.WHITE));
 		
 		moveOptions = Rules.moveOptions(fieldsBlack, fieldsWhite); 
-		if (!moveOptions.isEmpty()) {
-			
-		}
 	}
 	
 	public static void changeDiscs(int row, int col, FieldStatus status) {

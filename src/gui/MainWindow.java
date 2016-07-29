@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -18,10 +19,13 @@ public class MainWindow extends JFrame {
 	private static Gameboard gameBoard;
 	
 	public static void newGame() {
+		gameBoard.clearDiscs(Game.fieldsBlack, Game.fieldsWhite);
+		gameBoard.clearMoveOptions(Game.moveOptions);
 		Game.newGame();
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
 		gameBoard.drawDiscs(Game.moveOptions);
+		DataPanel.setNumeberDiscs(2, 2);
 	}
 
 	public static void changeTurn(FieldStatus status) {
@@ -29,14 +33,35 @@ public class MainWindow extends JFrame {
 		
 		if (status == FieldStatus.BLACK) {
 			Game.moveOptions = Rules.moveOptions(Game.fieldsBlack, Game.fieldsWhite);
-			gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_BLACK);
+			
+			if (Game.moveOptions.size() > 0) {
+				gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_BLACK);
+			} else {
+				Game.moveOptions = Rules.moveOptions(Game.fieldsWhite, Game.fieldsBlack);
+				if (Game.moveOptions.size() > 0) {
+					gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_WHITE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Fim");
+				}
+			}
 		}
 		else if (status == FieldStatus.WHITE) {
 			Game.moveOptions = Rules.moveOptions(Game.fieldsWhite, Game.fieldsBlack);
-			gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_WHITE);
+
+			if (Game.moveOptions.size() > 0) {
+				gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_WHITE);
+			} else {
+				Game.moveOptions = Rules.moveOptions(Game.fieldsBlack, Game.fieldsWhite);
+				if (Game.moveOptions.size() > 0) {
+					gameBoard.drawMoveOptions(Game.moveOptions, FieldStatus.OPTION_BLACK);
+				} else {
+					JOptionPane.showMessageDialog(null, "Fim");
+				}
+			}
 		}
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
+		DataPanel.setNumeberDiscs(Game.fieldsBlack.size(), Game.fieldsWhite.size());
 					
 	}
 	
