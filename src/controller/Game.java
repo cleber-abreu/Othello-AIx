@@ -8,7 +8,7 @@ import model.FieldStatus;
 public class Game {
 	public static ArrayList<Field> fieldsBlack;
 	public static ArrayList<Field> fieldsWhite;
-	public static ArrayList<Field> possibleMoves;
+	public static ArrayList<Field> moveOptions;
 	
 	public static void newGame() {
 		fieldsBlack = new ArrayList<>();
@@ -19,15 +19,46 @@ public class Game {
 		fieldsWhite.add(new Field(4, 4, FieldStatus.WHITE));
 		fieldsWhite.add(new Field(5, 5, FieldStatus.WHITE));
 		
-		possibleMoves = Rules.possibleMoves(fieldsBlack, fieldsWhite); 
-		if (!possibleMoves.isEmpty()) {
+		moveOptions = Rules.moveOptions(fieldsBlack, fieldsWhite); 
+		if (!moveOptions.isEmpty()) {
 			
 		}
 	}
 	
-	public static Field getField(int row, int col) {
+	public static void changeDiscs(int row, int col, FieldStatus status) {
+
+		if (status == FieldStatus.BLACK) {
+			fieldsBlack.addAll(Rules.changeDiscs(getFieldBlack(row, col), fieldsBlack, fieldsWhite));
+		}
+		else {
+			fieldsWhite.addAll(Rules.changeDiscs(getFieldWhite(row, col), fieldsWhite, fieldsBlack));
+		}
+		
+	}
+	
+	public static Field getFieldVoid(int row, int col) {
 		Field field = null;
-		for (Field f : possibleMoves) {
+		for (Field f : moveOptions) {
+			if (f.getRow() == row && f.getCol() == col) {
+				return f;
+			}
+		}
+		return field;
+	}
+
+	public static Field getFieldBlack(int row, int col) {
+		Field field = null;
+		for (Field f : fieldsBlack) {
+			if (f.getRow() == row && f.getCol() == col) {
+				return f;
+			}
+		}
+		return field;
+	}
+
+	public static Field getFieldWhite(int row, int col) {
+		Field field = null;
+		for (Field f : fieldsWhite) {
 			if (f.getRow() == row && f.getCol() == col) {
 				return f;
 			}
