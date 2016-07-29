@@ -18,6 +18,8 @@ public class MainWindow extends JFrame {
 	private static Gameboard gameBoard;
 	
 	public static void newGame() {
+		gameBoard.clearDiscs(Game.fieldsBlack, Game.fieldsWhite);
+		gameBoard.clearMoveOptions(Game.moveOptions);
 		Game.newGame();
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
