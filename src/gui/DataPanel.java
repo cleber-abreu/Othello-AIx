@@ -23,12 +23,12 @@ public class DataPanel  extends JPanel {
 	private final static Font fontText = new Font(Font.MONOSPACED, Font.PLAIN, 14);
 	private final static Font fontNumber = new Font(Font.MONOSPACED, Font.BOLD, 42);
 	
+	private static JLabel lblNumberDiscsPlay1;
+	private static JLabel lblNumberDiscsPlay2;
 	private JLabel lblTittleMatch;
 	private JLabel lblTittleScoreboard;
 	private JLabel lblNamePlay1;
 	private JLabel lblNamePlay2;
-	private JLabel lblNumberDiscsPlay1;
-	private JLabel lblNumberDiscsPlay2;
 	private JLabel lblPointsPlay1;
 	private JLabel lblPointsPlay2;
 	private JButton btnNewGame;
@@ -44,8 +44,8 @@ public class DataPanel  extends JPanel {
 		lblTittleScoreboard = new JLabel("PLACAR GERAL");
 		lblNamePlay1 = new JLabel("Jogador1");
 		lblNamePlay2 = new JLabel("Jogador2");
-		lblNumberDiscsPlay1 = new JLabel("2");
-		lblNumberDiscsPlay2 = new JLabel("2");
+		lblNumberDiscsPlay1 = new JLabel("0");
+		lblNumberDiscsPlay2 = new JLabel("0");
 		lblPointsPlay1 = new JLabel("0");
 		lblPointsPlay2 = new JLabel("0");
 		btnNewGame = new JButton("Nova Partida");
@@ -142,6 +142,11 @@ public class DataPanel  extends JPanel {
 		gbc.gridy = 6;
 		add(btnNewGame, gbc);
 		
+	}
+
+	public static void setNumeberDiscs(int numberDiscsPlay1, int numberDiscsPlay2) {
+		lblNumberDiscsPlay1.setText(String.valueOf(numberDiscsPlay1));
+		lblNumberDiscsPlay2.setText(String.valueOf(numberDiscsPlay2));
 	}
 	
 }

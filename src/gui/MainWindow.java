@@ -24,6 +24,7 @@ public class MainWindow extends JFrame {
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
 		gameBoard.drawDiscs(Game.moveOptions);
+		DataPanel.setNumeberDiscs(2, 2);
 	}
 
 	public static void changeTurn(FieldStatus status) {
@@ -39,6 +40,7 @@ public class MainWindow extends JFrame {
 		}
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
+		DataPanel.setNumeberDiscs(Game.fieldsBlack.size(), Game.fieldsWhite.size());
 					
 	}
 	
