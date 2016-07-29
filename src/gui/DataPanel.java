@@ -19,9 +19,9 @@ import model.FieldStatus;
 @SuppressWarnings("serial")
 public class DataPanel  extends JPanel {
 	
-	private final static Font fontTittle = new Font(Font.MONOSPACED, Font.BOLD, 14);
-	private final static Font fontText = new Font(Font.MONOSPACED, Font.PLAIN, 14);
-	private final static Font fontNumber = new Font(Font.MONOSPACED, Font.BOLD, 42);
+	private final static Font fontTittle = new Font(Font.DIALOG, Font.BOLD, 12);
+	private final static Font fontText = new Font(Font.DIALOG_INPUT, Font.PLAIN, 14);
+	private final static Font fontNumber = new Font(Font.DIALOG, Font.BOLD, 42);
 	
 	private static JLabel lblNumberDiscsPlay1;
 	private static JLabel lblNumberDiscsPlay2;
