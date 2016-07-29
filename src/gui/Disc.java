@@ -63,7 +63,7 @@ public class Disc extends JPanel {
 			repaint();
 		}
 		else if (discStatus != FieldStatus.VOID) {
-			g.fillOval(0, 0, 42, 42);
+			g.fillOval(0, 0, 40, 40);
 			g.dispose();
 			repaint();
 		}
