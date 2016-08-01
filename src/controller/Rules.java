@@ -189,10 +189,16 @@ public class Rules {
 
 	public static ArrayList<Field> moveOptions(ArrayList<Field> fields, ArrayList<Field> fieldsAdv) {
 		ArrayList<Field> options = new ArrayList<>();
+		FieldStatus optionStatus;
 		
-		FieldStatus optionStatus = (fields.get(0).getStatus() == FieldStatus.WHITE)
-			? FieldStatus.OPTION_WHITE
-			: FieldStatus.OPTION_BLACK;
+		if (fields != null && fieldsAdv != null && fields.size() > 0 && fieldsAdv.size() > 0) {
+		
+			optionStatus = (fields.get(0).getStatus() == FieldStatus.WHITE)
+				? FieldStatus.OPTION_WHITE
+				: FieldStatus.OPTION_BLACK;
+		} else {
+			return options;
+		}
 
 		for (Field field : fields) {
 
@@ -257,7 +263,7 @@ public class Rules {
 			}
 			
 			for (int row = field.getRow() + 1, col = field.getCol() - 1; 
-					(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
+					(row < 8 && col > 1 && containsDisc(fieldsAdv, row, col)); 
 					row++, col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, col-1)) {
@@ -266,7 +272,7 @@ public class Rules {
 			}
 			
 			for (int row = field.getRow() - 1, col = field.getCol() + 1; 
-					(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
+					(row > 1 && col < 8 && containsDisc(fieldsAdv, row, col)); 
 					row--, col++) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col+1)) {
