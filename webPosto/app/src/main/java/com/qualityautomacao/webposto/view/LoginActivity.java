@@ -16,6 +16,7 @@ import com.qualityautomacao.webposto.model.Token;
 import com.qualityautomacao.webposto.notificacao.RegistrationIntentService;
 import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.Request;
+import com.qualityautomacao.webposto.utils.UtilsPreferences;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
@@ -26,12 +27,22 @@ public class LoginActivity extends Activity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
+    private EditText editTextLogin;
+    private EditText editTextSenha;
+    private UtilsPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ((TextView) findViewById(R.id.editTextLogin)).setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        editTextLogin = (EditText)findViewById(R.id.editTextLogin);
+        editTextSenha = (EditText)findViewById(R.id.editTextSenha);
+        preferences = new UtilsPreferences(this);
+
+        editTextLogin.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        editTextLogin.setText(preferences.getPreferences(UtilsPreferences.KEY_LOGIN));
+        editTextSenha.setText(preferences.getPreferences(UtilsPreferences.KEY_SENHA));
 
         if (checkPlayServices()) {
             Intent intent = new Intent(this, RegistrationIntentService.class);
@@ -53,11 +64,14 @@ public class LoginActivity extends Activity {
                                         loginUnicaFilial(jsonObject);
                                 }
                             }));
+
+        preferences.setPreferences(UtilsPreferences.KEY_LOGIN, editTextLogin.getText().toString());
+        preferences.setPreferences(UtilsPreferences.KEY_SENHA, editTextSenha.getText().toString());
     }
 
     private JSONObject getDadosLogin() throws Exception {
-        final String usuario = ((EditText) findViewById(R.id.editTextLogin)).getText().toString();
-        final String senha = ((EditText) findViewById(R.id.editTextSenha)).getText().toString();
+        final String usuario = editTextLogin.getText().toString();
+        final String senha = editTextSenha.getText().toString();
 
         return new JSONObject()
                 .put("USU_DS_LOGIN", usuario)
