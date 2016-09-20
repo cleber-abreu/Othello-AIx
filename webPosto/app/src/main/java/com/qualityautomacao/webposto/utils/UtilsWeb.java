@@ -37,17 +37,17 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 public abstract class UtilsWeb {
-    private static final String IP = "DESKTOP-TP9HJM6";
-    private static final String PORTA = "8080";
+//    private static final String IP = "DESKTOP-TP9HJM6";
+//    private static final String PORTA = "8080";
 
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
-//    private static final String IP = "200.98.166.245";
-//    private static final String PORTA = "8181";
-//
-//    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
-    private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
+    private static final String IP = "200.98.166.245";
+    private static final String PORTA = "8181";
+
+    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
+//    private static final String BASE_URL = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/";
     public static Token token;
     public static String KEY;
 
