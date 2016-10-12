@@ -13,7 +13,7 @@ import javax.swing.border.MatteBorder;
 @SuppressWarnings("serial")
 public class Gameboard extends JPanel {
 
-	Field[][] fields;
+	private Field[][] fields;
 	
 	public Gameboard() {
 
@@ -67,18 +67,18 @@ public class Gameboard extends JPanel {
 	public void drawDiscs(ArrayList<model.Field> fields) {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
-					.getDisco().setDiscStatus(field.getStatus());
+					.getDisc().setStatus(field.getStatus());
 			this.fields[field.getRow()][field.getCol()]
-					.getDisco().repaint();
+					.getDisc().repaint();
 		}
 	}
 	
 	public void drawMoveOptions(ArrayList<model.Field> fields, model.FieldStatus status) {
 		for (model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
-					.getDisco().setDiscStatus(status);
+					.getDisc().setStatus(status);
 			this.fields[field.getRow()][field.getCol()]
-					.getDisco().repaint();
+					.getDisc().repaint();
 		}
 	}
 	
@@ -86,18 +86,18 @@ public class Gameboard extends JPanel {
 		if (fieldsBlack != null) {
 			for (model.Field field : fieldsBlack) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisco().setDiscStatus(model.FieldStatus.VOID);
+						.getDisc().setStatus(model.FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
-						.getDisco().repaint();
+						.getDisc().repaint();
 			}
 		}
 		
 		if (fieldsWhite != null) {
 			for (model.Field field : fieldsWhite) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisco().setDiscStatus(model.FieldStatus.VOID);
+						.getDisc().setStatus(model.FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
-						.getDisco().repaint();
+						.getDisc().repaint();
 			}
 		}
 	}
@@ -106,9 +106,9 @@ public class Gameboard extends JPanel {
 		if (fields != null) {
 			for (model.Field field : fields) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisco().setDiscStatus(model.FieldStatus.VOID);
+						.getDisc().setStatus(model.FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
-						.getDisco().repaint();
+						.getDisc().repaint();
 			}
 		}
 	}

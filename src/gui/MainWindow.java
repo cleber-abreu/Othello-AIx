@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import controller.Game;
-import controller.Rules;
+import global.Game;
+import global.Rules;
 import model.FieldStatus;
 
 @SuppressWarnings("serial")
@@ -25,14 +25,14 @@ public class MainWindow extends JFrame {
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
 		gameBoard.drawDiscs(Game.moveOptions);
-		DataPanel.setNumeberDiscs(2, 2);
+		DataPanel.setNumDiscs(2, 2);
 	}
 
 	public static void changeTurn(FieldStatus status) {
 		gameBoard.clearMoveOptions(Game.moveOptions);
 		gameBoard.drawDiscs(Game.fieldsBlack);
 		gameBoard.drawDiscs(Game.fieldsWhite);
-		DataPanel.setNumeberDiscs(Game.fieldsBlack.size(), Game.fieldsWhite.size());
+		DataPanel.setNumDiscs(Game.fieldsBlack.size(), Game.fieldsWhite.size());
 		
 		if (status == FieldStatus.BLACK) {
 			Game.moveOptions = Rules.moveOptions(Game.fieldsBlack, Game.fieldsWhite);

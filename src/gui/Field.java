@@ -77,11 +77,11 @@ public class Field extends JPanel {
 		});
 	}
 
-	public Disc getDisco() {
+	public Disc getDisc() {
 		return disc;
 	}
 
-	public void setDisco(Disc disc) {
+	public void setDisc(Disc disc) {
 		this.disc = disc;
 	}
 
