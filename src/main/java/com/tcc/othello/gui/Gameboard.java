@@ -10,17 +10,20 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
+import com.tcc.othello.model.Field;
+import com.tcc.othello.model.FieldStatus;
+
 @SuppressWarnings("serial")
 public class Gameboard extends JPanel {
 
-	private Field[][] fields;
+	private JField[][] fields;
 	
 	public Gameboard() {
 
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
-		fields = new Field[10][10];
+		fields = new JField[10][10];
 		String[] lettersBorder = { " ", "A", "B", "C", "D", "E", "F", "G", "H", " " };
 		Border border = null;
 
@@ -31,13 +34,13 @@ public class Gameboard extends JPanel {
 				grid.gridy = row;
 
 				if (row == 0 || row == 9) {
-					fields[row][col]= new Field(lettersBorder[col]);
+					fields[row][col]= new JField(lettersBorder[col]);
 					border = null;
 				} else if ((row != 0 || row != 9) && (col == 0 || col == 9)) {
-					fields[row][col]= new Field(row);
+					fields[row][col]= new JField(row);
 					border = null;
 				} else {
-					fields[row][col]= new Field(row, col);
+					fields[row][col]= new JField(row, col);
 
 					if (row < 9) {
 						if (col < 9) {
@@ -64,8 +67,8 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void drawDiscs(ArrayList<com.tcc.othello.model.Field> fields) {
-		for (com.tcc.othello.model.Field field : fields) {
+	public void drawDiscs(ArrayList<Field> fields) {
+		for (Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisc().setStatus(field.getStatus());
 			this.fields[field.getRow()][field.getCol()]
@@ -73,8 +76,8 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void drawMoveOptions(ArrayList<com.tcc.othello.model.Field> fields, com.tcc.othello.model.FieldStatus status) {
-		for (com.tcc.othello.model.Field field : fields) {
+	public void drawMoveOptions(ArrayList<Field> fields, FieldStatus status) {
+		for (Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisc().setStatus(status);
 			this.fields[field.getRow()][field.getCol()]
@@ -82,31 +85,31 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void clearDiscs(ArrayList<com.tcc.othello.model.Field> fieldsBlack, ArrayList<com.tcc.othello.model.Field> fieldsWhite) {
+	public void clearDiscs(ArrayList<Field> fieldsBlack, ArrayList<Field> fieldsWhite) {
 		if (fieldsBlack != null) {
-			for (com.tcc.othello.model.Field field : fieldsBlack) {
+			for (Field field : fieldsBlack) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(com.tcc.othello.model.FieldStatus.VOID);
+						.getDisc().setStatus(FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
 						.getDisc().repaint();
 			}
 		}
 		
 		if (fieldsWhite != null) {
-			for (com.tcc.othello.model.Field field : fieldsWhite) {
+			for (Field field : fieldsWhite) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(com.tcc.othello.model.FieldStatus.VOID);
+						.getDisc().setStatus(FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
 						.getDisc().repaint();
 			}
 		}
 	}
 	
-	public void clearMoveOptions(ArrayList<com.tcc.othello.model.Field> fields) {
+	public void clearMoveOptions(ArrayList<Field> fields) {
 		if (fields != null) {
-			for (com.tcc.othello.model.Field field : fields) {
+			for (Field field : fields) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(com.tcc.othello.model.FieldStatus.VOID);
+						.getDisc().setStatus(FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
 						.getDisc().repaint();
 			}

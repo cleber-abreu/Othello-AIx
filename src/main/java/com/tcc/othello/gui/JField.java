@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Field extends JPanel {
+public class JField extends JPanel {
 
 	private static final Color defaultBackground = new Color(36, 128, 48);
 	private static final Color borderBackground = new Color(2, 8, 4);
@@ -17,7 +17,7 @@ public class Field extends JPanel {
 	private static final Dimension dimBorderX = new Dimension(20, 20);
 	private Disc disc;
 
-	public Field(int row, int col) {
+	public JField(int row, int col) {
 		this.setBackground(defaultBackground);
 		this.setSize(dim);
 		this.setPreferredSize(dim);
@@ -25,7 +25,7 @@ public class Field extends JPanel {
 		add(disc);
 	}
 
-	public Field(int i) {
+	public JField(int i) {
 		this.setBackground(borderBackground);
 		this.add(new JLabel(String.valueOf(i)) {
 			@Override
@@ -47,7 +47,7 @@ public class Field extends JPanel {
 		this.setPreferredSize(dimBorderV);
 	}
 
-	public Field(String c) {
+	public JField(String c) {
 
 		if (c == " ") {
 			this.setSize(dimBorderX);
