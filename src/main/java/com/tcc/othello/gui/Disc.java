@@ -1,4 +1,4 @@
-package gui;
+package com.tcc.othello.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import global.Game;
-import model.FieldStatus;
+import com.tcc.othello.global.Game;
+import com.tcc.othello.model.FieldStatus;
 
 @SuppressWarnings("serial")
 public class Disc extends JPanel {
@@ -80,14 +80,14 @@ public class Disc extends JPanel {
 					if (status == FieldStatus.OPTION_BLACK) {
 						status = FieldStatus.BLACK;
 						Game.moveOptions.remove(Game.getFieldVoid(row, col));
-						Game.fieldsBlack.add(new model.Field(row, col, status));
+						Game.fieldsBlack.add(new com.tcc.othello.model.Field(row, col, status));
 						Game.changeDiscs(row, col, status);
 						MainWindow.changeTurn(FieldStatus.WHITE);
 					}
 					else if (status == FieldStatus.OPTION_WHITE) {
 						status = FieldStatus.WHITE;
 						Game.moveOptions.remove(Game.getFieldVoid(row, col));
-						Game.fieldsWhite.add(new model.Field(row, col, status));
+						Game.fieldsWhite.add(new com.tcc.othello.model.Field(row, col, status));
 						Game.changeDiscs(row, col, status);
 						MainWindow.changeTurn(FieldStatus.BLACK);
 					}

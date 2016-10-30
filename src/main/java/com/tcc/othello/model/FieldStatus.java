@@ -1,4 +1,4 @@
-package model;
+package com.tcc.othello.model;
 
 public enum FieldStatus {
 	WHITE, 

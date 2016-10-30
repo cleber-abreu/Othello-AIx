@@ -1,4 +1,4 @@
-package gui;
+package com.tcc.othello.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
-import model.FieldStatus;
+import com.tcc.othello.model.FieldStatus;
 
 @SuppressWarnings("serial")
 public class DataPanel  extends JPanel {

@@ -1,9 +1,9 @@
-package global;
+package com.tcc.othello.global;
 
 import java.util.ArrayList;
 
-import model.Field;
-import model.FieldStatus;
+import com.tcc.othello.model.Field;
+import com.tcc.othello.model.FieldStatus;
 
 public class Game {
 	public static ArrayList<Field> fieldsBlack;

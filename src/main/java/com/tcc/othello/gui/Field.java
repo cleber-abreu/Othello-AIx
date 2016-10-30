@@ -1,4 +1,4 @@
-package gui;
+package com.tcc.othello.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;

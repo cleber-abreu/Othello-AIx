@@ -1,4 +1,4 @@
-package gui;
+package com.tcc.othello.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -64,8 +64,8 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void drawDiscs(ArrayList<model.Field> fields) {
-		for (model.Field field : fields) {
+	public void drawDiscs(ArrayList<com.tcc.othello.model.Field> fields) {
+		for (com.tcc.othello.model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisc().setStatus(field.getStatus());
 			this.fields[field.getRow()][field.getCol()]
@@ -73,8 +73,8 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void drawMoveOptions(ArrayList<model.Field> fields, model.FieldStatus status) {
-		for (model.Field field : fields) {
+	public void drawMoveOptions(ArrayList<com.tcc.othello.model.Field> fields, com.tcc.othello.model.FieldStatus status) {
+		for (com.tcc.othello.model.Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisc().setStatus(status);
 			this.fields[field.getRow()][field.getCol()]
@@ -82,31 +82,31 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void clearDiscs(ArrayList<model.Field> fieldsBlack, ArrayList<model.Field> fieldsWhite) {
+	public void clearDiscs(ArrayList<com.tcc.othello.model.Field> fieldsBlack, ArrayList<com.tcc.othello.model.Field> fieldsWhite) {
 		if (fieldsBlack != null) {
-			for (model.Field field : fieldsBlack) {
+			for (com.tcc.othello.model.Field field : fieldsBlack) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(model.FieldStatus.VOID);
+						.getDisc().setStatus(com.tcc.othello.model.FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
 						.getDisc().repaint();
 			}
 		}
 		
 		if (fieldsWhite != null) {
-			for (model.Field field : fieldsWhite) {
+			for (com.tcc.othello.model.Field field : fieldsWhite) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(model.FieldStatus.VOID);
+						.getDisc().setStatus(com.tcc.othello.model.FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
 						.getDisc().repaint();
 			}
 		}
 	}
 	
-	public void clearMoveOptions(ArrayList<model.Field> fields) {
+	public void clearMoveOptions(ArrayList<com.tcc.othello.model.Field> fields) {
 		if (fields != null) {
-			for (model.Field field : fields) {
+			for (com.tcc.othello.model.Field field : fields) {
 				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(model.FieldStatus.VOID);
+						.getDisc().setStatus(com.tcc.othello.model.FieldStatus.VOID);
 				this.fields[field.getRow()][field.getCol()]
 						.getDisc().repaint();
 			}

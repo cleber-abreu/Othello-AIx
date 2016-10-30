@@ -1,4 +1,4 @@
-package gui;
+package com.tcc.othello.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import global.Game;
-import global.Rules;
-import model.FieldStatus;
+import com.tcc.othello.global.Game;
+import com.tcc.othello.global.Rules;
+import com.tcc.othello.model.FieldStatus;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -71,7 +71,6 @@ public class MainWindow extends JFrame {
 		
 		EventQueue.invokeLater(new Runnable() {
 			
-			@Override
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
