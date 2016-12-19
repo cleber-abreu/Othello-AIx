@@ -42,6 +42,11 @@ public class JField extends JPanel {
 			public Dimension getSize() {
 				return dimBorderV;
 			}
+			
+			@Override
+			public Color getForeground() {
+				return Color.LIGHT_GRAY;
+			}
 		});
 		this.setSize(dimBorderV);
 		this.setPreferredSize(dimBorderV);
@@ -60,6 +65,7 @@ public class JField extends JPanel {
 
 		this.setBackground(borderBackground);
 		this.add(new JLabel(c) {
+			
 			@Override
 			public float getAlignmentX() {
 				return CENTER_ALIGNMENT;
@@ -73,6 +79,11 @@ public class JField extends JPanel {
 			@Override
 			public Dimension getSize() {
 				return dimBorderH;
+			}
+			
+			@Override
+			public Color getForeground() {
+				return Color.LIGHT_GRAY;
 			}
 		});
 	}
