@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item>
+                <shape>
+                    <solid android:color="@color/bg_light"/>
+                </shape>
+            </item>
+
+            <item
+                android:top="@dimen/nseparador_item_menu"
+                android:left="@dimen/nseparador_item_menu"
+                android:right="@dimen/nseparador_item_menu">
+                <shape>
+                    <solid android:color="@android:color/transparent"/>
+                    <stroke android:color="#999" android:width="@dimen/separador_item_menu"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item>
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item>
+                <shape>
+                    <solid android:color="@color/bg_light"/>
+                </shape>
+            </item>
+
+            <item
+                android:top="@dimen/nseparador_item_menu"
+                android:left="@dimen/nseparador_item_menu"
+                android:right="@dimen/nseparador_item_menu">
+                <shape>
+                    <solid android:color="@android:color/transparent"/>
+                    <stroke android:color="#999" android:width="@dimen/separador_item_menu"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

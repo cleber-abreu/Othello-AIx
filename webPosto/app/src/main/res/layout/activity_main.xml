@@ -1,10 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.qualityautomacao.webposto.view.MainActivity">
+    android:layout_height="match_parent"
+    tools:context="com.qualityautomacao.webposto.view.MainActivity"
+    android:background="@color/bg_dark">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,103 +15,53 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/title_financeiro"
-                android:id="@+id/textView"
-                android:visibility="gone"/>
+                style="@style/WebPosto.TituloMenuPrincipal"
+                android:text="@string/title_financeiro"/>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/text_contas_receber"
-                android:id="@+id/buttonContasReceber"
-                android:onClick="contasReceber"
-                android:backgroundTint="@color/qualityButton"
-                android:drawableStart="@drawable/contas_receber"
-                android:drawablePadding="10dp"
-                android:visibility="gone"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/WebPosto.ItemMenuPrincipal"
                 android:text="@string/text_contas_pagar"
-                android:id="@+id/buttonContasPagar"
-                android:layout_marginTop="-11dp"
                 android:onClick="contasPagar"
-                android:enabled="false"
-                android:backgroundTint="@color/qualityButton"
-                android:drawableStart="@drawable/contas_pagar"
-                android:visibility="gone"/>
+                android:drawableStart="@drawable/contas_pagar"/>
 
-            <Space
-                android:layout_width="140dp"
-                android:layout_height="24dp"
-                android:visibility="gone"/>
+            <Button
+                style="@style/WebPosto.ItemMenuPrincipal"
+                android:text="@string/text_contas_receber"
+                android:onClick="contasReceber"
+                android:drawableStart="@drawable/contas_receber"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/title_movimento"
-                android:id="@+id/textView2" />
+                style="@style/WebPosto.TituloMenuPrincipal"
+                android:text="@string/title_movimento"/>
 
             <Button
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/WebPosto.ItemMenuPrincipal"
                 android:text="@string/text_vendas"
-                android:id="@+id/buttonVendas"
                 android:onClick="vendas"
-                android:backgroundTint="@color/qualityButton"
                 android:drawableStart="@drawable/vendas" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/WebPosto.ItemMenuPrincipal"
                 android:text="@string/text_tanques"
-                android:layout_marginTop="-11dp"
-                android:id="@+id/buttonTanques"
                 android:onClick="tanques"
-                android:backgroundTint="@color/qualityButton"
                 android:drawableStart="@drawable/tanques" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/WebPosto.ItemMenuPrincipal"
                 android:text="@string/text_troca_preco"
-                android:layout_marginTop="-11dp"
-                android:id="@+id/buttonTrocaDePreco"
                 android:onClick="trocaPreco"
-                android:backgroundTint="@color/qualityButton"
                 android:drawableStart="@drawable/troca_de_preco" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/WebPosto.ItemMenuPrincipal"
                 android:text="@string/text_projecao_abastecimento"
-                android:layout_marginTop="-11dp"
-                android:id="@+id/buttonProjecaoAbastecimento"
                 android:onClick="projecaoAbastecimento"
-                android:backgroundTint="@color/qualityButton"
                 android:drawableStart="@drawable/projecao_de_abastecimento" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/WebPosto.ItemMenuPrincipal"
                 android:text="@string/text_notificacoes"
-                android:layout_marginTop="-11dp"
-                android:id="@+id/buttonNotificacoes"
                 android:onClick="notificacoes"
-                android:backgroundTint="@color/qualityButton"
                 android:drawableStart="@drawable/notificacoes" />
 
         </LinearLayout>

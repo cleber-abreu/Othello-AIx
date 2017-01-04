@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="qualityCor">#E4F6FA</color>
     <color name="qualityButton">@android:color/white</color>
 
@@ -6,5 +6,28 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/qualityCor</item>
+    </style>
+
+    <style name="WebPosto"/>
+
+    <style name="WebPosto.TituloMenuPrincipal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="WebPosto.ItemMenuPrincipal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_item_menu</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+        <!--<item name="android:drawableEnd">@android:drawable/ic_input_add</item>-->
     </style>
 </resources>
