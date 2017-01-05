@@ -4,4 +4,8 @@
     <color name="bg_light">#c8e2f0</color>
     <color name="separador_item_menu">#999</color>
     <color name="fontColor_item_menu">#000</color>
+
+    <color name="acentuada">#0E5DF3</color>
+
+    <color name="bg_toggle_button">@android:color/transparent</color>
 </resources>

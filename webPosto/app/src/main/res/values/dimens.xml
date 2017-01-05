@@ -3,9 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="nseparador_item_menu">-0.6dp</dimen>
-    <dimen name="separador_item_menu">0.6dp</dimen>
-
     <dimen name="espacamento_gigante">36dp</dimen>
     <dimen name="espacamento_grande">24dp</dimen>
     <dimen name="espacamento_normal">16dp</dimen>
@@ -13,5 +10,18 @@
     <dimen name="espacamento_mini">8dp</dimen>
     <dimen name="espacamento_micro">4dp</dimen>
 
-    <dimen name="fontSize_item_menu">18sp</dimen>
+    <dimen name="fonte_gigante">21sp</dimen>
+    <dimen name="fonte_grande">18sp</dimen>
+    <dimen name="fonte_normal">16sp</dimen>
+    <dimen name="fonte_pequeno">14sp</dimen>
+    <dimen name="fonte_mini">12sp</dimen>
+    <dimen name="fonte_micro">10sp</dimen>
+
+    <dimen name="nseparador_item_menu">-0.6dp</dimen>
+    <dimen name="separador_item_menu">0.6dp</dimen>
+
+    <dimen name="fontSize_item_menu">@dimen/fonte_grande</dimen>
+    <dimen name="fontSize_componente">@dimen/fonte_normal</dimen>
+
+    <dimen name="raio_componente">5dp</dimen>
 </resources>
