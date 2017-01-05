@@ -8,25 +8,24 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import com.tcc.othello.global.Game;
-import com.tcc.othello.model.Field;
 import com.tcc.othello.model.FieldStatus;
+import com.tcc.othello.model.Player;
 
 @SuppressWarnings("serial")
-public class Disc extends JPanel {
+public class JDisc extends JPanel {
 
 	private Color color = new Color(36, 128, 48);
 	private FieldStatus status;
 	private int row;
 	private int col;
 
-	public Disc(int row, int col) {
+	public JDisc(int row, int col) {
 		status = FieldStatus.VOID;
 		this.row = row;
 		this.col = col;
 	}
 
-	public Disc(FieldStatus status) {
+	public JDisc(FieldStatus status) {
 		this.status = status;
 	}
 
@@ -38,14 +37,6 @@ public class Disc extends JPanel {
 			g.setColor(Color.WHITE);
 		} else if (status == FieldStatus.BLACK) {
 			g.setColor(Color.BLACK);
-		} else if (status == FieldStatus.SCORE_WHITE) {
-			g.setColor(Color.WHITE);
-			setBackground(Color.DARK_GRAY);
-			repaint();
-		} else if (status == FieldStatus.SCORE_BLACK) {
-			g.setColor(Color.BLACK);
-			setBackground(Color.DARK_GRAY);
-			repaint();
 		}
 
 		if (status == FieldStatus.OPTION_WHITE) {
@@ -72,26 +63,19 @@ public class Disc extends JPanel {
 	
 	public void setStatus(FieldStatus discStatus) {
 		status = discStatus;
+	}
+	
+	public void enableOnClick(final Player player) {
 		
 		if (status == FieldStatus.OPTION_BLACK || status == FieldStatus.OPTION_WHITE) {
 			addMouseListener(new MouseAdapter() {
-				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (status == FieldStatus.OPTION_BLACK) {
-						status = FieldStatus.BLACK;
-						Game.moveOptions.remove(Game.getFieldVoid(row, col));
-						Game.fieldsBlack.add(new Field(row, col, status));
-						Game.changeDiscs(row, col, status);
-						MainWindow.changeTurn(FieldStatus.WHITE);
-					}
-					else if (status == FieldStatus.OPTION_WHITE) {
-						status = FieldStatus.WHITE;
-						Game.moveOptions.remove(Game.getFieldVoid(row, col));
-						Game.fieldsWhite.add(new Field(row, col, status));
-						Game.changeDiscs(row, col, status);
-						MainWindow.changeTurn(FieldStatus.BLACK);
-					}
+					player.addDisc(row, col);
+					MainWindow.getGame().changeTurn();
+					System.out.println("RETORNA AO LOOP "+row+","+col);
+					MainWindow.getGame().run();
+					System.out.println(row+","+col);
 				}
 			});
 		}

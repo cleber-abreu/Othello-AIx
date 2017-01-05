@@ -18,6 +18,10 @@ public class Gameboard extends JPanel {
 
 	private JField[][] fields;
 	
+	public JField getField(int row, int col) {
+		return fields[row][col];
+	}
+
 	public Gameboard() {
 
 		setLayout(new GridBagLayout());
@@ -76,14 +80,25 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void drawMoveOptions(ArrayList<Field> fields, FieldStatus status) {
+	public void drawMoveOptions(ArrayList<Field> fields) {
 		for (Field field : fields) {
 			this.fields[field.getRow()][field.getCol()]
-					.getDisc().setStatus(status);
+					.getDisc().setStatus(field.getStatus());
 			this.fields[field.getRow()][field.getCol()]
 					.getDisc().repaint();
 		}
 	}
+	
+//	public void drawMoveOptionsWithOnClick(ArrayList<Field> fields, FieldStatus status) {
+//		for (Field field : fields) {
+//			this.fields[field.getRow()][field.getCol()]
+//					.getDisc().setStatus(status);
+//			this.fields[field.getRow()][field.getCol()]
+//					.getDisc().enableOnClick();
+//			this.fields[field.getRow()][field.getCol()]
+//					.getDisc().repaint();
+//		}
+//	}
 	
 	public void clearDiscs(ArrayList<Field> fieldsBlack, ArrayList<Field> fieldsWhite) {
 		if (fieldsBlack != null) {
@@ -105,15 +120,24 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void clearMoveOptions(ArrayList<Field> fields) {
-		if (fields != null) {
-			for (Field field : fields) {
-				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(FieldStatus.VOID);
-				this.fields[field.getRow()][field.getCol()]
-						.getDisc().repaint();
+	public void clearAll() {
+		for (int row = 0; row < fields.length; row++) {
+			for (int col = 0; col < fields.length; col++) {
+				if (fields[row][col].getDisc() != null)
+					fields[row][col].getDisc().setStatus(FieldStatus.VOID);
 			}
 		}
 	}
-
+	
+	public void clearMoveOptions(ArrayList<Field> fields) {
+			for (Field field : fields) {
+				if (fields != null) {
+					this.fields[field.getRow()][field.getCol()]
+							.getDisc().setStatus(FieldStatus.VOID);
+					this.fields[field.getRow()][field.getCol()]
+							.getDisc().repaint();
+			}
+		}
+	}
+	
 }

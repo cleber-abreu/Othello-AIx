@@ -5,7 +5,5 @@ public enum FieldStatus {
 	BLACK, 
 	VOID,
 	OPTION_WHITE,
-	OPTION_BLACK, 
-	SCORE_WHITE,
-	SCORE_BLACK;
+	OPTION_BLACK
 }

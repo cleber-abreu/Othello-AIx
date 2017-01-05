@@ -15,13 +15,13 @@ public class JField extends JPanel {
 	private static final Dimension dimBorderH = new Dimension(50, 20);
 	private static final Dimension dimBorderV = new Dimension(20, 50);
 	private static final Dimension dimBorderX = new Dimension(20, 20);
-	private Disc disc;
+	private JDisc disc;
 
 	public JField(int row, int col) {
 		this.setBackground(defaultBackground);
 		this.setSize(dim);
 		this.setPreferredSize(dim);
-		disc = new Disc(row, col);
+		disc = new JDisc(row, col);
 		add(disc);
 	}
 
@@ -88,11 +88,11 @@ public class JField extends JPanel {
 		});
 	}
 
-	public Disc getDisc() {
+	public JDisc getDisc() {
 		return disc;
 	}
 
-	public void setDisc(Disc disc) {
+	public void setDisc(JDisc disc) {
 		this.disc = disc;
 	}
 

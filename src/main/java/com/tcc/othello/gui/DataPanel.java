@@ -33,6 +33,8 @@ public class DataPanel  extends JPanel {
 	private JLabel lblPlayer2;
 	private JComboBox<Players> listNamePlayer1;
 	private JComboBox<Players> listNamePlayer2;
+	private JDisc colorPlayer1Disc;
+	private JDisc colorPlayer2Disc;
 	private JLabel lblPointsPlayer1;
 	private JLabel lblPointsPlayer2;
 	private JButton btnNewGame;
@@ -50,6 +52,8 @@ public class DataPanel  extends JPanel {
 		lblPlayer2 = new JLabel("Jogador 2");
 		listNamePlayer1 = new JComboBox<>(Players.values());
 		listNamePlayer2 = new JComboBox<>(Players.values());
+		colorPlayer1Disc = new JDisc(FieldStatus.BLACK);
+		colorPlayer2Disc = new JDisc(FieldStatus.WHITE);
 		lblNumDiscsPlayer1 = new JLabel("0");
 		lblNumDiscsPlayer2 = new JLabel("0");
 		lblPointsPlayer1 = new JLabel("0");
@@ -81,14 +85,14 @@ public class DataPanel  extends JPanel {
 		lblPointsPlayer1.setForeground(Color.WHITE);
 		lblPointsPlayer2.setForeground(Color.WHITE);
 		btnNewGame.setForeground(Color.WHITE);
-		
+		colorPlayer1Disc.setBackground(Color.DARK_GRAY);
+		colorPlayer2Disc.setBackground(Color.DARK_GRAY);
 		
 		btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				enableSelectionPlayer(false);
 				MainWindow.newGame();
-				listNamePlayer1.setEnabled(false);
-				listNamePlayer2.setEnabled(false);
 				super.mouseClicked(e);
 			}
 		});
@@ -128,12 +132,12 @@ public class DataPanel  extends JPanel {
 		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 3;
-		add(new Disc(FieldStatus.SCORE_BLACK), gbc);
+		add(colorPlayer1Disc, gbc);
 		
 		gbc.gridwidth = 1;
 		gbc.gridx = 2;
 		gbc.gridy = 3;
-		add(new Disc(FieldStatus.SCORE_WHITE), gbc);
+		add(colorPlayer2Disc, gbc);
 		
 		gbc.gridwidth = 1;
 		gbc.gridx = 0;
@@ -169,10 +173,36 @@ public class DataPanel  extends JPanel {
 		add(btnNewGame, gbc);
 		
 	}
+	
+	public Players getPlayer1() {
+		return (Players) listNamePlayer1.getSelectedItem();
+	}
+	
+	public Players getPlayer2() {
+		return (Players) listNamePlayer2.getSelectedItem();
+	}
 
-	public static void setNumDiscs(int numDiscsPlayer1, int numDiscsPlayer2) {
+	public String getStringPlayer1() {
+		return listNamePlayer1.getSelectedItem().toString();
+	}
+	
+	public String getStringPlayer2() {
+		return listNamePlayer2.getSelectedItem().toString();
+	}
+
+	public void setColorsPlayersDiscs(FieldStatus colorPlayer1, FieldStatus colorPlayer2) {
+		colorPlayer1Disc.setStatus(colorPlayer1);
+		colorPlayer2Disc.setStatus(colorPlayer2);
+	}
+	
+	public void setNumDiscs(int numDiscsPlayer1, int numDiscsPlayer2) {
 		lblNumDiscsPlayer1.setText(String.valueOf(numDiscsPlayer1));
 		lblNumDiscsPlayer2.setText(String.valueOf(numDiscsPlayer2));
+	}
+	
+	public void enableSelectionPlayer(boolean b) {
+		listNamePlayer1.setEnabled(b);
+		listNamePlayer2.setEnabled(b);
 	}
 	
 }

@@ -7,6 +7,8 @@ import com.tcc.othello.model.FieldStatus;
 
 public class Rules {
 
+	private static ArrayList<Field> moveOptions;
+	
 	private static boolean containsDisc(ArrayList<Field> fields, int row, int col) {
 		for (Field field : fields) {
 			if (field.getRow() == row && field.getCol() == col) {
@@ -40,7 +42,7 @@ public class Rules {
 		return null;
 	}
 	
-	public static ArrayList<Field> changeDiscs(Field field, ArrayList<Field> fields, ArrayList<Field> fieldsAdv) {
+	public static ArrayList<Field> changeDiscs(Field field, ArrayList<Field> discsPlayer, ArrayList<Field> discsOpponent) {
 		ArrayList<Field> discs = new ArrayList<>();
 		ArrayList<Field> tmpAdd = new ArrayList<>();
 		ArrayList<Field> tmpRemove = new ArrayList<>();
@@ -48,15 +50,15 @@ public class Rules {
 		// VERTICAL
 		
 		for (int row = field.getRow() + 1; 
-				(row < 8 && containsDisc(fieldsAdv, row, field.getCol())); 
+				(row < 8 && containsDisc(discsOpponent, row, field.getCol())); 
 				row++) {
 			
 			tmpAdd.add(new Field(row, field.getCol(), field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, row, field.getCol()));
+			tmpRemove.add(getField(discsOpponent, row, field.getCol()));
 			
-			if (containsDisc(fields, row+1, field.getCol())) {
+			if (containsDisc(discsPlayer, row+1, field.getCol())) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -65,15 +67,15 @@ public class Rules {
 		tmpRemove = new ArrayList<>();
 		
 		for (int row = field.getRow() - 1; 
-				(row > 1 && containsDisc(fieldsAdv, row, field.getCol())); 
+				(row > 1 && containsDisc(discsOpponent, row, field.getCol())); 
 				row--) {
 			
 			tmpAdd.add(new Field(row, field.getCol(), field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, row, field.getCol()));
+			tmpRemove.add(getField(discsOpponent, row, field.getCol()));
 			
-			if (containsDisc(fields, row-1, field.getCol())) {
+			if (containsDisc(discsPlayer, row-1, field.getCol())) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -84,15 +86,15 @@ public class Rules {
 		// HORIZONTAL
 		
 		for (int col = field.getCol() + 1; 
-				(col < 8 && containsDisc(fieldsAdv, field.getRow(), col)); 
+				(col < 8 && containsDisc(discsOpponent, field.getRow(), col)); 
 				col++) {
 
 			tmpAdd.add(new Field(field.getRow(), col, field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, field.getRow(), col));
+			tmpRemove.add(getField(discsOpponent, field.getRow(), col));
 			
-			if (containsDisc(fields, field.getRow(), col+1)) {
+			if (containsDisc(discsPlayer, field.getRow(), col+1)) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -101,15 +103,15 @@ public class Rules {
 		tmpRemove = new ArrayList<>();
 		
 		for (int col = field.getCol() - 1; 
-				(col > 1 && containsDisc(fieldsAdv, field.getRow(), col)); 
+				(col > 1 && containsDisc(discsOpponent, field.getRow(), col)); 
 				col--) {
 			
 			tmpAdd.add(new Field(field.getRow(), col, field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, field.getRow(), col));
+			tmpRemove.add(getField(discsOpponent, field.getRow(), col));
 			
-			if (containsDisc(fields, field.getRow(), col-1)) {
+			if (containsDisc(discsPlayer, field.getRow(), col-1)) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -120,15 +122,15 @@ public class Rules {
 		// DIAGONAL
 		
 		for (int row = field.getRow() + 1, col = field.getCol() + 1; 
-				(row < 8 && col < 8 && containsDisc(fieldsAdv, row, col)); 
+				(row < 8 && col < 8 && containsDisc(discsOpponent, row, col)); 
 				row++, col++) {
 			
 			tmpAdd.add(new Field(row, col, field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, row, col));
+			tmpRemove.add(getField(discsOpponent, row, col));
 			
-			if (containsDisc(fields, row+1, col+1)) {
+			if (containsDisc(discsPlayer, row+1, col+1)) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -137,15 +139,15 @@ public class Rules {
 		tmpRemove = new ArrayList<>();
 		
 		for (int row = field.getRow() - 1, col = field.getCol() - 1; 
-				(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
+				(row > 1 && col > 1 && containsDisc(discsOpponent, row, col)); 
 				row--, col--) {
 			
 			tmpAdd.add(new Field(row, col, field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, row, col));
+			tmpRemove.add(getField(discsOpponent, row, col));
 			
-			if (containsDisc(fields, row-1, col-1)) {
+			if (containsDisc(discsPlayer, row-1, col-1)) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -154,15 +156,15 @@ public class Rules {
 		tmpRemove = new ArrayList<>();
 		
 		for (int row = field.getRow() + 1, col = field.getCol() - 1; 
-				(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
+				(row > 1 && col > 1 && containsDisc(discsOpponent, row, col)); 
 				row++, col--) {
 			
 			tmpAdd.add(new Field(row, col, field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, row, col));
+			tmpRemove.add(getField(discsOpponent, row, col));
 			
-			if (containsDisc(fields, row+1, col-1)) {
+			if (containsDisc(discsPlayer, row+1, col-1)) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -171,15 +173,15 @@ public class Rules {
 		tmpRemove = new ArrayList<>();
 		
 		for (int row = field.getRow() - 1, col = field.getCol() + 1; 
-				(row > 1 && col > 1 && containsDisc(fieldsAdv, row, col)); 
+				(row > 1 && col > 1 && containsDisc(discsOpponent, row, col)); 
 				row--, col++) {
 			
 			tmpAdd.add(new Field(row, col, field.getStatus()));
-			tmpRemove.add(getField(fieldsAdv, row, col));
+			tmpRemove.add(getField(discsOpponent, row, col));
 			
-			if (containsDisc(fields, row-1, col+1)) {
+			if (containsDisc(discsPlayer, row-1, col+1)) {
 				discs.addAll(tmpAdd);
-				fieldsAdv.removeAll(tmpRemove);
+				discsOpponent.removeAll(tmpRemove);
 				break;
 			}
 		}
@@ -187,8 +189,8 @@ public class Rules {
 		return discs;
 	}
 
-	public static ArrayList<Field> moveOptions(ArrayList<Field> fields, ArrayList<Field> fieldsAdv) {
-		ArrayList<Field> options = new ArrayList<>();
+	public static void setMoveOptions(ArrayList<Field> fields, ArrayList<Field> fieldsAdv) {
+		moveOptions = new ArrayList<>();
 		FieldStatus optionStatus;
 		
 		if (fields != null && fieldsAdv != null && fields.size() > 0 && fieldsAdv.size() > 0) {
@@ -197,7 +199,7 @@ public class Rules {
 				? FieldStatus.OPTION_WHITE
 				: FieldStatus.OPTION_BLACK;
 		} else {
-			return options;
+			return;
 		}
 
 		for (Field field : fields) {
@@ -209,7 +211,7 @@ public class Rules {
 					row++) {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, field.getCol())) {
-					options.add(new Field(row+1, field.getCol(), optionStatus));
+					moveOptions.add(new Field(row+1, field.getCol(), optionStatus));
 				}
 			}
 			
@@ -218,7 +220,7 @@ public class Rules {
 					row--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, field.getCol())) {
-					options.add(new Field(row-1, field.getCol(), optionStatus));
+					moveOptions.add(new Field(row-1, field.getCol(), optionStatus));
 				}
 			}
 			
@@ -229,7 +231,7 @@ public class Rules {
 					col++) {
 				
 				if (!containsDisc(fields, fieldsAdv, field.getRow(), col+1)) {
-					options.add(new Field(field.getRow(), col+1, optionStatus));
+					moveOptions.add(new Field(field.getRow(), col+1, optionStatus));
 				}
 			}
 			
@@ -238,7 +240,7 @@ public class Rules {
 					col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, field.getRow(), col-1)) {
-					options.add(new Field(field.getRow(), col-1, optionStatus));
+					moveOptions.add(new Field(field.getRow(), col-1, optionStatus));
 				}
 			}
 
@@ -249,7 +251,7 @@ public class Rules {
 					row++, col++) {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, col+1)) {
-					options.add(new Field(row+1, col+1, optionStatus));
+					moveOptions.add(new Field(row+1, col+1, optionStatus));
 				}
 			}
 			
@@ -258,7 +260,7 @@ public class Rules {
 					row--, col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col-1)) {
-					options.add(new Field(row-1, col-1, optionStatus));
+					moveOptions.add(new Field(row-1, col-1, optionStatus));
 				}
 			}
 			
@@ -267,7 +269,7 @@ public class Rules {
 					row++, col--) {
 				
 				if (!containsDisc(fields, fieldsAdv, row+1, col-1)) {
-					options.add(new Field(row+1, col-1, optionStatus));
+					moveOptions.add(new Field(row+1, col-1, optionStatus));
 				}
 			}
 			
@@ -276,11 +278,13 @@ public class Rules {
 					row--, col++) {
 				
 				if (!containsDisc(fields, fieldsAdv, row-1, col+1)) {
-					options.add(new Field(row-1, col+1, optionStatus));
+					moveOptions.add(new Field(row-1, col+1, optionStatus));
 				}
 			}
 		}
-			
-		return options;
+	}
+
+	public static ArrayList<Field> getMoveOptions() {
+		return moveOptions;
 	}
 }
