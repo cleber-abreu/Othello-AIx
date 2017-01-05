@@ -34,7 +34,7 @@
                 android:right="@dimen/nseparador_item_menu">
                 <shape>
                     <solid android:color="@android:color/transparent"/>
-                    <stroke android:color="#999" android:width="@dimen/separador_item_menu"/>
+                    <stroke android:color="@color/separador_item_menu" android:width="@dimen/separador_item_menu"/>
                 </shape>
             </item>
         </layer-list>

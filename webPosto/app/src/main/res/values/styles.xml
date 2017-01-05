@@ -8,15 +8,19 @@
         <item name="android:windowBackground">@color/qualityCor</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/qualityCor</item>
+    </style>
+
     <style name="WebPosto"/>
 
     <style name="WebPosto.TituloMenuPrincipal">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:layout_marginTop">24dp</item>
-        <item name="android:layout_marginLeft">24dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">@dimen/espacamento_grande</item>
+        <item name="android:layout_marginLeft">@dimen/espacamento_grande</item>
+        <item name="android:layout_marginBottom">@dimen/espacamento_mini</item>
     </style>
 
     <style name="WebPosto.ItemMenuPrincipal">
@@ -28,6 +32,61 @@
         <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
         <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
-        <!--<item name="android:drawableEnd">@android:drawable/ic_input_add</item>-->
+        <item name="android:drawableEnd">@drawable/seta_direita</item>
     </style>
+
+    <style name="WebPosto.BlocoInformacao">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/espacamento_normal</item>
+        <item name="android:paddingBottom">@dimen/espacamento_normal</item>
+        <item name="android:background">@color/bg_light</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">@dimen/espacamento_normal</item>
+        <item name="android:paddingRight">@dimen/espacamento_normal</item>
+    </style>
+
+    <style name="WebPosto.TextoBlocoInformacao">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/bg_light</item>
+        <item name="android:textColor">@color/fontColor_item_menu</item>
+        <item name="android:textSize">@dimen/fontSize_item_menu</item>
+    </style>
+
+    <style name="WebPosto.BlocoMenuChaveValor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/espacamento_pequeno</item>
+        <item name="android:paddingBottom">@dimen/espacamento_pequeno</item>
+        <item name="android:paddingLeft">@dimen/espacamento_normal</item>
+        <item name="android:paddingRight">@dimen/espacamento_normal</item>
+        <item name="android:background">@color/bg_light</item>
+    </style>
+
+    <style name="WebPosto.TextoMenuChaveValor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/fontSize_item_menu</item>
+        <item name="android:textColor">@color/fontColor_item_menu</item>
+    </style>
+
+    <style name="WebPosto.ChaveMenuChaveValor" parent="WebPosto.TextoMenuChaveValor">
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="WebPosto.ValorMenuChaveValor" parent="WebPosto.TextoMenuChaveValor">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="WebPosto.EspacoTopo">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">@dimen/espacamento_gigante</item>
+    </style>
+
+    <style name="WebPosto.EspacoEntreComponentes">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">@dimen/espacamento_normal</item>
+    </style>
+
 </resources>
