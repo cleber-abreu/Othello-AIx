@@ -37,12 +37,12 @@ public class VendasActivity extends Activity {
         dtIni = ((EditText) findViewById(R.id.dtInicioEditText));
         dtIni.setFocusable(false);
         dtIni.setText(UtilsInterface.setSevenDaysBefore());
-        UtilsInterface.setDateCalendario(VendasActivity.this, dtIni);
+        UtilsInterface.setDateCalendario(dtIni);
 
         dtFim = ((EditText) findViewById(R.id.dtFimEditText));
         dtFim.setFocusable(false);
         dtFim.setText(UtilsInterface.setDate());
-        UtilsInterface.setDateCalendario(VendasActivity.this, dtFim);
+        UtilsInterface.setDateCalendario(dtFim);
 
         buscar = ((ImageButton) findViewById(R.id.buscarButton));
         buscar.setOnClickListener(new View.OnClickListener() {

@@ -55,7 +55,9 @@ public class ContasPagarActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.conpag_btn_titulo)
-    public void onBtnTituloClick(View v){
-        startActivity(new Intent(this, FiltroActivity.class));
+    public void onClickBtnTitulo(View v){
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_TITULOS_PAGAR);
+        startActivity(intent);
     }
 }

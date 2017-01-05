@@ -131,8 +131,10 @@
             android:name=".notificacao.RegistrationIntentService"
             android:exported="false" />
 
-        <activity android:name=".view.FiltroActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.FiltroActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.TituloPagarActivity"></activity>
     </application>
 
 </manifest>

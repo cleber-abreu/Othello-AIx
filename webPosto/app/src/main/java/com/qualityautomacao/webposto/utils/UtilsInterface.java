@@ -1,8 +1,7 @@
 package com.qualityautomacao.webposto.utils;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -12,32 +11,56 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public abstract class UtilsInterface {
 
-    public static void setDateCalendario(final Context view, final EditText editText) {
+    public static void setDateCalendario(final EditText editText) {
 
-        editText.setOnClickListener(new View.OnClickListener() {
+        setDateCalendario(editText, new Supplier<String>() {
+            @Override
+            public String get() {
+                return editText.getText().toString();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                editText.setText(s);
+            }
+        });
+    }
+
+    public static void setDateCalendario(final View view, final Supplier<String> getter, final Consumer<String> setter) {
+
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int mYear = calendar.get(Calendar.YEAR);
-                int mMonth = calendar.get(Calendar.MONTH);
-                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                Calendar cal = Calendar.getInstance();
 
-                DatePickerDialog mDatePicker = new DatePickerDialog(view, new DatePickerDialog.OnDateSetListener() {
+                try {
+                    cal.setTime(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(getter.get()));
+                } catch (ParseException e) {
+                    Log.e("WEB_POSTO", "onClick: " + e.getMessage());
+                }
+
+                int mYear = cal.get(Calendar.YEAR);
+                int mMonth = cal.get(Calendar.MONTH);
+                int mDay = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog mDatePicker = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datePicker, int ano, int mes, int dia) {
                         Calendar data = new GregorianCalendar(ano, mes, dia);
-                        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-                        editText.setText(fmt.format(data.getTime()));
+                        try {
+                            setter.accept(new SimpleDateFormat("dd/MM/yyyy").format(data.getTime()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, mYear, mMonth, mDay);
 
-                mDatePicker.setTitle("Selecione uma data");
                 mDatePicker.show();
             }
         });
-
     }
 
     public static String setDate(){

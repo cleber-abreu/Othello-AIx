@@ -12,60 +12,70 @@
 
     <!-- FILTRO DE DATA -->
     <LinearLayout
+        android:id="@+id/fil_view_periodo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/espacamento_normal"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/fil_rel_datainicio"
             style="@style/WebPosto.BlocoMenuChaveValor">
             <TextView
                 style="@style/WebPosto.ChaveMenuChaveValor"
                 android:text="Data Inicio"/>
             <TextView
+                android:id="@+id/fil_txt_datainicio"
                 style="@style/WebPosto.ValorMenuChaveValor"
-                android:text="04/01/2017"/>
+                tools:text="01/01/2000"/>
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/fil_rel_datafim"
             style="@style/WebPosto.BlocoMenuChaveValor">
             <TextView
                 style="@style/WebPosto.ChaveMenuChaveValor"
                 android:text="Data Fim"/>
             <TextView
+                android:id="@+id/fil_txt_datafim"
                 style="@style/WebPosto.ValorMenuChaveValor"
-                android:text="04/02/2017"/>
+                tools:text="01/01/2000"/>
         </RelativeLayout>
 
     </LinearLayout>
 
     <RadioGroup
+        android:id="@+id/fil_rdg_estado_conta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/espacamento_normal"
         android:paddingRight="@dimen/espacamento_normal"
         android:layout_marginBottom="@dimen/espacamento_normal"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/fil_tbt_aberto"
+            android:id="@+id/fil_rdb_aberto"
             style="@style/WebPosto.Segmento.Esquerda"
             android:checked="true"
             android:text="Aberto" />
 
         <RadioButton
-            android:id="@+id/fil_tbt_parcial"
+            android:id="@+id/fil_rdb_parcial"
             style="@style/WebPosto.Segmento.Centro"
             android:text="Parcial" />
 
         <RadioButton
-            android:id="@+id/fil_tbt_pago"
+            android:id="@+id/fil_rdb_pago"
             style="@style/WebPosto.Segmento.Direita"
             android:text="Pago"/>
 
     </RadioGroup>
 
-    <Button style="@style/WebPosto.ItemMenuPrincipal"
+    <Button
+        android:id="@+id/fil_btn_consultar"
+        style="@style/WebPosto.ItemMenuPrincipal"
         android:text="Consultar"/>
 
 </LinearLayout>
