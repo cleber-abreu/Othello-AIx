@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.qualityautomacao.webposto" >
+    package="com.qualityautomacao.webposto">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -13,15 +13,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/icone_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
-        </activity>
+        android:theme="@style/AppTheme">
         <activity
             android:name=".view.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +26,7 @@
         <activity
             android:name=".view.FilialActivity"
             android:label="@string/title_activity_filial"
-            android:parentActivityName=".view.LoginActivity" >
+            android:parentActivityName=".view.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.LoginActivity" />
@@ -39,31 +34,21 @@
         <activity
             android:name=".view.MainActivity"
             android:label="@string/title_activity_main"
-            android:parentActivityName=".view.LoginActivity" >
+            android:parentActivityName=".view.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.LoginActivity" />
         </activity>
         <activity
             android:name=".view.ContasPagarActivity"
-            android:label="@string/title_activity_contas_pagar"
-            android:parentActivityName=".view.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.qualityautomacao.webposto.view.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ContasReceberActivity"
-            android:label="@string/title_activity_contas_receber"
-            android:parentActivityName=".view.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.qualityautomacao.webposto.view.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.VendasActivity"
             android:label="@string/title_activity_vendas"
-            android:parentActivityName=".view.MainActivity" >
+            android:parentActivityName=".view.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.MainActivity" />
@@ -71,7 +56,7 @@
         <activity
             android:name=".view.TanquesActivity"
             android:label="@string/title_activity_tanques"
-            android:parentActivityName=".view.MainActivity" >
+            android:parentActivityName=".view.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.MainActivity" />
@@ -87,9 +72,9 @@
         </activity>
         <activity
             android:name=".view.ProjecaoAbastecimentoActivity"
-            android:screenOrientation="landscape"
             android:label="@string/title_activity_projecao_abastecimento"
-            android:parentActivityName=".view.MainActivity" >
+            android:parentActivityName=".view.MainActivity"
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.MainActivity" />
@@ -97,7 +82,7 @@
         <activity
             android:name=".view.NotificacoesActivity"
             android:label="@string/title_activity_notificacoes"
-            android:parentActivityName=".view.MainActivity" >
+            android:parentActivityName=".view.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.MainActivity" />
@@ -105,7 +90,7 @@
         <activity
             android:name=".view.TrocaPrecoEnviarActivity"
             android:label="@string/title_activity_troca_preco_enviar"
-            android:parentActivityName=".view.TrocaPrecoActivity" >
+            android:parentActivityName=".view.TrocaPrecoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.TrocaPrecoActivity" />
@@ -114,18 +99,20 @@
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="gcm.play.android.samples.com.gcmquickstart" />
             </intent-filter>
         </receiver>
         <!-- [END gcm_receiver] -->
 
+
         <!-- [START gcm_listener] -->
         <service
-            android:name="com.qualityautomacao.webposto.notificacao.ListenerService"
-            android:exported="false" >
+            android:name=".notificacao.ListenerService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -133,17 +120,19 @@
         <!-- [END gcm_listener] -->
         <!-- [START instanceId_listener] -->
         <service
-            android:name="com.qualityautomacao.webposto.notificacao.IDListenerService"
+            android:name=".notificacao.IDListenerService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <!-- [END instanceId_listener] -->
         <service
-            android:name="com.qualityautomacao.webposto.notificacao.RegistrationIntentService"
-            android:exported="false">
-        </service>
+            android:name=".notificacao.RegistrationIntentService"
+            android:exported="false" />
+
+        <activity android:name=".view.FiltroActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

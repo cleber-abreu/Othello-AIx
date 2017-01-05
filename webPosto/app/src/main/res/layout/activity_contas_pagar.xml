@@ -1,12 +1,48 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:orientation="vertical"
     tools:context="com.qualityautomacao.webposto.view.ContasPagarActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="@dimen/espacamento_gigante"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/conpag_btn_titulo"
+        style="@style/WebPosto.ItemMenuPrincipal"
+        android:text="Titulo"
+        android:drawableLeft="@drawable/contas_receber"/>
+
+    <Button
+        style="@style/WebPosto.ItemMenuPrincipal"
+        android:text="Cheque"
+        android:drawableLeft="@drawable/troca_de_preco"/>
+
+    <TextView style="@style/WebPosto.TituloMenuPrincipal"
+        android:text="Total Geral"/>
+
+    <LinearLayout style="@style/WebPosto.BlocoInformacao">
+
+        <TextView
+            android:id="@+id/conpag_txt_diario"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="A Pagar Dia: R$ 0,00"/>
+
+        <TextView
+            android:id="@+id/conpag_txt_cinco"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="Em Cinco Dias: R$ 0,00"/>
+
+        <TextView
+            android:id="@+id/conpag_txt_quinze"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="Em Quinze Dias: R$ 0,00"/>
+
+        <TextView
+            android:id="@+id/conpag_txt_trinta"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="Em Trinta Dias: R$ 0,00"/>
+    </LinearLayout>
+</LinearLayout>
