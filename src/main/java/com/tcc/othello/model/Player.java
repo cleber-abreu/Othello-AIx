@@ -10,16 +10,15 @@ public abstract class Player {
 	private FieldStatus colorDisc;
 	private ArrayList<Field> discs;
 	
-	public Player() {
-		discs = new ArrayList<Field>();
-	}
+	public abstract void play(ArrayList<Field> moveOptions);
+	public abstract boolean is(Players type);
+	public abstract Players getType();
 	
 	public Player(FieldStatus colorDisc) {
 		this.colorDisc = colorDisc;
 		discs = new ArrayList<Field>();
 	}
 	
-	public abstract void play(ArrayList<Field> moveOptions);
 
 	public FieldStatus getColorDisc() {
 		return colorDisc;
@@ -43,8 +42,4 @@ public abstract class Player {
 		this.discs.add(field);
 		this.discs.addAll(Rules.changeDiscs(field, this.getDiscs(), MainWindow.getGame().getOpponentPlayer().getDiscs()));
 	}
-	
-	public abstract boolean is(Players type);
-	public abstract Players getType();
-
 }

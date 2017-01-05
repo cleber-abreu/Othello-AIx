@@ -74,7 +74,6 @@ public class JDisc extends JPanel {
 					player.addDisc(row, col);
 					MainWindow.getGame().changeTurn();
 					System.out.println("RETORNA AO LOOP "+row+","+col);
-					MainWindow.getGame().run();
 					System.out.println(row+","+col);
 				}
 			});

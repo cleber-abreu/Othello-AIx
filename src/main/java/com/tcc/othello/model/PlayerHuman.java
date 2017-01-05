@@ -6,15 +6,14 @@ import com.tcc.othello.gui.Gameboard;
 
 public class PlayerHuman extends Player {
 
-	public PlayerHuman() {
-		super();
-	}
+	private Gameboard gameboard;
 	
-	public PlayerHuman(FieldStatus colorDisc) {
+	public PlayerHuman(FieldStatus colorDisc, Gameboard gameboard) {
 		super(colorDisc);
+		this.gameboard = gameboard;
 	}
 	
-	private void enableOnClickAtDiscs(ArrayList<Field> fields, Gameboard gameboard) {
+	private void enableOnClickAtDiscs(ArrayList<Field> fields) {
 		
 		if (fields != null) {
 			for (Field field : fields) {
@@ -24,21 +23,13 @@ public class PlayerHuman extends Player {
 						.getDisc().repaint();
 			}
 		}
-//		synchronized (onClick) {
-//			try {
-//				onClick.wait();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-	}
-	
-	public void play(ArrayList<Field> moveOptions, Gameboard gameboard) {
-		enableOnClickAtDiscs(moveOptions, gameboard);
 	}
 	
 	@Override
-	public void play(ArrayList<Field> moveOptions) {}
+	public void play(ArrayList<Field> moveOptions) {
+		enableOnClickAtDiscs(moveOptions);
+	}
+	
 
 	@Override
 	public boolean is(Players type) {

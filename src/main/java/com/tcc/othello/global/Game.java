@@ -32,54 +32,30 @@ public class Game {
 	}
 	
 	public void run() {
-		while (true) {
 			
-			Rules.setMoveOptions(getPlayerInAction().getDiscs(), getOpponentPlayer().getDiscs());
+		Rules.setMoveOptions(getPlayerInAction().getDiscs(), getOpponentPlayer().getDiscs());
 			
-			if (Rules.getMoveOptions().size() > 0) {
-				MainWindow.getGameboard().drawMoveOptions(Rules.getMoveOptions());
-				playCount++;
-				System.out.println("Jogada "+playCount+" jogador "+playerInAction);
-				
-				if (getPlayerInAction().is(Players.HUMAN)) {
-					((PlayerHuman) getPlayerInAction()).play(Rules.getMoveOptions(), MainWindow.getGameboard());
-//					suspended = true;
-//					synchronized (threadGame) {
-//						while (suspended) {
-//							System.out.println("ESPERANDO");
-//							try {
-//								threadGame.wait();
-//								System.out.println(System.currentTimeMillis());
-//							} catch (InterruptedException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//							System.out.println("CLICOU!!");
-//						}
-//					}
-					break;
-				} else { 
-					//Thread.sleep(3000);
-					getPlayerInAction().play(Rules.getMoveOptions());
-				}
-				changeTurn();
-				
-				System.out.println("Placar "+player[0].getDiscs().size()+" x "+player[1].getDiscs().size());
-			}
-			else {
-				Rules.setMoveOptions(getOpponentPlayer().getDiscs(), getPlayerInAction().getDiscs());
-				if (Rules.getMoveOptions().size() > 0) {
-//					JOptionPane.showMessageDialog(null, "Não há jogadas possiveis", "Passou a vez", JOptionPane.PLAIN_MESSAGE);
-					System.out.println("Passou a vez");
-					changeTurn();
-				} else {
-					JOptionPane.showMessageDialog(null, getWinningPlayer() + " venceu!");
-					MainWindow.getDataPanel().enableSelectionPlayer(true);
-					break;
-				}
-			}
+		if (Rules.getMoveOptions().size() > 0) {
+			MainWindow.getGameboard().drawMoveOptions(Rules.getMoveOptions());
+			playCount++;
+			System.out.println("Jogada "+playCount+" jogador "+playerInAction);
 			
+			getPlayerInAction().play(Rules.getMoveOptions());
+			
+			System.out.println("Placar "+player[0].getDiscs().size()+" x "+player[1].getDiscs().size());
 		}
+		else {
+			Rules.setMoveOptions(getOpponentPlayer().getDiscs(), getPlayerInAction().getDiscs());
+			if (Rules.getMoveOptions().size() > 0) {
+//					JOptionPane.showMessageDialog(null, "Nï¿½o hï¿½ jogadas possiveis", "Passou a vez", JOptionPane.PLAIN_MESSAGE);
+				System.out.println("Passou a vez");
+				getPlayerInAction().play(Rules.getMoveOptions());
+			} else {
+				JOptionPane.showMessageDialog(null, getWinningPlayer() + " venceu!");
+				MainWindow.getDataPanel().enableSelectionPlayer(true);
+			}
+		}
+			
 		
 	}
 	
@@ -96,6 +72,7 @@ public class Game {
 		MainWindow.getGameboard().drawDiscs(getPlayerInAction().getDiscs());
 		MainWindow.getGameboard().drawDiscs(getOpponentPlayer().getDiscs());
 		alterPlayerInAction();
+		MainWindow.getGame().run();
 	}
 	
 	private static void setPlayers() {
@@ -115,7 +92,7 @@ public class Game {
 		case RANDOM:
 			return new PlayerRandom(colorDisc);
 		default:
-			return new PlayerHuman(colorDisc);
+			return new PlayerHuman(colorDisc, MainWindow.getGameboard());
 		}
 	}
 		

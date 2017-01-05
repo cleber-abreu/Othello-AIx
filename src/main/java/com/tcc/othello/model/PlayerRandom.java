@@ -3,12 +3,9 @@ package com.tcc.othello.model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.tcc.othello.gui.MainWindow;
+
 public class PlayerRandom extends Player {
-	
-	public PlayerRandom() {
-		super();
-	}
-	
 	public PlayerRandom(FieldStatus colorDisc) {
 		super(colorDisc);
 	}
@@ -18,6 +15,7 @@ public class PlayerRandom extends Player {
 		Random id = new Random();
 		Field field = moveOptions.get(id.nextInt(moveOptions.size()));
 		addDisc(field.getRow(), field.getCol());
+		MainWindow.getGame().changeTurn();
 	}
 
 	@Override

@@ -3,23 +3,12 @@ package com.tcc.othello.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.tcc.othello.dao.DB;
-import com.tcc.othello.dao.TestDAO;
 import com.tcc.othello.global.Game;
-import com.tcc.othello.global.Rules;
-import com.tcc.othello.model.FieldStatus;
-import com.tcc.othello.model.Player;
-import com.tcc.othello.model.PlayerHuman;
-import com.tcc.othello.model.PlayerRandom;
-import com.tcc.othello.model.Players;
-import com.tcc.othello.model.Test;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
