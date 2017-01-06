@@ -1,5 +1,7 @@
 package com.qualityautomacao.webposto.utils;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -26,5 +28,15 @@ public abstract class UtilsDate {
         Calendar calendario = Calendar.getInstance();
         calendario.add(Calendar.MONTH, incrementoMes);
         return new SimpleDateFormat(formato).format(calendario.getTime());
+    }
+
+    public static boolean intervaloValido(String dataInicio, String dataFim, String formato){
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            return !sdf.parse(dataFim).before(sdf.parse(dataInicio));
+        }catch (Exception e){
+            Log.e("WEB_POSTO_LOG", "intervaloValido: " + e.getMessage());
+            return false;
+        }
     }
 }

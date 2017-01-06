@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/espacamento_normal"
         android:visibility="gone"
+        tools:visibility="visible"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -51,8 +52,9 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/espacamento_normal"
         android:paddingRight="@dimen/espacamento_normal"
-        android:layout_marginBottom="@dimen/espacamento_normal"
         android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginBottom="@dimen/espacamento_normal"
         android:orientation="horizontal">
 
         <RadioButton

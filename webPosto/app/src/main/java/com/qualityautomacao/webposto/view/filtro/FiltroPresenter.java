@@ -1,10 +1,12 @@
 package com.qualityautomacao.webposto.view.filtro;
 
+import com.qualityautomacao.webposto.model.DadosFiltro;
+
 /**
  * Created by wiliam on 05/01/17.
  */
 
 public interface FiltroPresenter {
-    public void carregaComponentes();
-    public void consulta();
+    void carregaComponentes();
+    void consulta(DadosFiltro dados);
 }

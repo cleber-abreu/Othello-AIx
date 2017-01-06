@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;
+import com.qualityautomacao.webposto.model.DadosFiltro;
 import com.qualityautomacao.webposto.utils.Supplier;
 import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.UtilsDate;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
 
 public class FiltroActivity extends AppCompatActivity {
 
-    /* COMPONENTE */
+    /* COMPONENTES */
     @BindView(R.id.fil_view_periodo) View viewPediodo;
     @BindView(R.id.fil_rdg_estado_conta) RadioGroup rdgEstadoConta;
     @BindView(R.id.fil_rel_datainicio) RelativeLayout relDataInicio;
@@ -46,6 +47,25 @@ public class FiltroActivity extends AppCompatActivity {
         }
 
         filtroImp.carregaComponentes();
+    }
+
+    @OnClick(R.id.fil_btn_consultar)
+    public void onClickBtnConsultar(View view){
+        DadosFiltro dados = new DadosFiltro();
+        dados.setDataInicio(txtDataInicio.getText().toString());
+        dados.setDataFim(txtDataFim.getText().toString());
+        dados.setEstadoConta(getEstadoConta());
+
+        filtroImp.consulta(dados);
+    }
+
+    private String getEstadoConta() {
+        switch (rdgEstadoConta.getCheckedRadioButtonId()){
+            case R.id.fil_rdb_aberto: return "N";
+            case R.id.fil_rdb_parcial: return "P";
+            case R.id.fil_rdb_pago: return "S";
+            default: return "";
+        }
     }
 
     public void initDatePicker(String dataInicio, String dataFim) {
@@ -83,8 +103,4 @@ public class FiltroActivity extends AppCompatActivity {
         rdgEstadoConta.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.fil_btn_consultar)
-    public void onClickBtnConsultar(View view){
-        filtroImp.consulta();
-    }
 }
