@@ -10,8 +10,8 @@ import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsDate;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
+import com.qualityautomacao.webposto.view.ChequePagarActivity;
 import com.qualityautomacao.webposto.view.FiltroActivity;
-import com.qualityautomacao.webposto.view.TituloPagarActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,13 +20,13 @@ import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_PROGRESS_DIAL
 import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_TOAST_ON_EXCEPTION;
 
 /**
- * Created by wiliam on 05/01/17.
+ * Created by wiliam on 06/01/17.
  */
-public class FiltroPagarTitulo implements FiltroPresenter {
+public class FiltroPagarCheque implements FiltroPresenter {
 
     private FiltroActivity activity;
 
-    public FiltroPagarTitulo(FiltroActivity activity){
+    public FiltroPagarCheque(FiltroActivity activity){
         this.activity = activity;
     }
 
@@ -35,7 +35,7 @@ public class FiltroPagarTitulo implements FiltroPresenter {
         activity.initDatePicker(
                 UtilsDate.getHoje(UtilsDate.dd_MM_yyyy),
                 UtilsDate.getDataIncMes(UtilsDate.dd_MM_yyyy, 1));
-        activity.initEstadoConta();
+        activity.initEstadoContaAP();
     }
 
     @Override
@@ -45,24 +45,24 @@ public class FiltroPagarTitulo implements FiltroPresenter {
             try {
                 requestParams.put("DATA_INI", dados.getDataInicio());
                 requestParams.put("DATA_FIM", dados.getDataFim());
-                requestParams.put("TPG_FL_PAGO", dados.getEstadoConta());
+                requestParams.put("CHP_FL_PAGO", dados.getEstadoContaAP());
 
             } catch (JSONException e) {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
 
             UtilsWeb.requisitar(
-                    new Request(activity, "DETALHE_TITULO_PAGAR")
-                    .setDados(requestParams.toString())
-                    .setFlags(UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION)
-                    .onCompleteRequest(new Consumer<JSONObject>() {
-                        @Override
-                        public void accept(JSONObject jsonObject) throws Exception {
-                            Intent intent = new Intent(activity, TituloPagarActivity.class);
-                            intent.putExtra(Constantes.EXTRA_TITULO_PAGAR, jsonObject.toString());
-                            activity.startActivity(intent);
-                        }
-                    })
+                new Request(activity, "DETALHE_CHEQUE_PAGAR")
+                        .setDados(requestParams.toString())
+                        .setFlags(UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION)
+                        .onCompleteRequest(new Consumer<JSONObject>() {
+                            @Override
+                            public void accept(JSONObject jsonObject) throws Exception {
+                                Intent intent = new Intent(activity, ChequePagarActivity.class);
+                                intent.putExtra(Constantes.EXTRA_CHEQUE_PAGAR, jsonObject.toString());
+                                activity.startActivity(intent);
+                            }
+                        })
             );
         }else{
             Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO

@@ -48,14 +48,9 @@
 
     <RadioGroup
         android:id="@+id/fil_rdg_estado_conta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/espacamento_normal"
-        android:paddingRight="@dimen/espacamento_normal"
+        style="@style/WebPosto.SegmentoGroup"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_marginBottom="@dimen/espacamento_normal"
-        android:orientation="horizontal">
+        tools:visibility="visible">
 
         <RadioButton
             android:id="@+id/fil_rdb_aberto"
@@ -75,9 +70,26 @@
 
     </RadioGroup>
 
+    <RadioGroup
+        android:id="@+id/fil_rdg_estado_conta_ap"
+        style="@style/WebPosto.SegmentoGroup"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <RadioButton
+            android:id="@+id/fil_rdb_aberto_ap"
+            style="@style/WebPosto.Segmento.Esquerda"
+            android:checked="true"
+            android:text="Aberto" />
+
+        <RadioButton
+            android:id="@+id/fil_rdb_pago_ap"
+            style="@style/WebPosto.Segmento.Direita"
+            android:text="Pago"/>
+    </RadioGroup>
+
     <Button
         android:id="@+id/fil_btn_consultar"
         style="@style/WebPosto.ItemMenuPrincipal"
         android:text="Consultar"/>
-
 </LinearLayout>

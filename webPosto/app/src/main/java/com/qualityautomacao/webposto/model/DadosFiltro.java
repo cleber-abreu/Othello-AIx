@@ -8,6 +8,7 @@ public class DadosFiltro {
     private String dataInicio;
     private String dataFim;
     private String estadoConta;
+    private String estadoContaAP;
 
     public String getDataInicio() {
         return dataInicio;
@@ -31,5 +32,13 @@ public class DadosFiltro {
 
     public void setEstadoConta(String estadoConta) {
         this.estadoConta = estadoConta;
+    }
+
+    public String getEstadoContaAP() {
+        return estadoContaAP;
+    }
+
+    public void setEstadoContaAP(String estadoContaAP) {
+        this.estadoContaAP = estadoContaAP;
     }
 }

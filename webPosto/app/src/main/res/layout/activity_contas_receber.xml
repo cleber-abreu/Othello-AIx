@@ -1,12 +1,59 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:orientation="vertical"
     tools:context="com.qualityautomacao.webposto.view.ContasReceberActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--TODO Trocar icons Textos por recursos -->
+    <View style="@style/WebPosto.EspacoTopo" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/conrec_btn_titulo"
+        style="@style/WebPosto.ItemMenuPrincipal"
+        android:text="Titulo"
+        android:drawableLeft="@drawable/contas_receber"/>
+
+    <Button
+        android:id="@+id/conrec_btn_cheque"
+        style="@style/WebPosto.ItemMenuPrincipal"
+        android:text="Cheque"
+        android:drawableLeft="@drawable/tanques"/>
+
+    <Button
+        android:id="@+id/conrec_btn_carta_frete"
+        style="@style/WebPosto.ItemMenuPrincipal"
+        android:text="Carta Frete"
+        android:drawableLeft="@drawable/notificacoes"/>
+
+    <Button
+        android:id="@+id/conrec_btn_cartao"
+        style="@style/WebPosto.ItemMenuPrincipal"
+        android:text="Cartão"
+        android:drawableLeft="@drawable/contas_pagar"/>
+
+    <TextView style="@style/WebPosto.TituloMenuPrincipal"
+        android:text="Total Geral"/>
+
+    <LinearLayout style="@style/WebPosto.BlocoInformacao">
+        <TextView
+            android:id="@+id/conrec_txt_diario"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="A Receber Dia: R$ 0,00"/>
+
+        <TextView
+            android:id="@+id/conrec_txt_cinco"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="Em Cinco Dias: R$ 0,00"/>
+
+        <TextView
+            android:id="@+id/conrec_txt_quinze"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="Em Quinze Dias: R$ 0,00"/>
+
+        <TextView
+            android:id="@+id/conrec_txt_trinta"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="Em Trinta Dias: R$ 0,00"/>
+    </LinearLayout>
+</LinearLayout>

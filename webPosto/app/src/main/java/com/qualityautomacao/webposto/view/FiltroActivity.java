@@ -13,6 +13,7 @@ import com.qualityautomacao.webposto.utils.Supplier;
 import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.UtilsDate;
 import com.qualityautomacao.webposto.utils.UtilsInterface;
+import com.qualityautomacao.webposto.view.filtro.FiltroPagarCheque;
 import com.qualityautomacao.webposto.view.filtro.FiltroPagarTitulo;
 import com.qualityautomacao.webposto.view.filtro.FiltroPresenter;
 
@@ -25,6 +26,7 @@ public class FiltroActivity extends AppCompatActivity {
     /* COMPONENTES */
     @BindView(R.id.fil_view_periodo) View viewPediodo;
     @BindView(R.id.fil_rdg_estado_conta) RadioGroup rdgEstadoConta;
+    @BindView(R.id.fil_rdg_estado_conta_ap) RadioGroup rdgEstadoContaAP;
     @BindView(R.id.fil_rel_datainicio) RelativeLayout relDataInicio;
     @BindView(R.id.fil_rel_datafim) RelativeLayout relDataFim;
     @BindView(R.id.fil_txt_datainicio) TextView txtDataInicio;
@@ -33,6 +35,7 @@ public class FiltroActivity extends AppCompatActivity {
     /* CONSTANTES */
     public static final String EXTRA_DESTINO = "DESTINO";
     public static final int DESTINO_TITULOS_PAGAR = 1;
+    public static final int DESTINO_CHEQUE_PAGAR = 2;
 
     private FiltroPresenter filtroImp;
 
@@ -44,6 +47,7 @@ public class FiltroActivity extends AppCompatActivity {
 
         switch (getIntent().getIntExtra(EXTRA_DESTINO, 0)){
             case DESTINO_TITULOS_PAGAR: filtroImp = new FiltroPagarTitulo(this); break;
+            case DESTINO_CHEQUE_PAGAR: filtroImp = new FiltroPagarCheque(this); break;
         }
 
         filtroImp.carregaComponentes();
@@ -55,6 +59,7 @@ public class FiltroActivity extends AppCompatActivity {
         dados.setDataInicio(txtDataInicio.getText().toString());
         dados.setDataFim(txtDataFim.getText().toString());
         dados.setEstadoConta(getEstadoConta());
+        dados.setEstadoContaAP(getEstadoContaAP());
 
         filtroImp.consulta(dados);
     }
@@ -64,6 +69,14 @@ public class FiltroActivity extends AppCompatActivity {
             case R.id.fil_rdb_aberto: return "N";
             case R.id.fil_rdb_parcial: return "P";
             case R.id.fil_rdb_pago: return "S";
+            default: return "";
+        }
+    }
+
+    private String getEstadoContaAP(){
+        switch (rdgEstadoContaAP.getCheckedRadioButtonId()){
+            case R.id.fil_rdb_aberto_ap: return "N";
+            case R.id.fil_rdb_pago_ap: return "S";
             default: return "";
         }
     }
@@ -103,4 +116,7 @@ public class FiltroActivity extends AppCompatActivity {
         rdgEstadoConta.setVisibility(View.VISIBLE);
     }
 
+    public void initEstadoContaAP(){
+        rdgEstadoContaAP.setVisibility(View.VISIBLE);
+    }
 }

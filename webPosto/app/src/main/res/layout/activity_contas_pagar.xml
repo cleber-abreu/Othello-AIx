@@ -5,9 +5,8 @@
     android:orientation="vertical"
     tools:context="com.qualityautomacao.webposto.view.ContasPagarActivity">
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="@dimen/espacamento_gigante"/>
+    <!--TODO Trocar icons Textos por recursos -->
+    <View style="@style/WebPosto.EspacoTopo" />
 
     <Button
         android:id="@+id/conpag_btn_titulo"
@@ -16,6 +15,7 @@
         android:drawableLeft="@drawable/contas_receber"/>
 
     <Button
+        android:id="@+id/conpag_btn_cheque"
         style="@style/WebPosto.ItemMenuPrincipal"
         android:text="Cheque"
         android:drawableLeft="@drawable/troca_de_preco"/>

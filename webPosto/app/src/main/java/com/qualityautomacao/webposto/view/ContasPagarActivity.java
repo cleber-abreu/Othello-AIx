@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_PROGRESS_DIALOG;
+import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_TOAST_ON_EXCEPTION;
 
 public class ContasPagarActivity extends AppCompatActivity {
 
@@ -31,14 +32,9 @@ public class ContasPagarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contas_pagar);
         ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         UtilsWeb.requisitar(new Request(this, "RODAPE_CONTAS_A_PAGAR")
-                .setFlags(UW_SHOW_PROGRESS_DIALOG)
+                .setFlags(UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION)
                 .onCompleteRequest(new Consumer<JSONObject>() {
                     @Override
                     public void accept(JSONObject jsonObject) throws Exception {
@@ -54,10 +50,24 @@ public class ContasPagarActivity extends AppCompatActivity {
                 }));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     @OnClick(R.id.conpag_btn_titulo)
     public void onClickBtnTitulo(View v){
         Intent intent = new Intent(this, FiltroActivity.class);
         intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_TITULOS_PAGAR);
         startActivity(intent);
     }
+
+    @OnClick(R.id.conpag_btn_cheque)
+    public void onClickBtnCheque(View v){
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_CHEQUE_PAGAR);
+        startActivity(intent);
+    }
+
+
 }

@@ -180,7 +180,7 @@ public abstract class UtilsWeb {
 
     private static String ip() {
 
-        if(BuildConfig.DEBUG) return IP_LOCAL;
+//        if(BuildConfig.DEBUG) return IP_LOCAL;
 
         JSONObject json = null;
         try {

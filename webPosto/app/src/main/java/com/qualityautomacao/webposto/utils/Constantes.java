@@ -6,4 +6,5 @@ package com.qualityautomacao.webposto.utils;
 
 public abstract class Constantes {
     public static final String EXTRA_TITULO_PAGAR = "titulo_pagar";
+    public static final String EXTRA_CHEQUE_PAGAR = "cheque_pagar";
 }
