@@ -7,13 +7,13 @@ import android.util.Log;
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Constantes;
 
-public class TituloPagarActivity extends AppCompatActivity {
+public class PagarTituloActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_titulo_pagar);
+        setContentView(R.layout.activity_pagar_titulo);
 
-        Log.i("WEB_POSTO_LOG", "onCreate: " + getIntent().getStringExtra(Constantes.EXTRA_TITULO_PAGAR));
+        Log.i("WEB_POSTO_LOG", "onCreate: " + getIntent().getStringExtra(Constantes.EXTRA_DADO));
     }
 }

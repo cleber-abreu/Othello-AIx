@@ -58,14 +58,14 @@ public class ContasPagarActivity extends AppCompatActivity {
     @OnClick(R.id.conpag_btn_titulo)
     public void onClickBtnTitulo(View v){
         Intent intent = new Intent(this, FiltroActivity.class);
-        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_TITULOS_PAGAR);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_PAGAR_TITULOS);
         startActivity(intent);
     }
 
     @OnClick(R.id.conpag_btn_cheque)
     public void onClickBtnCheque(View v){
         Intent intent = new Intent(this, FiltroActivity.class);
-        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_CHEQUE_PAGAR);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_PAGAR_CHEQUE);
         startActivity(intent);
     }
 

@@ -10,7 +10,7 @@ import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsDate;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
-import com.qualityautomacao.webposto.view.ChequePagarActivity;
+import com.qualityautomacao.webposto.view.PagarChequeActivity;
 import com.qualityautomacao.webposto.view.FiltroActivity;
 
 import org.json.JSONException;
@@ -58,8 +58,8 @@ public class FiltroPagarCheque implements FiltroPresenter {
                         .onCompleteRequest(new Consumer<JSONObject>() {
                             @Override
                             public void accept(JSONObject jsonObject) throws Exception {
-                                Intent intent = new Intent(activity, ChequePagarActivity.class);
-                                intent.putExtra(Constantes.EXTRA_CHEQUE_PAGAR, jsonObject.toString());
+                                Intent intent = new Intent(activity, PagarChequeActivity.class);
+                                intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
                                 activity.startActivity(intent);
                             }
                         })

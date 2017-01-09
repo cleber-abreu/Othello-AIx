@@ -43,12 +43,12 @@ public class FiltroActivity extends AppCompatActivity {
 
     /* CONSTANTES */
     public static final String EXTRA_DESTINO = "DESTINO";
-    public static final int DESTINO_TITULOS_PAGAR = 1;
-    public static final int DESTINO_CHEQUE_PAGAR = 2;
-    public static final int DESTINO_TITULO_RECEBER = 3;
-    public static final int DESTINO_CHEQUE_RECEBER = 4;
-    public static final int DESTINO_CARTA_FRETE_RECEBER = 5;
-    public static final int DESTINO_CARTAO_RECEBER = 6;
+    public static final int DESTINO_PAGAR_TITULOS = 1;
+    public static final int DESTINO_PAGAR_CHEQUE = 2;
+    public static final int DESTINO_RECEBER_TITULO = 3;
+    public static final int DESTINO_RECEBER_CHEQUE = 4;
+    public static final int DESTINO_RECEBER_CARTA_FRETE = 5;
+    public static final int DESTINO_RECEBER_CARTAO = 6;
 
     private FiltroPresenter filtroImp;
 
@@ -59,12 +59,12 @@ public class FiltroActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         switch (getIntent().getIntExtra(EXTRA_DESTINO, 0)){
-            case DESTINO_TITULOS_PAGAR: filtroImp = new FiltroPagarTitulo(this); break;
-            case DESTINO_CHEQUE_PAGAR: filtroImp = new FiltroPagarCheque(this); break;
-            case DESTINO_TITULO_RECEBER: filtroImp = new FiltroReceberTitulo(this); break;
-            case DESTINO_CHEQUE_RECEBER: filtroImp = new FiltroReceberCheque(this); break;
-            case DESTINO_CARTA_FRETE_RECEBER: filtroImp = new FiltroReceberCartaFrete(this); break;
-            case DESTINO_CARTAO_RECEBER: filtroImp = new FiltroReceberCartao(this); break;
+            case DESTINO_PAGAR_TITULOS: filtroImp = new FiltroPagarTitulo(this); break;
+            case DESTINO_PAGAR_CHEQUE: filtroImp = new FiltroPagarCheque(this); break;
+            case DESTINO_RECEBER_TITULO: filtroImp = new FiltroReceberTitulo(this); break;
+            case DESTINO_RECEBER_CHEQUE: filtroImp = new FiltroReceberCheque(this); break;
+            case DESTINO_RECEBER_CARTA_FRETE: filtroImp = new FiltroReceberCartaFrete(this); break;
+            case DESTINO_RECEBER_CARTAO: filtroImp = new FiltroReceberCartao(this); break;
         }
 
         filtroImp.carregaComponentes();

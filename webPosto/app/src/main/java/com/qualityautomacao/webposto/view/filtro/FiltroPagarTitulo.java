@@ -11,7 +11,7 @@ import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsDate;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 import com.qualityautomacao.webposto.view.FiltroActivity;
-import com.qualityautomacao.webposto.view.TituloPagarActivity;
+import com.qualityautomacao.webposto.view.PagarTituloActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,8 +58,8 @@ public class FiltroPagarTitulo implements FiltroPresenter {
                     .onCompleteRequest(new Consumer<JSONObject>() {
                         @Override
                         public void accept(JSONObject jsonObject) throws Exception {
-                            Intent intent = new Intent(activity, TituloPagarActivity.class);
-                            intent.putExtra(Constantes.EXTRA_TITULO_PAGAR, jsonObject.toString());
+                            Intent intent = new Intent(activity, PagarTituloActivity.class);
+                            intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
                             activity.startActivity(intent);
                         }
                     })

@@ -1,6 +1,7 @@
 package com.qualityautomacao.webposto.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -51,21 +52,29 @@ public class ContasReceberActivity extends Activity {
 
     @OnClick(R.id.conrec_btn_titulo)
     public void onClickBtnTitulo(View v){
-
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_RECEBER_TITULO);
+        startActivity(intent);
     }
 
     @OnClick(R.id.conrec_btn_cheque)
     public void onClickBtnCheque(View v){
-
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_RECEBER_CHEQUE);
+        startActivity(intent);
     }
 
     @OnClick(R.id.conrec_btn_carta_frete)
     public void onClickBtnCartaFrete(View v){
-
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_RECEBER_CARTA_FRETE);
+        startActivity(intent);
     }
 
     @OnClick(R.id.conrec_btn_cartao)
     public void onClickBtnCartao(View v){
-
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_RECEBER_CARTAO);
+        startActivity(intent);
     }
 }
