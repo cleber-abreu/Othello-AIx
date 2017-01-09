@@ -10,6 +10,24 @@
 
     <View style="@style/WebPosto.EspacoTopo"/>
 
+    <RadioGroup
+        android:id="@+id/fil_rdg_bompara_movimento"
+        style="@style/WebPosto.SegmentoGroup"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <RadioButton
+            android:id="@+id/fil_rdb_bompara_bm"
+            style="@style/WebPosto.Segmento.Esquerda"
+            android:checked="true"
+            android:text="Bom Para" />
+
+        <RadioButton
+            android:id="@+id/fil_rdb_vencimento_bm"
+            style="@style/WebPosto.Segmento.Direita"
+            android:text="Movimento"/>
+    </RadioGroup>
+
     <!-- FILTRO DE DATA -->
     <LinearLayout
         android:id="@+id/fil_view_periodo"
@@ -87,6 +105,41 @@
             style="@style/WebPosto.Segmento.Direita"
             android:text="Pago"/>
     </RadioGroup>
+
+
+    <RadioGroup
+        android:id="@+id/fil_rdg_estado_conta_ar"
+        style="@style/WebPosto.SegmentoGroup"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <RadioButton
+            android:id="@+id/fil_rdb_aberto_ar"
+            style="@style/WebPosto.Segmento.Esquerda"
+            android:checked="true"
+            android:text="Aberto" />
+
+        <RadioButton
+            android:id="@+id/fil_rdb_recebido_ar"
+            style="@style/WebPosto.Segmento.Direita"
+            android:text="Recebido"/>
+    </RadioGroup>
+
+    <RelativeLayout
+        android:id="@+id/fil_view_cliente"
+        style="@style/WebPosto.BlocoMenuChaveValor"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginBottom="@dimen/espacamento_normal">
+
+        <TextView
+            style="@style/WebPosto.ChaveMenuChaveValor"
+            android:text="Filtrar por Cliente"/>
+
+        <Switch
+            android:id="@+id/fil_swt_por_cliente"
+            style="@style/WebPosto.ValorMenuChaveValor"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/fil_btn_consultar"

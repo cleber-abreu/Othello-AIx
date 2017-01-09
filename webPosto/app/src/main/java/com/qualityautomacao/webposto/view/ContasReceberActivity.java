@@ -2,6 +2,7 @@ package com.qualityautomacao.webposto.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_PROGRESS_DIALOG;
 import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_TOAST_ON_EXCEPTION;
@@ -45,5 +47,25 @@ public class ContasReceberActivity extends Activity {
                         }
                     }
                 }));
+    }
+
+    @OnClick(R.id.conrec_btn_titulo)
+    public void onClickBtnTitulo(View v){
+
+    }
+
+    @OnClick(R.id.conrec_btn_cheque)
+    public void onClickBtnCheque(View v){
+
+    }
+
+    @OnClick(R.id.conrec_btn_carta_frete)
+    public void onClickBtnCartaFrete(View v){
+
+    }
+
+    @OnClick(R.id.conrec_btn_cartao)
+    public void onClickBtnCartao(View v){
+
     }
 }
