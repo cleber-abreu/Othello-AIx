@@ -139,7 +139,7 @@
         <activity android:name=".view.ReceberTituloActivity" />
         <activity android:name=".view.ReceberChequeActivity" />
         <activity android:name=".view.ReceberCartaFreteActivity" />
-        <activity android:name=".view.ReceberCartaoActivity"></activity>
+        <activity android:name=".view.ReceberCartaoActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WebPosto.RowBlocoChaveGrandeValorPequeno"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/rcon_txt_cliente"
+        style="@style/WebPosto.RowChaveChaveGrandeValorPequeno"
+        tools:text="Cliente"/>
+
+    <TextView
+        android:id="@+id/rcon_txt_valor"
+        style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
+        android:layout_marginTop="@dimen/espacamento_micro"
+        android:layout_below="@id/rcon_txt_cliente"
+        android:text="R$ 2.143,55"/>
+
+</RelativeLayout>
