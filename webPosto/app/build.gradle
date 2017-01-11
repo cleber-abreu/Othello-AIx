@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion project.sdk
+    buildToolsVersion project.buildTools
     defaultConfig {
-        applicationId "com.qualityautomacao.webposto"
-        minSdkVersion 16
-        targetSdkVersion 22
+        applicationId project.applicationId
+        minSdkVersion project.minSdk
+        targetSdkVersion project.sdk
         versionName '1.2'
         versionCode 3
     }
@@ -23,10 +23,12 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:'+project.supportVersion
+    compile 'com.android.support:design:'+project.supportVersion
+    compile 'com.android.support:recyclerview-v7:'+project.supportVersion
+
+    compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.android.gms:play-services:7.8.0'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.4'
 
     compile 'com.jakewharton:butterknife:8.4.0'

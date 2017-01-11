@@ -13,6 +13,15 @@ buildscript {
     }
 }
 
+ext {
+    applicationId = "com.qualityautomacao.webposto"
+
+    minSdk = 16
+    sdk = 22
+    buildTools = "22.0.1"
+    supportVersion = "22.2.1"
+}
+
 allprojects {
     repositories {
         jcenter()
