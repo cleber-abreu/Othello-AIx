@@ -29,27 +29,28 @@ public class NotificacoesActivity extends Activity {
 
         ((ExpandableListView) findViewById(R.id.expandableListViewNotificacoes)).setOnGroupExpandListener(marcarNotificacaoComoLida());
 
-        UtilsWeb.requisitar(new Request(this, "DETALHE_NOTIFICACOES")
-                .onCompleteRequest(new Consumer<JSONObject>() {
-                    @Override
-                    public void accept(JSONObject jsonObject) throws Exception {
-                        ((ExpandableListView) findViewById(R.id.expandableListViewNotificacoes))
-                                .setAdapter(new ExpandableListAdapter(NotificacoesActivity.this, getNotificacoes(jsonObject)));
-                    }
-                })
-                .onPosExecute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!getIntent().hasExtra("TOKEN"))
-                            return;
+        UtilsWeb.requisitar(new Request(this, "DETALHE_NOTIFICACOES", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                ((ExpandableListView) findViewById(R.id.expandableListViewNotificacoes)).setAdapter(new ExpandableListAdapter(NotificacoesActivity.this, getNotificacoes(jsonObject)));
+                carregaNotificacoes();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                carregaNotificacoes();
+            }
+        }));
+    }
 
-                        final int posicao = getItemNotificacao(getIntent().getIntExtra("ID", 0));
-                        final ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListViewNotificacoes);
+    private void carregaNotificacoes() {
+        if (!getIntent().hasExtra("TOKEN")) return;
 
-                        expandableListView.expandGroup(posicao);
-                        expandableListView.setSelectedGroup(posicao);
-                    }
-                }));
+        final int posicao = getItemNotificacao(getIntent().getIntExtra("ID", 0));
+        final ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListViewNotificacoes);
+
+        expandableListView.expandGroup(posicao);
+        expandableListView.setSelectedGroup(posicao);
     }
 
     private List<Notificacao> getNotificacoes(final JSONObject jsonObject) {
@@ -83,9 +84,9 @@ public class NotificacoesActivity extends Activity {
                 final ExpandableListAdapter expandableListAdapter = (ExpandableListAdapter) ((ExpandableListView) findViewById(R.id.expandableListViewNotificacoes)).getExpandableListAdapter();
                 expandableListAdapter.getGroup(groupPosition).setLida(true);
 
-                UtilsWeb.requisitar(new Request(NotificacoesActivity.this, "LER_NOTIFICACAO")
-                                    .setDados("{\"NFI_CD_NOTIFICACAO\": " + expandableListAdapter.getGroup(groupPosition).getCodigo() + "}")
-                                    .setFlags(0));
+                Request request = new Request(NotificacoesActivity.this, "LER_NOTIFICACAO", new Consumer<JSONObject>() {@Override public void accept(JSONObject jsonObject) {}});
+                request.setDados("{\"NFI_CD_NOTIFICACAO\": " + expandableListAdapter.getGroup(groupPosition).getCodigo() + "}");
+                UtilsWeb.requisitar(request);
             }
         };
     }

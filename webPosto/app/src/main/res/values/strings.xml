@@ -52,4 +52,5 @@
 
     <string name="menu_enviar_troca_preco">Enviar</string>
     <string name="menu_troca_preco">Programar</string>
+    <string name="load">Aguarde...</string>
 </resources>

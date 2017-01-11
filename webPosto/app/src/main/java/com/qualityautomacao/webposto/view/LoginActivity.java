@@ -1,20 +1,13 @@
 package com.qualityautomacao.webposto.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.qualityautomacao.webposto.R;
@@ -26,10 +19,9 @@ import com.qualityautomacao.webposto.utils.UtilsPreferences;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
@@ -57,19 +49,27 @@ public class LoginActivity extends Activity {
     }
 
     public void login(View view) throws Exception {
-        UtilsWeb.requisitar(new Request(this, "LOGIN")
-                            .setDados(getDadosLogin().toString())
-                            .onCompleteRequest(new Consumer<JSONObject>() {
-                                @Override
-                                public void accept(JSONObject jsonObject) throws Exception {
-                                    final int ret = jsonObject.getInt("RET");
+        showLoadDialog();
+        UtilsWeb.requisitar(new Request(this, "LOGIN", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                int ret = jsonObject.optInt("RET", -1);
 
-                                    if (ret == 2)
-                                        loginMultiplasFiliais(jsonObject);
-                                    else if (ret == 0)
-                                        loginUnicaFilial(jsonObject);
-                                }
-                            }));
+                if (ret == 2) {
+                    loginMultiplasFiliais(jsonObject);
+                } else if (ret == 0) {
+                    loginUnicaFilial(jsonObject);
+                }
+
+                hideLoadDialog();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                hideLoadDialog();
+                Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
+            }
+        }).setDados(getDadosLogin().toString()));
 
         preferences.setPreferences(UtilsPreferences.KEY_LOGIN, editTextLogin.getText().toString());
         preferences.setPreferences(UtilsPreferences.KEY_SENHA, editTextSenha.getText().toString());
@@ -84,25 +84,29 @@ public class LoginActivity extends Activity {
                 .put("USU_DS_SENHA", senha);
     }
 
-    private void loginUnicaFilial(JSONObject jsonObject) throws JSONException {
-        JSONArray obj = jsonObject.getJSONArray("OBJ");
+    private void loginUnicaFilial(JSONObject jsonObject){
+        try{
+            JSONArray obj = jsonObject.getJSONArray("OBJ");
 
-        final JSONObject jsonUnidadeNegocio = obj.getJSONObject(1);
+            final JSONObject jsonUnidadeNegocio = obj.getJSONObject(1);
 
-        UtilsWeb.token = new Token(
-                jsonUnidadeNegocio.getInt("UNN_CD_UNIDADE_NEGOCIO"),
-                jsonUnidadeNegocio.getString("UNN_DS_FANTASIA"),
-                obj.getJSONObject(2).getInt("USU_CD_USUARIO"),
-                obj.getJSONObject(3).getInt("PER_CD_PERFIL"),
-                obj.getJSONObject(0).getInt("RED_CD_REDE")
-        );
+            UtilsWeb.token = new Token(
+                    jsonUnidadeNegocio.getInt("UNN_CD_UNIDADE_NEGOCIO"),
+                    jsonUnidadeNegocio.getString("UNN_DS_FANTASIA"),
+                    obj.getJSONObject(2).getInt("USU_CD_USUARIO"),
+                    obj.getJSONObject(3).getInt("PER_CD_PERFIL"),
+                    obj.getJSONObject(0).getInt("RED_CD_REDE")
+            );
 
-        UtilsWeb.verificarLiberacaoDispositivo(this, new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            }
-        });
+            UtilsWeb.verificarLiberacaoDispositivo(this, new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+            });
+        }catch (Exception e){
+            Log.e("WEB_POSTO_LOG", "loginUnicaFilial: ", e);
+        }
     }
 
     private void loginMultiplasFiliais(JSONObject jsonObject) {

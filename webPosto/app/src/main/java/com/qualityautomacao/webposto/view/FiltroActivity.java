@@ -1,6 +1,5 @@
 package com.qualityautomacao.webposto.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -25,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FiltroActivity extends AppCompatActivity {
+public class FiltroActivity extends BaseActivity {
 
     /* COMPONENTES */
     @BindView(R.id.fil_view_periodo) View viewPediodo;
@@ -132,7 +131,7 @@ public class FiltroActivity extends AppCompatActivity {
             }
         }, new Consumer<String>() {
             @Override
-            public void accept(String s) throws Exception {
+            public void accept(String s){
                 txtDataInicio.setText(s);
             }
         });
@@ -144,7 +143,7 @@ public class FiltroActivity extends AppCompatActivity {
             }
         }, new Consumer<String>() {
             @Override
-            public void accept(String s) throws Exception {
+            public void accept(String s){
                 txtDataFim.setText(s);
             }
         });

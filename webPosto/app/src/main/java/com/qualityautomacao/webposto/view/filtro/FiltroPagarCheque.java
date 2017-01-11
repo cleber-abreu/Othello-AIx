@@ -10,14 +10,11 @@ import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsDate;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
-import com.qualityautomacao.webposto.view.PagarChequeActivity;
 import com.qualityautomacao.webposto.view.FiltroActivity;
+import com.qualityautomacao.webposto.view.PagarChequeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_PROGRESS_DIALOG;
-import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_TOAST_ON_EXCEPTION;
 
 /**
  * Created by wiliam on 06/01/17.
@@ -51,19 +48,21 @@ public class FiltroPagarCheque implements FiltroPresenter {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
 
-            UtilsWeb.requisitar(
-                new Request(activity, "DETALHE_CHEQUE_PAGAR")
-                        .setDados(requestParams.toString())
-                        .setFlags(UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION)
-                        .onCompleteRequest(new Consumer<JSONObject>() {
-                            @Override
-                            public void accept(JSONObject jsonObject) throws Exception {
-                                Intent intent = new Intent(activity, PagarChequeActivity.class);
-                                intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
-                                activity.startActivity(intent);
-                            }
-                        })
-            );
+            activity.showLoadDialog();
+            UtilsWeb.requisitar(new Request(activity, "DETALHE_CHEQUE_PAGAR", new Consumer<JSONObject>() {
+                @Override
+                public void accept(JSONObject jsonObject) {
+                    Intent intent = new Intent(activity, PagarChequeActivity.class);
+                    intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
+                    activity.startActivity(intent);
+                    activity.hideLoadDialog();
+                }
+            }, new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    activity.hideLoadDialog();
+                }
+            }).setDados(requestParams.toString()));
         }else{
             Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
         }

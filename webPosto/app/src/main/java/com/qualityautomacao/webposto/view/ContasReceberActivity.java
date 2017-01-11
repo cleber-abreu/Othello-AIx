@@ -1,10 +1,10 @@
 package com.qualityautomacao.webposto.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Consumer;
@@ -17,10 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_PROGRESS_DIALOG;
-import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_TOAST_ON_EXCEPTION;
-
-public class ContasReceberActivity extends Activity {
+public class ContasReceberActivity extends BaseActivity {
 
     @BindView(R.id.conrec_txt_diario)   TextView txtDiario;
     @BindView(R.id.conrec_txt_cinco)    TextView txtCinco;
@@ -33,21 +30,26 @@ public class ContasReceberActivity extends Activity {
         setContentView(R.layout.activity_contas_receber);
         ButterKnife.bind(this);
 
-        UtilsWeb.requisitar(new Request(this, "RODAPE_CONTAS_A_RECEBER")
-                .setFlags(UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION)
-                .onCompleteRequest(new Consumer<JSONObject>() {
-                    @Override
-                    public void accept(JSONObject jsonObject) throws Exception {
-                        if(jsonObject.optInt("RET", 1) < 1){
-                            JSONObject dados = jsonObject.optJSONObject("RES");
+        showLoadDialog();
+        UtilsWeb.requisitar(new Request(this, "RODAPE_CONTAS_A_RECEBER", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                JSONObject dados = jsonObject.optJSONObject("RES");
 
-                            txtDiario.setText(dados.optString("DIARIO"));
-                            txtCinco.setText(dados.optString("CINCO"));
-                            txtQuinze.setText(dados.optString("QUINZE"));
-                            txtTrinta.setText(dados.optString("TRINTA"));
-                        }
-                    }
-                }));
+                txtDiario.setText(dados.optString("DIARIO"));
+                txtCinco.setText(dados.optString("CINCO"));
+                txtQuinze.setText(dados.optString("QUINZE"));
+                txtTrinta.setText(dados.optString("TRINTA"));
+
+                hideLoadDialog();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                hideLoadDialog();
+                Toast.makeText(ContasReceberActivity.this, s, Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
     @OnClick(R.id.conrec_btn_titulo)

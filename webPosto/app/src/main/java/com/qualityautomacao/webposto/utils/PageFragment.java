@@ -11,11 +11,11 @@ public class PageFragment extends Fragment {
     public static final String ARG_CONSUMER = "ARG_CONSUMER";
     public static final String ARG_FRAG = "ARG_FRAG";
 
-    public ConsumerUnchecked<View> acao;
+    public Consumer<View> acao;
     private int mPage;
     private int fragmento;
 
-    public static PageFragment newInstance(int page, int fragmento, ConsumerUnchecked<View> acao) {
+    public static PageFragment newInstance(int page, int fragmento, Consumer<View> acao) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
         args.putSerializable(ARG_CONSUMER, acao);
@@ -30,7 +30,7 @@ public class PageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
-        acao = (ConsumerUnchecked<View>) getArguments().getSerializable(ARG_CONSUMER);
+        acao = (Consumer<View>) getArguments().getSerializable(ARG_CONSUMER);
         fragmento = getArguments().getInt(ARG_FRAG);
     }
 

@@ -6,9 +6,9 @@ import android.view.View;
 
 public class TabAction {
     public final String descricao;
-    public final ConsumerUnchecked<View> acao;
+    public final Consumer<View> acao;
 
-    public TabAction(Context context, @StringRes int descricao, ConsumerUnchecked<View> acao) {
+    public TabAction(Context context, @StringRes int descricao, Consumer<View> acao) {
         this.descricao = context.getString(descricao);
         this.acao = acao;
     }

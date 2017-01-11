@@ -16,9 +16,6 @@ import com.qualityautomacao.webposto.view.PagarTituloActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_PROGRESS_DIALOG;
-import static com.qualityautomacao.webposto.utils.UtilsWeb.UW_SHOW_TOAST_ON_EXCEPTION;
-
 /**
  * Created by wiliam on 05/01/17.
  */
@@ -51,19 +48,21 @@ public class FiltroPagarTitulo implements FiltroPresenter {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
 
-            UtilsWeb.requisitar(
-                    new Request(activity, "DETALHE_TITULO_PAGAR")
-                    .setDados(requestParams.toString())
-                    .setFlags(UW_SHOW_PROGRESS_DIALOG | UW_SHOW_TOAST_ON_EXCEPTION)
-                    .onCompleteRequest(new Consumer<JSONObject>() {
-                        @Override
-                        public void accept(JSONObject jsonObject) throws Exception {
-                            Intent intent = new Intent(activity, PagarTituloActivity.class);
-                            intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
-                            activity.startActivity(intent);
-                        }
-                    })
-            );
+            activity.showLoadDialog();
+            UtilsWeb.requisitar(new Request(activity, "DETALHE_TITULO_PAGAR", new Consumer<JSONObject>() {
+                @Override
+                public void accept(JSONObject jsonObject) {
+                    Intent intent = new Intent(activity, PagarTituloActivity.class);
+                    intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
+                    activity.startActivity(intent);
+                    activity.hideLoadDialog();
+                }
+            }, new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    activity.hideLoadDialog();
+                }
+            }).setDados(requestParams.toString()));
         }else{
             Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
         }

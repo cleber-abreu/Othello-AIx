@@ -27,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    protected void showLoadDialog(){
+    public void showLoadDialog(){
         bloqueiaOrientacao();
 
         if(progressDialog == null){
@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         progressDialog.show();
     }
 
-    protected void hideLoadDialog(){
+    public void hideLoadDialog(){
         if(progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
         liberaOrientacao();
     }

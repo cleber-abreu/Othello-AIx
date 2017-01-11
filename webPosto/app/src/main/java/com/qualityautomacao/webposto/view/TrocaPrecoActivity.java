@@ -16,6 +16,7 @@ import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TrocaPrecoActivity extends AppCompatActivity {
@@ -33,13 +34,16 @@ public class TrocaPrecoActivity extends AppCompatActivity {
     }
 
     private void carregarDados() {
-        UtilsWeb.requisitar(new Request(this, "CONSULTAR_ALTERA_PRECO")
-                .onCompleteRequest(new Consumer<JSONObject>() {
-                    @Override
-                    public void accept(JSONObject jsonObject) throws Exception {
-                        ((ListView) findViewById(R.id.listaCombustivel)).setAdapter(new RowTrocaPrecoAdapter(TrocaPrecoActivity.this, jsonObject));
-                    }
-                }));
+        UtilsWeb.requisitar(new Request(this, "CONSULTAR_ALTERA_PRECO", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                try {
+                    ((ListView) findViewById(R.id.listaCombustivel)).setAdapter(new RowTrocaPrecoAdapter(TrocaPrecoActivity.this, jsonObject));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
     }
 
     private void enviarTrocaDePreco() {

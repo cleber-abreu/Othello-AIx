@@ -12,14 +12,27 @@ public class Request {
 
     private int opcoes = -1;
     private String dados = "{}";
-    private Runnable onPreExecute;
-    private Runnable onPosExecute;
-    private Consumer<JSONObject> consumer;
-    private Runnable onTimeout;
+    private Consumer<JSONObject> onSucesso;
+    private Consumer<String> onFalha;
 
-    public Request(Context context, String funcao) {
+    public Request(Context context, String funcao, Consumer<JSONObject> onSucesso) {
+        this(context, funcao, onSucesso, new Consumer<String>() { @Override public void accept(String s){}});
+    }
+
+    public Request(Context context, String funcao, Consumer<JSONObject> onSucesso, Consumer<String> onFalha) {
+        this(context, "MOBILE", funcao, onSucesso, onFalha);
+    }
+
+    public Request(Context context, String rotina, String funcao, Consumer<JSONObject> onSucesso) {
+        this(context, rotina, funcao, onSucesso, new Consumer<String>() { @Override public void accept(String s){}});
+    }
+
+    public Request(Context context, String rotina, String funcao, Consumer<JSONObject> onSucesso, Consumer<String> onFalha) {
         this.context = context;
+        this.rotina = rotina;
         this.funcao = funcao;
+        this.onSucesso = onSucesso;
+        this.onFalha = onFalha;
     }
 
     public Request setFlags(int opcoes) {
@@ -29,26 +42,6 @@ public class Request {
 
     public Request setDados(String dados) {
         this.dados = dados;
-        return this;
-    }
-
-    public Request onPreExecute(Runnable onPreExecute) {
-        this.onPreExecute = onPreExecute;
-        return this;
-    }
-
-    public Request onPosExecute(Runnable onPosExecute) {
-        this.onPosExecute = onPosExecute;
-        return this;
-    }
-
-    public Request onTimeout(Runnable onTimeout) {
-        this.onTimeout = onTimeout;
-        return this;
-    }
-
-    public Request onCompleteRequest(Consumer<JSONObject> consumer) {
-        this.consumer = consumer;
         return this;
     }
 
@@ -77,19 +70,11 @@ public class Request {
         return dados;
     }
 
-    public Runnable getOnPreExecute() {
-        return onPreExecute;
+    public Consumer<JSONObject> getOnSucesso() {
+        return onSucesso;
     }
 
-    public Runnable getOnPosExecute() {
-        return onPosExecute;
-    }
-
-    public Consumer<JSONObject> getConsumer() {
-        return consumer;
-    }
-
-    public Runnable getOnTimeout() {
-        return onTimeout;
+    public Consumer<String> getOnFalha() {
+        return onFalha;
     }
 }

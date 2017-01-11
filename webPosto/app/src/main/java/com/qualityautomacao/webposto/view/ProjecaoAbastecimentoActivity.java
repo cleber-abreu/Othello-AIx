@@ -30,13 +30,12 @@ public class ProjecaoAbastecimentoActivity extends Activity {
         setContentView(R.layout.activity_projecao_abastecimento);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        UtilsWeb.requisitar(new Request(this, "PROJECAO")
-                            .onCompleteRequest(new Consumer<JSONObject>() {
-                                @Override
-                                public void accept(JSONObject jsonObject) throws Exception {
-                                    carregarDados(jsonObject);
-                                }
-                            }));
+        UtilsWeb.requisitar(new Request(this, "PROJECAO", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                carregarDados(jsonObject);
+            }
+        }));
     }
 
     private void carregarDados(JSONObject jsonObject) {

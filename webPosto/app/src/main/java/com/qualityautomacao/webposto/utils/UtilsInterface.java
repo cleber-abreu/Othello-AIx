@@ -24,7 +24,7 @@ public abstract class UtilsInterface {
             }
         }, new Consumer<String>() {
             @Override
-            public void accept(String s) throws Exception {
+            public void accept(String s){
                 editText.setText(s);
             }
         });

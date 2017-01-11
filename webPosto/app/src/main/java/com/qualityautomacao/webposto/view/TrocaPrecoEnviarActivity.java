@@ -37,22 +37,19 @@ public class TrocaPrecoEnviarActivity extends AppCompatActivity {
     }
 
     private void enviarTrocaPreco() {
-        UtilsWeb.requisitar(new Request(this, "ALTERA_PRECO_INCLUIR")
-                .setDados(getDados())
-                .onCompleteRequest(new Consumer<JSONObject>() {
-                    @Override
-                    public void accept(JSONObject jsonObject) throws Exception {
-                        Toast.makeText(TrocaPrecoEnviarActivity.this, "Troca enviada.", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setFlags(0)
-                .onPosExecute(new Runnable() {
-                    @Override
-                    public void run() {
-                        TrocaPrecoEnviarActivity.this.setResult(0);
-                        TrocaPrecoEnviarActivity.this.finish();
-                    }
-                }));
+        UtilsWeb.requisitar(new Request(this, "ALTERA_PRECO_INCLUIR", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                Toast.makeText(TrocaPrecoEnviarActivity.this, "Troca enviada.", Toast.LENGTH_LONG).show();
+                TrocaPrecoEnviarActivity.this.setResult(0);
+                TrocaPrecoEnviarActivity.this.finish();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                Toast.makeText(TrocaPrecoEnviarActivity.this, "FALHA: " + s, Toast.LENGTH_LONG).show();
+            }
+        }).setDados(getDados()).setFlags(0));
     }
 
     private String getDados() {
