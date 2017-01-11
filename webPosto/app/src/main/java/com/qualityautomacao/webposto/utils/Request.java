@@ -8,6 +8,7 @@ public class Request {
 
     private final Context context;
     private final String funcao;
+    private String rotina;
 
     private int opcoes = -1;
     private String dados = "{}";
@@ -51,12 +52,21 @@ public class Request {
         return this;
     }
 
+    public Request setRotina(String rotina){
+        this.rotina = rotina;
+        return this;
+    }
+
     public Context getContext() {
         return context;
     }
 
     public String getFuncao() {
         return funcao;
+    }
+
+    public String getRotina(){
+        return this.rotina;
     }
 
     public int getOpcoes() {
