@@ -52,7 +52,7 @@ public class FiltroReceberTitulo implements FiltroPresenter {
             }
 
             activity.showLoadDialog();
-            UtilsWeb.requisitar(new Request(activity, "DETALHE_TITULO_RECEBER", new Consumer<JSONObject>() {
+            UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_TITULO_RECEBER", new Consumer<JSONObject>() {
                     @Override
                     public void accept(JSONObject jsonObject) {
                         Intent intent = new Intent(activity, ReceberTituloActivity.class);
