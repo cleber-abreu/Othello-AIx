@@ -61,10 +61,11 @@ public class FiltroPagarCheque implements FiltroPresenter {
                 @Override
                 public void accept(String s) {
                     activity.hideLoadDialog();
+                    Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
                 }
             }).setDados(requestParams.toString()));
         }else{
-            Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
+            Toast.makeText(activity, "Intervalo inválido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
         }
     }
 }

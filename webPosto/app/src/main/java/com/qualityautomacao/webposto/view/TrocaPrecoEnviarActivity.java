@@ -49,7 +49,7 @@ public class TrocaPrecoEnviarActivity extends AppCompatActivity {
             public void accept(String s) {
                 Toast.makeText(TrocaPrecoEnviarActivity.this, "FALHA: " + s, Toast.LENGTH_LONG).show();
             }
-        }).setDados(getDados()).setFlags(0));
+        }).setDados(getDados()));
     }
 
     private String getDados() {

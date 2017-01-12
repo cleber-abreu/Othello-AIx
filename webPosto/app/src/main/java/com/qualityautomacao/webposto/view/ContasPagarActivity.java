@@ -2,7 +2,6 @@ package com.qualityautomacao.webposto.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.utils.Consumer;
 import com.qualityautomacao.webposto.utils.Request;
+import com.qualityautomacao.webposto.utils.UtilsString;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 
 import org.json.JSONObject;
@@ -32,15 +32,15 @@ public class ContasPagarActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         showLoadDialog();
-        UtilsWeb.requisitar(new Request(this, "RODAPE_CONTAS_A_PAGAR", new Consumer<JSONObject>() {
+        UtilsWeb.requisitar(new Request(this, "MOBILE", "RODAPE_CONTAS_A_PAGAR", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
-                JSONObject dados = jsonObject.optJSONObject("RES");
+                JSONObject dados = jsonObject.optJSONObject("OBJ");
 
-                txtDiario.setText(dados.optString("DIARIO"));
-                txtCinco.setText(dados.optString("CINCO"));
-                txtQuinze.setText(dados.optString("QUINZE"));
-                txtTrinta.setText(dados.optString("TRINTA"));
+                txtDiario.setText(UtilsString.formatarMonetario(dados.optDouble("DIARIO", 0)));
+                txtCinco.setText(UtilsString.formatarMonetario(dados.optDouble("CINCO", 0)));
+                txtQuinze.setText(UtilsString.formatarMonetario(dados.optDouble("QUINZE", 0)));
+                txtTrinta.setText(UtilsString.formatarMonetario(dados.optDouble("TRINTA", 0)));
 
                 hideLoadDialog();
             }

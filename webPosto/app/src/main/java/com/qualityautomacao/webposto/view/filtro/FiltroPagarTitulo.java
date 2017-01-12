@@ -49,7 +49,7 @@ public class FiltroPagarTitulo implements FiltroPresenter {
             }
 
             activity.showLoadDialog();
-            UtilsWeb.requisitar(new Request(activity, "DETALHE_TITULO_PAGAR", new Consumer<JSONObject>() {
+            UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_TITULO_PAGAR", new Consumer<JSONObject>() {
                 @Override
                 public void accept(JSONObject jsonObject) {
                     Intent intent = new Intent(activity, PagarTituloActivity.class);
@@ -60,6 +60,7 @@ public class FiltroPagarTitulo implements FiltroPresenter {
             }, new Consumer<String>() {
                 @Override
                 public void accept(String s) {
+                    Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
                     activity.hideLoadDialog();
                 }
             }).setDados(requestParams.toString()));

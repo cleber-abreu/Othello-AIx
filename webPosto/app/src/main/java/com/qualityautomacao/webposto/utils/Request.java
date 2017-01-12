@@ -8,19 +8,18 @@ public class Request {
 
     private final Context context;
     private final String funcao;
-    private String rotina;
+    private final String rotina;
 
-    private int opcoes = -1;
     private String dados = "{}";
-    private Consumer<JSONObject> onSucesso;
-    private Consumer<String> onFalha;
+    private final Consumer<JSONObject> onSucesso;
+    private final Consumer<String> onFalha;
 
     public Request(Context context, String funcao, Consumer<JSONObject> onSucesso) {
         this(context, funcao, onSucesso, new Consumer<String>() { @Override public void accept(String s){}});
     }
 
     public Request(Context context, String funcao, Consumer<JSONObject> onSucesso, Consumer<String> onFalha) {
-        this(context, "MOBILE", funcao, onSucesso, onFalha);
+        this(context, "MOBILE_", funcao, onSucesso, onFalha);
     }
 
     public Request(Context context, String rotina, String funcao, Consumer<JSONObject> onSucesso) {
@@ -35,18 +34,8 @@ public class Request {
         this.onFalha = onFalha;
     }
 
-    public Request setFlags(int opcoes) {
-        this.opcoes = opcoes;
-        return this;
-    }
-
     public Request setDados(String dados) {
         this.dados = dados;
-        return this;
-    }
-
-    public Request setRotina(String rotina){
-        this.rotina = rotina;
         return this;
     }
 
@@ -60,10 +49,6 @@ public class Request {
 
     public String getRotina(){
         return this.rotina;
-    }
-
-    public int getOpcoes() {
-        return opcoes;
     }
 
     public String getDados() {

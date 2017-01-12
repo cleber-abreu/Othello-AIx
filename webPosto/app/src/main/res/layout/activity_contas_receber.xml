@@ -35,25 +35,57 @@
     <TextView style="@style/WebPosto.TituloMenuPrincipal"
         android:text="Total Geral"/>
 
-    <LinearLayout style="@style/WebPosto.BlocoInformacao">
+    <RelativeLayout style="@style/WebPosto.BlocoInformacao">
+        <TextView
+            android:id="@+id/conrec_lbl_diario"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:text="A Receber Dia:"/>
+
         <TextView
             android:id="@+id/conrec_txt_diario"
             style="@style/WebPosto.TextoBlocoInformacao"
-            android:text="A Receber Dia: R$ 0,00"/>
+            android:layout_alignBaseline="@id/conrec_lbl_diario"
+            android:layout_alignParentRight="true"
+            android:text="R$0,00"/>
+
+        <TextView
+            android:id="@+id/conrec_lbl_cinco"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:layout_below="@id/conrec_lbl_diario"
+            android:text="Em Cinco Dias:"/>
 
         <TextView
             android:id="@+id/conrec_txt_cinco"
             style="@style/WebPosto.TextoBlocoInformacao"
-            android:text="Em Cinco Dias: R$ 0,00"/>
+            android:layout_alignBaseline="@id/conrec_lbl_cinco"
+            android:layout_alignParentRight="true"
+            android:text="R$0,00"/>
+
+        <TextView
+            android:id="@+id/conrec_lbl_quinze"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:layout_below="@id/conrec_lbl_cinco"
+            android:text="Em Quinze Dias:"/>
 
         <TextView
             android:id="@+id/conrec_txt_quinze"
             style="@style/WebPosto.TextoBlocoInformacao"
-            android:text="Em Quinze Dias: R$ 0,00"/>
+            android:layout_alignBaseline="@id/conrec_lbl_quinze"
+            android:layout_alignParentRight="true"
+            android:text="R$0,00"/>
+
+        <TextView
+            android:id="@+id/conrec_lbl_trinta"
+            style="@style/WebPosto.TextoBlocoInformacao"
+            android:layout_below="@id/conrec_lbl_quinze"
+            android:text="Em Trinta Dias:"/>
 
         <TextView
             android:id="@+id/conrec_txt_trinta"
             style="@style/WebPosto.TextoBlocoInformacao"
-            android:text="Em Trinta Dias: R$ 0,00"/>
-    </LinearLayout>
+            android:layout_alignBaseline="@id/conrec_lbl_trinta"
+            android:layout_alignParentRight="true"
+            android:text="R$0,00"/>
+
+    </RelativeLayout>
 </LinearLayout>
