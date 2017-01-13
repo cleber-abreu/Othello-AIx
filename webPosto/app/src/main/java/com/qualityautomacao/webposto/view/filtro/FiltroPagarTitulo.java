@@ -40,10 +40,9 @@ public class FiltroPagarTitulo implements FiltroPresenter {
         if(UtilsDate.intervaloValido(dados.getDataInicio(), dados.getDataFim(), UtilsDate.dd_MM_yyyy)){
             JSONObject requestParams = new JSONObject();
             try {
-                requestParams.put("DATA_INI", dados.getDataInicio());
-                requestParams.put("DATA_FIM", dados.getDataFim());
-                requestParams.put("TPG_FL_PAGO", dados.getEstadoConta());
-
+                requestParams.put("DATA_INICIAL", dados.getDataInicio());
+                requestParams.put("DATA_FINAL", dados.getDataFim());
+                requestParams.put("SITUACAO", dados.getEstadoConta());
             } catch (JSONException e) {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
@@ -55,6 +54,7 @@ public class FiltroPagarTitulo implements FiltroPresenter {
                     Intent intent = new Intent(activity, PagarTituloActivity.class);
                     intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
                     activity.startActivity(intent);
+                    activity.finish();
                     activity.hideLoadDialog();
                 }
             }, new Consumer<String>() {

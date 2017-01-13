@@ -1,7 +1,7 @@
 package com.qualityautomacao.webposto.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,94 +10,40 @@ import android.widget.Toast;
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.adapter.ChaveEvidenciaValorSimplesComTotalAdapter;
 import com.qualityautomacao.webposto.adapter.ChaveValorTotal;
+import com.qualityautomacao.webposto.adapter.SeparadorLista;
+import com.qualityautomacao.webposto.adapter.TituloAdapter;
 import com.qualityautomacao.webposto.utils.Constantes;
 import com.qualityautomacao.webposto.utils.UtilsString;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PagarTituloActivity extends AppCompatActivity {
+public class PagarTituloActivity extends BaseActivity {
 
     @BindView(R.id.ptit_rec_titulos) RecyclerView recTitulos;
 
-    private JSONObject dados;
+    private JSONArray dados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagar_titulo);
+        super.addToolbar(true);
         ButterKnife.bind(this);
 
         try {
-            dados = new JSONObject(getIntent().getStringExtra(Constantes.EXTRA_DADO));
+            dados = new JSONObject(getIntent().getStringExtra(Constantes.EXTRA_DADO)).getJSONArray("DAD");
         } catch (JSONException e) {
-            dados = new JSONObject();
+            dados = new JSONArray();
         }
         recTitulos.setLayoutManager(new LinearLayoutManager(this));
+        recTitulos.addItemDecoration(new SeparadorLista(ContextCompat.getDrawable(this, R.drawable.separador_lista), dados.length()));
+        recTitulos.setAdapter(new TituloAdapter(this, dados));
 
-        recTitulos.setAdapter(new ChaveEvidenciaValorSimplesComTotalAdapter(this, getDadosDelegate(), getClickDelegate()));
         Log.i("WEB_POSTO_LOG", "onCreate: " + getIntent().getStringExtra(Constantes.EXTRA_DADO));
-    }
-
-    private ChaveValorTotal getDadosDelegate() {
-        return new ChaveValorTotal() {
-            @Override
-            public int getSize() {
-                return dados.length() + 1;
-            }
-
-            @Override
-            public boolean isTotal(int position) {
-                return position >= dados.length();
-            }
-
-            @Override
-            public String labelTotal() {
-                return "TOTAL: ";
-            }
-
-            @Override
-            public String valorTotal() {
-                try {
-                    return UtilsString.formatarMonetario(dados.getJSONObject("RES").optDouble("TOTAL", 0));
-                }catch (Exception e){
-                    return UtilsString.formatarMonetario(0);
-                }
-            }
-
-            @Override
-            public String labelDado(int position) {
-                try {
-                    return dados.getJSONArray("OBJ").getJSONObject(position).getString("TITULO");
-                }catch (Exception e){
-                    return "---";
-                }
-            }
-
-            @Override
-            public String valorDado(int position) {
-                try {
-                    return UtilsString.formatarMonetario(dados.getJSONArray("OBJ").getJSONObject(position).optDouble("VALOR", 0));
-                }catch (Exception e){
-                    return UtilsString.formatarMonetario(0);
-                }
-            }
-        };
-    }
-
-    private ChaveEvidenciaValorSimplesComTotalAdapter.ClickDelegate getClickDelegate() {
-        return new ChaveEvidenciaValorSimplesComTotalAdapter.ClickDelegate() {
-            @Override
-            public void onClick(int position) {
-                try{
-                    Toast.makeText(PagarTituloActivity.this, dados.getJSONArray("OBJ").getJSONObject(position).toString(), Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
-                    Toast.makeText(PagarTituloActivity.this, "ALGO ERRADO", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
     }
 }
