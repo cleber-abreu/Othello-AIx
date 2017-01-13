@@ -5,7 +5,11 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.qualityautomacao.webposto.R;
 
@@ -27,6 +31,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void addToolbar(boolean backButton){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(backButton);
+        getSupportActionBar().setDisplayShowHomeEnabled(backButton);
+    }
     public void showLoadDialog(){
         bloqueiaOrientacao();
 
@@ -58,5 +77,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void liberaOrientacao(){
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    public void showMessage(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showMessage(@StringRes int resString) {
+        Toast.makeText(this, resString, Toast.LENGTH_SHORT).show();
     }
 }

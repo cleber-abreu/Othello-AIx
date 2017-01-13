@@ -4,9 +4,13 @@
     android:id="@+id/activity_titulo_pagar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.qualityautomacao.webposto.view.PagarTituloActivity">
 
+    <include android:id="@+id/toolbar" layout="@layout/toolbar_normal"/>
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/toolbar"
         android:id="@+id/ptit_rec_titulos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

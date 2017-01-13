@@ -135,7 +135,10 @@
         <activity
             android:name=".view.FiltroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.PagarTituloActivity" />
+
+        <activity android:name=".view.PagarTituloActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_pagar_titulo" />
         <activity android:name=".view.PagarChequeActivity" />
         <activity android:name=".view.ReceberTituloActivity" />
         <activity android:name=".view.ReceberChequeActivity" />
