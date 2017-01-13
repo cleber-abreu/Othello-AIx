@@ -1,6 +1,7 @@
 package com.qualityautomacao.webposto.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,11 +39,15 @@ public class ChaveEvidenciaValorSimplesComTotalAdapter extends RecyclerView.Adap
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
         if(dadosDelegate.isTotal(position)){
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.acentuada));
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.bg_row_evidencia));
+            holder.txtLabel.setTypeface(Typeface.DEFAULT_BOLD);
+            holder.txtValor.setTypeface(Typeface.DEFAULT_BOLD);
             holder.txtLabel.setText(dadosDelegate.labelTotal());
             holder.txtValor.setText(dadosDelegate.valorTotal());
         }else{
-            holder.itemView.setBackgroundColor(context.getResources().getColor(position % 2 == 0 ? R.color.bg_light : R.color.bg_dark));
+            holder.itemView.setBackgroundColor(context.getResources().getColor(position % 2 == 0 ? R.color.bg_row_um : R.color.bg_row_dois));
+            holder.txtLabel.setTypeface(Typeface.DEFAULT);
+            holder.txtValor.setTypeface(Typeface.DEFAULT);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) { clickDelegate.onClick(position); }
             });

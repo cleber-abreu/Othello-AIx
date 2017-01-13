@@ -1,6 +1,5 @@
 package com.qualityautomacao.webposto.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -13,7 +12,7 @@ import com.qualityautomacao.webposto.utils.UtilsWeb;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TanquesActivity extends Activity {
+public class TanquesActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +27,22 @@ public class TanquesActivity extends Activity {
     }
 
     public void carregarDados() {
+        showLoadDialog();
         UtilsWeb.requisitar(new Request(this, "TANQUE", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
                 try {
                     ((ListView) findViewById(R.id.listaTanques)).setAdapter(new RowTanquesAdapter(TanquesActivity.this, jsonObject));
+                    hideLoadDialog();
                 } catch (JSONException e) {
                     Log.e("WEB_POSTO_LOG", "accept: ", e);
                 }
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                hideLoadDialog();
+                showMessage(s);
             }
         }));
     }

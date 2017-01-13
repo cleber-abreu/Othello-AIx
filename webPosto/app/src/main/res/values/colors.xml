@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg_dark">#b5dbee</color>
     <color name="bg_light">#c8e2f0</color>
+    <color name="bg_dark">#b5dbee</color>
     <color name="separador_item_menu">#999</color>
+    <color name="separador_item_lista">#333</color>
     <color name="fontColor_item_menu">#000</color>
-
     <color name="acentuada">#0E5DF3</color>
 
     <color name="bg_toggle_button">@android:color/transparent</color>
+
+    <color name="bg_row_um">@color/bg_light</color>
+    <color name="bg_row_dois">@color/bg_dark</color>
+    <color name="bg_row_evidencia">#60B0FF</color>
+
 </resources>

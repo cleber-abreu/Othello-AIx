@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.model.DadosFiltro;
 import com.qualityautomacao.webposto.utils.Constantes;
 import com.qualityautomacao.webposto.utils.Consumer;
@@ -40,6 +41,7 @@ public class FiltroReceberTitulo implements FiltroPresenter {
     @Override
     public void consulta(DadosFiltro dados) {
         if(UtilsDate.intervaloValido(dados.getDataInicio(), dados.getDataFim(), UtilsDate.dd_MM_yyyy)){
+            activity.showLoadDialog();
             JSONObject requestParams = new JSONObject();
             try {
                 requestParams.put("DATA_INI", dados.getDataInicio());
@@ -51,23 +53,24 @@ public class FiltroReceberTitulo implements FiltroPresenter {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
 
-            activity.showLoadDialog();
             UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_TITULO_RECEBER", new Consumer<JSONObject>() {
                     @Override
                     public void accept(JSONObject jsonObject) {
                         Intent intent = new Intent(activity, ReceberTituloActivity.class);
                         intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
-                        activity.startActivity(intent);
                         activity.hideLoadDialog();
+                        activity.startActivity(intent);
                     }
                 }, new Consumer<String>() {
                     @Override
                     public void accept(String s) {
                         activity.hideLoadDialog();
+                        activity.showMessage(s);
                     }
                 }).setDados(requestParams.toString()));
         }else{
             Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
+            activity.showMessage(R.string.intervalo_invalido);
         }
     }
 }

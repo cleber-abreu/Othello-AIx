@@ -79,7 +79,7 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
-    <style name="WebPosto.RowBlocoChaveGrandeValorPequeno">
+    <style name="WebPosto.Row">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">@dimen/espacamento_mini</item>
