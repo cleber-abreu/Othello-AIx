@@ -13,13 +13,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fornecedor: "/>
+            android:text="Cheque: "/>
 
         <TextView
-            android:id="@+id/rtit_txt_fornecedor"
+            android:id="@+id/rpch_txt_cheque"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Joao Jose"/>
+            tools:text="12331"/>
     </LinearLayout>
 
     <LinearLayout
@@ -29,29 +29,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titulo: "/>
+            android:text="Bom Para: "/>
 
         <TextView
-            android:id="@+id/rtit_txt_titulo"
+            android:id="@+id/rpch_txt_bom_para"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="123 321"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vencimento: "/>
-
-        <TextView
-            android:id="@+id/rtit_txt_vencimento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="01/03/2017"/>
+            tools:text="10/10/2017"/>
     </LinearLayout>
 
     <LinearLayout
@@ -64,9 +48,25 @@
             android:text="Valor: "/>
 
         <TextView
-            android:id="@+id/rtit_txt_valor"
+            android:id="@+id/rpch_txt_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="R$ 12,21"/>
+            tools:text="R$ 123,12"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Conta: "/>
+
+        <TextView
+            android:id="@+id/rpch_txt_conta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="SICOOB"/>
     </LinearLayout>
 </LinearLayout>

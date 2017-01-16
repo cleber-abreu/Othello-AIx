@@ -40,21 +40,22 @@ public class FiltroPagarCheque implements FiltroPresenter {
         if(UtilsDate.intervaloValido(dados.getDataInicio(), dados.getDataFim(), UtilsDate.dd_MM_yyyy)){
             JSONObject requestParams = new JSONObject();
             try {
-                requestParams.put("DATA_INI", dados.getDataInicio());
-                requestParams.put("DATA_FIM", dados.getDataFim());
-                requestParams.put("CHP_FL_PAGO", dados.getEstadoContaAP());
+                requestParams.put("DATA_INICIAL", dados.getDataInicio());
+                requestParams.put("DATA_FINAL", dados.getDataFim());
+                requestParams.put("SITUACAO", dados.getEstadoContaAP());
 
             } catch (JSONException e) {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
 
             activity.showLoadDialog();
-            UtilsWeb.requisitar(new Request(activity, "DETALHE_CHEQUE_PAGAR", new Consumer<JSONObject>() {
+            UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_CHEQUE_PAGAR", new Consumer<JSONObject>() {
                 @Override
                 public void accept(JSONObject jsonObject) {
                     Intent intent = new Intent(activity, PagarChequeActivity.class);
                     intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
                     activity.startActivity(intent);
+//                    activity.finish();        TODO CONFIRMAR NECESSIDADE
                     activity.hideLoadDialog();
                 }
             }, new Consumer<String>() {

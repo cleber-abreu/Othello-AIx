@@ -54,7 +54,7 @@ public class FiltroPagarTitulo implements FiltroPresenter {
                     Intent intent = new Intent(activity, PagarTituloActivity.class);
                     intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
                     activity.startActivity(intent);
-                    activity.finish();
+//                    activity.finish();        TODO CONFIRMAR NECESSIDADE
                     activity.hideLoadDialog();
                 }
             }, new Consumer<String>() {
