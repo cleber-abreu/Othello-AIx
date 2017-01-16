@@ -50,6 +50,7 @@ public class PagarTituloActivity extends BaseActivity {
         } catch (JSONException e) {
             dados = new JSONArray();
         }
+
         recTitulos.setLayoutManager(new LinearLayoutManager(this));
         recTitulos.addItemDecoration(new SeparadorLista(ContextCompat.getDrawable(this, R.drawable.separador_lista), dados.length()));
         recTitulos.setAdapter(new DadoTotalAdapter(this, dados, getProviderHolderAdapter()));
@@ -92,6 +93,7 @@ public class PagarTituloActivity extends BaseActivity {
             txtValor.setText(UtilsString.formatarMonetario(dado.optDouble(INDEX_VALOR, 0)));
         }
     }
+
     class TotalHolder extends DadoTotalAdapter.Holder {
         @BindView(R.id.rtot_txt_valor) TextView txtValor;
 

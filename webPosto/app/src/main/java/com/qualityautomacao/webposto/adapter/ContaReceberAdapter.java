@@ -35,7 +35,7 @@ public class ContaReceberAdapter extends RecyclerView.Adapter<ContaReceberAdapte
 
     @Override
     public ContaReceberHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ContaReceberHolder(LayoutInflater.from(context).inflate(R.layout.row_conta, parent, false));
+        return new ContaReceberHolder(LayoutInflater.from(context).inflate(R.layout.row_simple_item, parent, false));
     }
 
     @Override
@@ -67,8 +67,8 @@ public class ContaReceberAdapter extends RecyclerView.Adapter<ContaReceberAdapte
     }
 
     class ContaReceberHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.rcon_txt_cliente) TextView txtCliente;
-        @BindView(R.id.rcon_txt_valor) TextView txtValor;
+        @BindView(R.id.rsim_txt_chave) TextView txtCliente;
+        @BindView(R.id.rsim_txt_valor) TextView txtValor;
 
         public ContaReceberHolder(View itemView) {
             super(itemView);

@@ -10,8 +10,9 @@
     <string name="title_activity_troca_preco_enviar"> </string>
     <string name="title_activity_contas_receber">Contas a Receber</string>
     <string name="title_activity_login">Seja Bem-vindo</string>
-    <string name="title_pagar_titulo">Títulos a pagar</string>
-    <string name="title_pagar_cheques">Cheques a pagar</string>
+    <string name="title_pagar_titulo">Títulos</string>
+    <string name="title_pagar_cheques">Cheques</string>
+    <string name="title_receber_titulo">Titulos</string>
 
     <string name="gcm_defaultSenderId">1062651524124</string>
     <string name="serial_id_server">webpostoandroid</string>

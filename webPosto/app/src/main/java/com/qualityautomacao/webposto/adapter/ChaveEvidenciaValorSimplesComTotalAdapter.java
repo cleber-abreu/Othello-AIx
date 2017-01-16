@@ -33,7 +33,7 @@ public class ChaveEvidenciaValorSimplesComTotalAdapter extends RecyclerView.Adap
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(inflater.inflate(R.layout.row_conta, parent, false));
+        return new Holder(inflater.inflate(R.layout.row_simple_item, parent, false));
     }
 
     @Override
@@ -66,8 +66,8 @@ public class ChaveEvidenciaValorSimplesComTotalAdapter extends RecyclerView.Adap
     }
 
     class Holder extends RecyclerView.ViewHolder{
-        @BindView(R.id.rcon_txt_cliente) TextView txtLabel;
-        @BindView(R.id.rcon_txt_valor) TextView txtValor;
+        @BindView(R.id.rsim_txt_chave) TextView txtLabel;
+        @BindView(R.id.rsim_txt_valor) TextView txtValor;
 
         public Holder(View itemView) {
             super(itemView);

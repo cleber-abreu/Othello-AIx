@@ -101,7 +101,7 @@ public class FiltroActivity extends BaseActivity {
     }
 
     private String getEstadoContaAR(){
-        switch (rdgEstadoContaAP.getCheckedRadioButtonId()){
+        switch (rdgEstadoContaAR.getCheckedRadioButtonId()){
             case R.id.fil_rdb_aberto_ar: return "N";
             case R.id.fil_rdb_recebido_ar: return "S";
             default: return "";
@@ -109,9 +109,9 @@ public class FiltroActivity extends BaseActivity {
     }
 
     private String getBomparaMovimento(){
-        switch (rdgEstadoContaAP.getCheckedRadioButtonId()){
+        switch (rdgBomparaMovimento.getCheckedRadioButtonId()){
             case R.id.fil_rdb_bompara_bm: return "B";
-            case R.id.fil_rdg_bompara_movimento: return "M";
+            case R.id.fil_rdb_vencimento_bm: return "M";
             default: return "";
         }
     }

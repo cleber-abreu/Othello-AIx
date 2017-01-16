@@ -44,10 +44,10 @@ public class FiltroReceberTitulo implements FiltroPresenter {
             activity.showLoadDialog();
             JSONObject requestParams = new JSONObject();
             try {
-                requestParams.put("DATA_INI", dados.getDataInicio());
-                requestParams.put("DATA_FIM", dados.getDataFim());
+                requestParams.put("DATA_INICIAL", dados.getDataInicio());
+                requestParams.put("DATA_FINAL", dados.getDataFim());
                 requestParams.put("FL_DATA", dados.getBomparaMovimento());
-                requestParams.put("FL_RECEBIDO", dados.getEstadoContaAR());
+                requestParams.put("SITUACAO", dados.getEstadoContaAR());
 
             } catch (JSONException e) {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
