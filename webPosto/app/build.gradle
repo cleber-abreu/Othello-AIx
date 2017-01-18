@@ -12,8 +12,13 @@ android {
         versionCode 3
     }
     buildTypes {
+        debug {
+            versionNameSuffix '-debug'
+        }
+
         release {
             minifyEnabled true
+            shrinkResources
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -69,7 +69,6 @@ public class FiltroReceberTitulo implements FiltroPresenter {
                     }
                 }).setDados(requestParams.toString()));
         }else{
-            Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
             activity.showMessage(R.string.intervalo_invalido);
         }
     }

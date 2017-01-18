@@ -1,12 +1,9 @@
 package com.qualityautomacao.webposto.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.system.ErrnoException;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -46,8 +43,8 @@ public abstract class UtilsWeb {
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
-    private static final String IP_LOCAL = "192.168.0.42";
-    private static final String PORTA = "8181";
+    private static final String IP_LOCAL = "192.168.0.45";
+    private static final String PORTA = "8080";
 
     private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service";
 
@@ -56,13 +53,14 @@ public abstract class UtilsWeb {
 
     public static void requisitar(final Request request) {
         RequestQueue queue = Volley.newRequestQueue(request.getContext());
-        String url = BASE_URL + "/" + request.getRotina() + "/" + request.getFuncao();
+        final String url = BASE_URL + "/" + request.getRotina() + "/" + request.getFuncao();
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, url,
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try {
+                        Log.i("WEB_POSTO_LOG", "request: " + url + " dados: " + request.getDados() + " response: " + response);
                         JSONObject jsonObject = new JSONObject(response);
 
                         if (jsonObject.has("MEN")) {
@@ -78,7 +76,7 @@ public abstract class UtilsWeb {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     request.getOnFalha().accept("Server error");
-                    Log.e("WEB_POSTO_LOG", "requisitar: ", error);
+                    Log.e("WEB_POSTO_LOG", "request: " + url + " dados: " + request.getDados() + " error: " + error.getMessage());
                 }
             }
         ){

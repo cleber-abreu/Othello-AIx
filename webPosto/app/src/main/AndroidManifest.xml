@@ -145,9 +145,15 @@
         <activity android:name=".view.ReceberTituloActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_receber_titulo"/>
-        <activity android:name=".view.ReceberChequeActivity" />
-        <activity android:name=".view.ReceberCartaFreteActivity" />
-        <activity android:name=".view.ReceberCartaoActivity"/>
+        <activity android:name=".view.ReceberChequeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_receber_cheques"/>
+        <activity android:name=".view.ReceberCartaFreteActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_receber_carta_frete"/>
+        <activity android:name=".view.ReceberCartaoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_receber_cartao"/>
     </application>
 
 </manifest>

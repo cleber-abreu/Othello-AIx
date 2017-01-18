@@ -13,6 +13,9 @@
     <string name="title_pagar_titulo">Títulos</string>
     <string name="title_pagar_cheques">Cheques</string>
     <string name="title_receber_titulo">Titulos</string>
+    <string name="title_receber_cheques">Cheques</string>
+    <string name="title_receber_carta_frete">Cartas Frete</string>
+    <string name="title_receber_cartao">Cartão</string>s
 
     <string name="gcm_defaultSenderId">1062651524124</string>
     <string name="serial_id_server">webpostoandroid</string>

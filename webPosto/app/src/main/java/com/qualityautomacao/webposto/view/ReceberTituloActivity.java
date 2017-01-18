@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class ReceberTituloActivity extends BaseActivity {
 
-    @BindView(R.id.rect_rec_contas) RecyclerView recTitulos;
+    @BindView(R.id.rect_rec_titulos) RecyclerView recTitulos;
 
     private static final int INDEX_CLIENTE = 0;
     private static final int INDEX_VALOR = 1;
