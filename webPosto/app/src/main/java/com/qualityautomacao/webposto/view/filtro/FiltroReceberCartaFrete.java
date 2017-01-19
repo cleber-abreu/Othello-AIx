@@ -59,8 +59,8 @@ public class FiltroReceberCartaFrete implements FiltroPresenter {
                 public void accept(JSONObject jsonObject) {
                         Intent intent = new Intent(activity, ReceberCartaFreteActivity.class);
                         intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
-                        activity.startActivity(intent);
                         activity.hideLoadDialog();
+                        activity.startActivity(intent);
                     }
                 }, new Consumer<String>() {
                     @Override

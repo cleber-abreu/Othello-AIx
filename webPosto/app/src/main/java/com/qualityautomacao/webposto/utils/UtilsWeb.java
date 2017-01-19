@@ -60,7 +60,7 @@ public abstract class UtilsWeb {
                 @Override
                 public void onResponse(String response) {
                     try {
-                        Log.i("WEB_POSTO_LOG", "request: " + url + " dados: " + request.getDados() + " response: " + response);
+                        Log.i("WEB_POSTO_LOG",  String.format("request: %s, dados: %s, token: %s, response: %s", url, request.getDados().toString(), token == null ? "" : token.toString(), response));
                         JSONObject jsonObject = new JSONObject(response);
 
                         if (jsonObject.has("MEN")) {

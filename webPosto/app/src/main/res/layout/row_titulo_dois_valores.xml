@@ -7,15 +7,24 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/rsim_txt_chave"
+        android:id="@+id/rtdv_txt_titulo"
         style="@style/WebPosto.RowChaveChaveGrandeValorPequeno"
         tools:text="Cliente"/>
 
     <TextView
-        android:id="@+id/rsim_txt_valor"
+        android:id="@+id/rtdv_txt_valor_principal"
         style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
-        android:layout_below="@id/rsim_txt_chave"
+        android:layout_below="@id/rtdv_txt_titulo"
         tools:text="R$ 2.143,55"/>
+
+    <TextView
+        android:id="@+id/rtdv_txt_valor_segundario"
+        style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
+        android:layout_marginTop="@dimen/espacamento_micro"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/rtdv_txt_titulo"
+        tools:text="17/01/2017"/>
 
 </RelativeLayout>
