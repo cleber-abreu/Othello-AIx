@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.model.DadosFiltro;
 import com.qualityautomacao.webposto.utils.Constantes;
 import com.qualityautomacao.webposto.utils.Consumer;
@@ -40,35 +41,36 @@ public class FiltroReceberCartaFrete implements FiltroPresenter {
     @Override
     public void consulta(DadosFiltro dados) {
         if(UtilsDate.intervaloValido(dados.getDataInicio(), dados.getDataFim(), UtilsDate.dd_MM_yyyy)){
+            activity.showLoadDialog();
             JSONObject requestParams = new JSONObject();
             try {
-                requestParams.put("DATA_INI", dados.getDataInicio());
-                requestParams.put("DATA_FIM", dados.getDataFim());
+                requestParams.put("DATA_INICIAL", dados.getDataInicio());
+                requestParams.put("DATA_FINAL", dados.getDataFim());
                 requestParams.put("FL_DATA", dados.getBomparaMovimento());
-                requestParams.put("FL_RECEBIDO", dados.getEstadoContaAR());
+                requestParams.put("SITUACAO", dados.getEstadoContaAR());
 
             } catch (JSONException e) {
                 Log.e("WEB_POSTO_LOG", "consulta: ", e);
             }
 
-            activity.showLoadDialog();
-            UtilsWeb.requisitar(new Request(activity, "DETALHE_CARTA_FRETE_RECEBER", new Consumer<JSONObject>() {
+            // TODO SERVIDOR, LOGICA PARA BOM PARA E MOVIMENTO, ACERTAR VALOR SENDO SALDO
+            UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_CARTA_FRETE_RECEBER", new Consumer<JSONObject>() {
                 @Override
                 public void accept(JSONObject jsonObject) {
-                    Intent intent = new Intent(activity, ReceberCartaFreteActivity.class);
-                    intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
-                    activity.startActivity(intent);
-                    activity.hideLoadDialog();
-                }
-            }, new Consumer<String>() {
-                @Override
-                public void accept(String s) {
-                    activity.hideLoadDialog();
-                    Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
-                }
-            }).setDados(requestParams.toString()));
+                        Intent intent = new Intent(activity, ReceberCartaFreteActivity.class);
+                        intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
+                        activity.startActivity(intent);
+                        activity.hideLoadDialog();
+                    }
+                }, new Consumer<String>() {
+                    @Override
+                    public void accept(String s) {
+                        activity.hideLoadDialog();
+                        activity.showMessage(s);
+                    }
+                }).setDados(requestParams.toString()));
         }else{
-            Toast.makeText(activity, "Intervalo invalido", Toast.LENGTH_SHORT).show();  // TODO COLOCAR POR RECURSO
+            activity.showMessage(R.string.intervalo_invalido);
         }
     }
 }

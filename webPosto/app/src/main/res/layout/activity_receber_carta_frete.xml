@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_receber_carta_frete"
+    tools:context="com.qualityautomacao.webposto.view.ReceberCartaFreteActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.qualityautomacao.webposto.view.ReceberCartaFreteActivity">
+    android:fitsSystemWindows="true">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar_normal"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcf_rec_contas"
+        android:layout_below="@id/toolbar"
+        android:id="@+id/rcf_rec_titulos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>
