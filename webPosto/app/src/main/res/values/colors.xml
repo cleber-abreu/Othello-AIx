@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bg_light">#c8e2f0</color>
+    <color name="bg_light_pressed">#bfd9e8</color>
     <color name="bg_dark">#b5dbee</color>
     <color name="separador_item_menu">#999</color>
     <color name="separador_item_lista">#333</color>

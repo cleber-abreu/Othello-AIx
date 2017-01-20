@@ -1,19 +1,15 @@
 package com.qualityautomacao.webposto.view;
 
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.qualityautomacao.webposto.R;
-import com.qualityautomacao.webposto.adapter.ContaReceberAdapter;
 import com.qualityautomacao.webposto.adapter.DadoTotalAdapter;
 import com.qualityautomacao.webposto.adapter.SeparadorLista;
 import com.qualityautomacao.webposto.utils.Constantes;

@@ -63,4 +63,5 @@
     <string name="load">Aguarde...</string>
     <string name="intervalo_invalido">Intervalo Inválido</string>
     <string name="dados_invalidos">Dados Inválidos</string>
+    <string name="title_lista_cliente">Clientes</string>
 </resources>

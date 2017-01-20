@@ -16,8 +16,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -135,25 +135,33 @@
         <activity
             android:name=".view.FiltroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".view.PagarTituloActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_pagar_titulo" />
-        <activity android:name=".view.PagarChequeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_pagar_cheques"/>
-        <activity android:name=".view.ReceberTituloActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_receber_titulo"/>
-        <activity android:name=".view.ReceberChequeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_receber_cheques"/>
-        <activity android:name=".view.ReceberCartaFreteActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_receber_carta_frete"/>
-        <activity android:name=".view.ReceberCartaoActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_receber_cartao"/>
+        <activity
+            android:name=".view.PagarTituloActivity"
+            android:label="@string/title_pagar_titulo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.PagarChequeActivity"
+            android:label="@string/title_pagar_cheques"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ReceberTituloActivity"
+            android:label="@string/title_receber_titulo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ReceberChequeActivity"
+            android:label="@string/title_receber_cheques"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ReceberCartaFreteActivity"
+            android:label="@string/title_receber_carta_frete"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ReceberCartaoActivity"
+            android:label="@string/title_receber_cartao"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.ListaClienteActivity"
+            android:label="@string/title_lista_cliente"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

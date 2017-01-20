@@ -1,9 +1,11 @@
 package com.qualityautomacao.webposto.model;
 
+import java.io.Serializable;
+
 /**
  * Created by wiliam on 05/01/17.
  */
-public class DadosFiltro {
+public class DadosFiltro implements Serializable{
     private String bomparaMovimento;
     private String dataInicio;
     private String dataFim;
@@ -60,7 +62,7 @@ public class DadosFiltro {
         this.estadoContaAR = estadoContaAR;
     }
 
-    public boolean getPorCliente() {
+    public boolean isPorCliente() {
         return porCliente;
     }
 

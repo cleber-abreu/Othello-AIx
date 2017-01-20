@@ -43,8 +43,8 @@ public abstract class UtilsWeb {
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
-    private static final String IP_LOCAL = "192.168.0.45";
-    private static final String PORTA = "8080";
+    private static final String IP_LOCAL = "192.168.0.50";
+    private static final String PORTA = "8181";
 
     private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service";
 
