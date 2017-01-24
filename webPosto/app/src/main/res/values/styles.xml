@@ -4,12 +4,15 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/qualityCor</item>
+
+        <item name="colorControlActivated">@color/acentuada</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/qualityCor</item>
+
+        <item name="colorControlActivated">@color/acentuada</item>
     </style>
 
     <style name="WebPosto"/>
@@ -25,6 +28,9 @@
         <item name="android:paddingLeft">@dimen/espacamento_normal</item>
         <item name="android:background">@color/bg_light</item>
     </style>
+
+    <style name="WebPosto.TextoChave"/>
+    <style name="WebPosto.TextoValor"/>
 
     <style name="WebPosto.TituloMenuPrincipal">
         <item name="android:layout_width">wrap_content</item>
@@ -71,13 +77,45 @@
         <item name="android:textColor">@color/fontColor_item_menu</item>
     </style>
 
-    <style name="WebPosto.ChaveMenuChaveValor" parent="WebPosto.TextoMenuChaveValor">
+    <style name="WebPosto.TextoChave.MenuChaveValor" parent="WebPosto.TextoMenuChaveValor">
         <item name="android:layout_alignParentLeft">true</item>
     </style>
 
-    <style name="WebPosto.ValorMenuChaveValor" parent="WebPosto.TextoMenuChaveValor">
+    <style name="WebPosto.TextoValor.MenuChaveValor" parent="WebPosto.TextoMenuChaveValor">
         <item name="android:layout_alignParentRight">true</item>
     </style>
+
+    <style name="WebPosto.TextoChave.ChaveGrandeValorPequeno">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/fonte_normal</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="WebPosto.TextoValor.ChavePequenaValorGrande">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/fonte_normal</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="WebPosto.TextoChave.ChavePequenaValorGrande">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/fonte_mini</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="WebPosto.TextoValor.ChaveGrandeValorPequeno">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/fonte_mini</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
 
     <style name="WebPosto.Row">
         <item name="android:layout_width">match_parent</item>
@@ -86,21 +124,6 @@
         <item name="android:paddingBottom">@dimen/espacamento_mini</item>
         <item name="android:paddingLeft">@dimen/espacamento_normal</item>
         <item name="android:paddingRight">@dimen/espacamento_normal</item>
-    </style>
-
-    <style name="WebPosto.RowChaveChaveGrandeValorPequeno">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/fonte_normal</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-    </style>
-
-    <style name="WebPosto.RowValorChaveGrandeValorPequeno">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/fonte_mini</item>
-        <item name="android:layout_alignParentRight">true</item>
     </style>
 
     <style name="WebPosto.EspacoTopo">

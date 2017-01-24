@@ -1,148 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_filtro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/bg_dark"
     tools:context="com.qualityautomacao.webposto.view.FiltroActivity">
 
-    <View style="@style/WebPosto.EspacoTopo"/>
-
-    <RadioGroup
-        android:id="@+id/fil_rdg_bompara_movimento"
-        style="@style/WebPosto.SegmentoGroup"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <RadioButton
-            android:id="@+id/fil_rdb_bompara_bm"
-            style="@style/WebPosto.Segmento.Esquerda"
-            android:checked="true"
-            android:text="Bom Para" />
-
-        <RadioButton
-            android:id="@+id/fil_rdb_vencimento_bm"
-            style="@style/WebPosto.Segmento.Direita"
-            android:text="Movimento"/>
-    </RadioGroup>
-
-    <!-- FILTRO DE DATA -->
     <LinearLayout
-        android:id="@+id/fil_view_periodo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/espacamento_normal"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bg_dark">
+
+        <View style="@style/WebPosto.EspacoTopo"/>
+
+        <RadioGroup
+            android:id="@+id/fil_rdg_bompara_movimento"
+            style="@style/WebPosto.SegmentoGroup"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/fil_rdb_bompara_bm"
+                style="@style/WebPosto.Segmento.Esquerda"
+                android:checked="true"
+                android:text="Bom Para" />
+
+            <RadioButton
+                android:id="@+id/fil_rdb_vencimento_bm"
+                style="@style/WebPosto.Segmento.Direita"
+                android:text="Movimento"/>
+        </RadioGroup>
+
+        <!-- FILTRO DE DATA -->
+        <LinearLayout
+            android:id="@+id/fil_view_periodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/espacamento_normal"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/fil_rel_datainicio"
+                style="@style/WebPosto.BlocoMenuChaveValor">
+                <TextView
+                    style="@style/WebPosto.TextoChave.MenuChaveValor"
+                    android:text="Data Inicio"/>
+                <TextView
+                    android:id="@+id/fil_txt_datainicio"
+                    style="@style/WebPosto.TextoValor.MenuChaveValor"
+                    tools:text="01/01/2000"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fil_rel_datafim"
+                style="@style/WebPosto.BlocoMenuChaveValor">
+                <TextView
+                    style="@style/WebPosto.TextoChave.MenuChaveValor"
+                    android:text="Data Fim"/>
+                <TextView
+                    android:id="@+id/fil_txt_datafim"
+                    style="@style/WebPosto.TextoValor.MenuChaveValor"
+                    tools:text="01/01/2000"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/fil_rdg_estado_conta"
+            style="@style/WebPosto.SegmentoGroup"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/fil_rdb_aberto"
+                style="@style/WebPosto.Segmento.Esquerda"
+                android:checked="true"
+                android:text="Aberto" />
+
+            <RadioButton
+                android:id="@+id/fil_rdb_parcial"
+                style="@style/WebPosto.Segmento.Centro"
+                android:text="Parcial" />
+
+            <RadioButton
+                android:id="@+id/fil_rdb_pago"
+                style="@style/WebPosto.Segmento.Direita"
+                android:text="Pago"/>
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/fil_rdg_estado_conta_ap"
+            style="@style/WebPosto.SegmentoGroup"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/fil_rdb_aberto_ap"
+                style="@style/WebPosto.Segmento.Esquerda"
+                android:checked="true"
+                android:text="Aberto" />
+
+            <RadioButton
+                android:id="@+id/fil_rdb_pago_ap"
+                style="@style/WebPosto.Segmento.Direita"
+                android:text="Pago"/>
+        </RadioGroup>
+
+
+        <RadioGroup
+            android:id="@+id/fil_rdg_estado_conta_ar"
+            style="@style/WebPosto.SegmentoGroup"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/fil_rdb_aberto_ar"
+                style="@style/WebPosto.Segmento.Esquerda"
+                android:checked="true"
+                android:text="Aberto" />
+
+            <RadioButton
+                android:id="@+id/fil_rdb_recebido_ar"
+                style="@style/WebPosto.Segmento.Direita"
+                android:text="Recebido"/>
+        </RadioGroup>
 
         <RelativeLayout
-            android:id="@+id/fil_rel_datainicio"
-            style="@style/WebPosto.BlocoMenuChaveValor">
+            android:id="@+id/fil_view_cliente"
+            style="@style/WebPosto.BlocoMenuChaveValor"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginBottom="@dimen/espacamento_normal">
+
             <TextView
-                style="@style/WebPosto.ChaveMenuChaveValor"
-                android:text="Data Inicio"/>
-            <TextView
-                android:id="@+id/fil_txt_datainicio"
-                style="@style/WebPosto.ValorMenuChaveValor"
-                tools:text="01/01/2000"/>
+                style="@style/WebPosto.TextoChave.MenuChaveValor"
+                android:text="Filtrar por Cliente"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/fil_swt_por_cliente"
+                style="@style/WebPosto.TextoValor.MenuChaveValor"/>
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/fil_rel_datafim"
-            style="@style/WebPosto.BlocoMenuChaveValor">
+            android:id="@+id/fil_view_administradora"
+            style="@style/WebPosto.BlocoMenuChaveValor"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginBottom="@dimen/espacamento_normal">
+
             <TextView
-                style="@style/WebPosto.ChaveMenuChaveValor"
-                android:text="Data Fim"/>
-            <TextView
-                android:id="@+id/fil_txt_datafim"
-                style="@style/WebPosto.ValorMenuChaveValor"
-                tools:text="01/01/2000"/>
+                style="@style/WebPosto.TextoChave.MenuChaveValor"
+                android:text="Filtrar por Administradora"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/fil_swt_por_administradora"
+                style="@style/WebPosto.TextoValor.MenuChaveValor"/>
         </RelativeLayout>
 
+        <Button
+            android:id="@+id/fil_btn_consultar"
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:layout_marginBottom="@dimen/espacamento_normal"
+            android:text="Consultar"/>
     </LinearLayout>
-
-    <RadioGroup
-        android:id="@+id/fil_rdg_estado_conta"
-        style="@style/WebPosto.SegmentoGroup"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <RadioButton
-            android:id="@+id/fil_rdb_aberto"
-            style="@style/WebPosto.Segmento.Esquerda"
-            android:checked="true"
-            android:text="Aberto" />
-
-        <RadioButton
-            android:id="@+id/fil_rdb_parcial"
-            style="@style/WebPosto.Segmento.Centro"
-            android:text="Parcial" />
-
-        <RadioButton
-            android:id="@+id/fil_rdb_pago"
-            style="@style/WebPosto.Segmento.Direita"
-            android:text="Pago"/>
-
-    </RadioGroup>
-
-    <RadioGroup
-        android:id="@+id/fil_rdg_estado_conta_ap"
-        style="@style/WebPosto.SegmentoGroup"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <RadioButton
-            android:id="@+id/fil_rdb_aberto_ap"
-            style="@style/WebPosto.Segmento.Esquerda"
-            android:checked="true"
-            android:text="Aberto" />
-
-        <RadioButton
-            android:id="@+id/fil_rdb_pago_ap"
-            style="@style/WebPosto.Segmento.Direita"
-            android:text="Pago"/>
-    </RadioGroup>
-
-
-    <RadioGroup
-        android:id="@+id/fil_rdg_estado_conta_ar"
-        style="@style/WebPosto.SegmentoGroup"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <RadioButton
-            android:id="@+id/fil_rdb_aberto_ar"
-            style="@style/WebPosto.Segmento.Esquerda"
-            android:checked="true"
-            android:text="Aberto" />
-
-        <RadioButton
-            android:id="@+id/fil_rdb_recebido_ar"
-            style="@style/WebPosto.Segmento.Direita"
-            android:text="Recebido"/>
-    </RadioGroup>
-
-    <RelativeLayout
-        android:id="@+id/fil_view_cliente"
-        style="@style/WebPosto.BlocoMenuChaveValor"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_marginBottom="@dimen/espacamento_normal">
-
-        <TextView
-            style="@style/WebPosto.ChaveMenuChaveValor"
-            android:text="Filtrar por Cliente"/>
-
-        <Switch
-            android:id="@+id/fil_swt_por_cliente"
-            style="@style/WebPosto.ValorMenuChaveValor"/>
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/fil_btn_consultar"
-        style="@style/WebPosto.ItemMenuPrincipal"
-        android:text="Consultar"/>
-</LinearLayout>
+</ScrollView>

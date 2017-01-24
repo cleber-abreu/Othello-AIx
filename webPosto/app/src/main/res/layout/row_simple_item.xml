@@ -8,12 +8,12 @@
 
     <TextView
         android:id="@+id/rsim_txt_chave"
-        style="@style/WebPosto.RowChaveChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
         tools:text="Cliente"/>
 
     <TextView
         android:id="@+id/rsim_txt_valor"
-        style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
         android:layout_below="@id/rsim_txt_chave"
         tools:text="R$ 2.143,55"/>

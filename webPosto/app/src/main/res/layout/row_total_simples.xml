@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/WebPosto.Row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,13 +8,13 @@
 
     <TextView
         android:id="@+id/rtot_txt_total"
-        style="@style/WebPosto.RowChaveChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
         android:text="Total"/>
 
     <TextView
         android:id="@+id/rtot_txt_valor"
-        style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
         android:layout_below="@id/rtot_txt_total"
-        android:text="R$ 2.143,55"/>
+        tools:text="R$ 2.143,55"/>
 </RelativeLayout>

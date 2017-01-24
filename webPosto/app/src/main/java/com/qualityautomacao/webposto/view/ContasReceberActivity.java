@@ -25,32 +25,58 @@ public class ContasReceberActivity extends BaseActivity {
     @BindView(R.id.conrec_txt_quinze)   TextView txtQuinze;
     @BindView(R.id.conrec_txt_trinta)   TextView txtTrinta;
 
+    private JSONObject dados;
+
+    private static final String STATE_DADOS = "dados";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contas_receber);
         ButterKnife.bind(this);
 
+        if(savedInstanceState == null){
+            requisitarDados();
+        }else{
+            try{
+                dados = new JSONObject(savedInstanceState.getString(STATE_DADOS));
+            }catch (Exception e){
+                dados = new JSONObject();
+                showMessage(R.string.dados_invalidos);
+            }
+            carregaDados();
+        }
+    }
+
+    private void carregaDados() {
+        txtDiario.setText(UtilsString.formatarMonetario(dados.optDouble("DIARIO", 0)));
+        txtCinco.setText(UtilsString.formatarMonetario(dados.optDouble("CINCO", 0)));
+        txtQuinze.setText(UtilsString.formatarMonetario(dados.optDouble("QUINZE", 0)));
+        txtTrinta.setText(UtilsString.formatarMonetario(dados.optDouble("TRINTA", 0)));
+    }
+
+    private void requisitarDados(){
         showLoadDialog();
         UtilsWeb.requisitar(new Request(this, "MOBILE", "RODAPE_CONTAS_A_RECEBER", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
-                JSONObject dados = jsonObject.optJSONObject("OBJ");
-
-                txtDiario.setText(UtilsString.formatarMonetario(dados.optDouble("DIARIO", 0)));
-                txtCinco.setText(UtilsString.formatarMonetario(dados.optDouble("CINCO", 0)));
-                txtQuinze.setText(UtilsString.formatarMonetario(dados.optDouble("QUINZE", 0)));
-                txtTrinta.setText(UtilsString.formatarMonetario(dados.optDouble("TRINTA", 0)));
-
+                dados = jsonObject.optJSONObject("OBJ");
+                carregaDados();
                 hideLoadDialog();
             }
         }, new Consumer<String>() {
             @Override
             public void accept(String s) {
                 hideLoadDialog();
-                Toast.makeText(ContasReceberActivity.this, s, Toast.LENGTH_SHORT).show();
+                showMessage(s);
             }
         }));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_DADOS, dados.toString());
     }
 
     @OnClick(R.id.conrec_btn_titulo)

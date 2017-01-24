@@ -1,6 +1,7 @@
 package com.qualityautomacao.webposto.view;
 
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -35,10 +36,12 @@ public class FiltroActivity extends BaseActivity {
     @BindView(R.id.fil_rdg_estado_conta_ap) RadioGroup rdgEstadoContaAP;
     @BindView(R.id.fil_rdg_estado_conta_ar) RadioGroup rdgEstadoContaAR;
     @BindView(R.id.fil_view_cliente) RelativeLayout viewCliente;
+    @BindView(R.id.fil_view_administradora) RelativeLayout viewAdministradora;
 
     @BindView(R.id.fil_txt_datainicio) TextView txtDataInicio;
     @BindView(R.id.fil_txt_datafim) TextView txtDataFim;
-    @BindView(R.id.fil_swt_por_cliente) Switch swtPorCliente;
+    @BindView(R.id.fil_swt_por_cliente) SwitchCompat swtPorCliente;
+    @BindView(R.id.fil_swt_por_administradora) SwitchCompat swtPorAdministradora;
 
     /* CONSTANTES */
     public static final String EXTRA_DESTINO = "DESTINO";
@@ -79,6 +82,7 @@ public class FiltroActivity extends BaseActivity {
         dados.setBomparaMovimento(getBomparaMovimento());
         dados.setEstadoContaAR(getEstadoContaAR());
         dados.setPorCliente(swtPorCliente.isChecked());
+        dados.setPorAdministradora(swtPorAdministradora.isChecked());
 
         filtroImp.consulta(dados);
     }
@@ -160,6 +164,8 @@ public class FiltroActivity extends BaseActivity {
     public void initEstadoContaAR(){rdgEstadoContaAR.setVisibility(View.VISIBLE);}
 
     public void initCliente(){viewCliente.setVisibility(View.VISIBLE);}
+
+    public void initAdministradora(){viewAdministradora.setVisibility(View.VISIBLE);}
 
 
 }

@@ -7,24 +7,24 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/rtdv_txt_titulo"
-        style="@style/WebPosto.RowChaveChaveGrandeValorPequeno"
+        android:id="@+id/rcdv_txt_cliente"
+        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
         tools:text="Cliente"/>
 
     <TextView
-        android:id="@+id/rtdv_txt_valor_principal"
-        style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
+        android:id="@+id/rcdv_txt_valor"
+        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
-        android:layout_below="@id/rtdv_txt_titulo"
+        android:layout_below="@id/rcdv_txt_cliente"
         tools:text="R$ 2.143,55"/>
 
     <TextView
-        android:id="@+id/rtdv_txt_valor_segundario"
-        style="@style/WebPosto.RowValorChaveGrandeValorPequeno"
+        android:id="@+id/rcdv_txt_data"
+        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
         android:layout_alignParentRight="false"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/rtdv_txt_titulo"
+        android:layout_below="@id/rcdv_txt_cliente"
         tools:text="17/01/2017"/>
 
 </RelativeLayout>

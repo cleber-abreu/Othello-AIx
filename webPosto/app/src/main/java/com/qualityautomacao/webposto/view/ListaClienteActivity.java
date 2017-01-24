@@ -62,7 +62,16 @@ public class ListaClienteActivity extends BaseActivity {
         UtilsWeb.requisitar(new Request(this, "MOBILE", getFuncao(), new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
-                Intent intent = new Intent(ListaClienteActivity.this, ReceberTituloActivity.class);
+                Class<?> destino = null;
+
+                switch (tipoConsulta){
+                    case Constantes.TIPO_CONSULTA_TITULO: destino = ReceberTituloActivity.class; break;
+                    case Constantes.TIPO_CONSULTA_CHEQUE: destino = ReceberChequeActivity.class; break;
+                    case Constantes.TIPO_CONSULTA_CARTA: destino = ReceberCartaFreteActivity.class; break;
+                    case Constantes.TIPO_CONSULTA_CARTAO: destino = ReceberCartaoActivity.class; break;
+                }
+
+                Intent intent = new Intent(ListaClienteActivity.this, destino);
                 intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
                 hideLoadDialog();
                 startActivity(intent);

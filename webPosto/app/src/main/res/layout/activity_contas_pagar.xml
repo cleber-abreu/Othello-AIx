@@ -1,79 +1,87 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
-    android:orientation="vertical"
     tools:context="com.qualityautomacao.webposto.view.ContasPagarActivity">
 
-    <!--TODO Trocar icons Textos por recursos -->
-    <View style="@style/WebPosto.EspacoTopo" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/conpag_btn_titulo"
-        style="@style/WebPosto.ItemMenuPrincipal"
-        android:text="Titulo"
-        android:drawableLeft="@drawable/contas_receber"/>
+        <!--TODO Trocar icons Textos por recursos -->
+        <View style="@style/WebPosto.EspacoTopo" />
 
-    <Button
-        android:id="@+id/conpag_btn_cheque"
-        style="@style/WebPosto.ItemMenuPrincipal"
-        android:text="Cheque"
-        android:drawableLeft="@drawable/troca_de_preco"/>
+        <Button
+            android:id="@+id/conpag_btn_titulo"
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="Titulo"
+            android:drawableLeft="@drawable/contas_receber"/>
 
-    <TextView style="@style/WebPosto.TituloMenuPrincipal"
-        android:text="Total Geral"/>
+        <Button
+            android:id="@+id/conpag_btn_cheque"
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="Cheque"
+            android:drawableLeft="@drawable/troca_de_preco"/>
 
-    <RelativeLayout style="@style/WebPosto.BlocoInformacao">
+        <TextView style="@style/WebPosto.TituloMenuPrincipal"
+            android:text="Total Geral"/>
 
-        <TextView
-            android:id="@+id/conpag_lbl_diario"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:text="A Receber Dia:"/>
+        <RelativeLayout style="@style/WebPosto.BlocoInformacao"
+            android:layout_marginBottom="@dimen/espacamento_normal">
 
-        <TextView
-            android:id="@+id/conpag_txt_diario"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_alignBaseline="@id/conpag_lbl_diario"
-            android:layout_alignParentRight="true"
-            android:text="R$0,00"/>
+            <TextView
+                android:id="@+id/conpag_lbl_diario"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:text="A Receber Dia:"/>
 
-        <TextView
-            android:id="@+id/conpag_lbl_cinco"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_below="@id/conpag_lbl_diario"
-            android:text="Em Cinco Dias:"/>
+            <TextView
+                android:id="@+id/conpag_txt_diario"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_alignBaseline="@id/conpag_lbl_diario"
+                android:layout_alignParentRight="true"
+                android:text="R$0,00"/>
 
-        <TextView
-            android:id="@+id/conpag_txt_cinco"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_alignBaseline="@id/conpag_lbl_cinco"
-            android:layout_alignParentRight="true"
-            android:text="R$0,00"/>
+            <TextView
+                android:id="@+id/conpag_lbl_cinco"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_below="@id/conpag_lbl_diario"
+                android:text="Em Cinco Dias:"/>
 
-        <TextView
-            android:id="@+id/conpag_lbl_quinze"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_below="@id/conpag_lbl_cinco"
-            android:text="Em Quinze Dias:"/>
+            <TextView
+                android:id="@+id/conpag_txt_cinco"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_alignBaseline="@id/conpag_lbl_cinco"
+                android:layout_alignParentRight="true"
+                android:text="R$0,00"/>
 
-        <TextView
-            android:id="@+id/conpag_txt_quinze"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_alignBaseline="@id/conpag_lbl_quinze"
-            android:layout_alignParentRight="true"
-            android:text="R$0,00"/>
+            <TextView
+                android:id="@+id/conpag_lbl_quinze"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_below="@id/conpag_lbl_cinco"
+                android:text="Em Quinze Dias:"/>
 
-        <TextView
-            android:id="@+id/conpag_lbl_trinta"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_below="@id/conpag_lbl_quinze"
-            android:text="Em Trinta Dias:"/>
+            <TextView
+                android:id="@+id/conpag_txt_quinze"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_alignBaseline="@id/conpag_lbl_quinze"
+                android:layout_alignParentRight="true"
+                android:text="R$0,00"/>
 
-        <TextView
-            android:id="@+id/conpag_txt_trinta"
-            style="@style/WebPosto.TextoBlocoInformacao"
-            android:layout_alignBaseline="@id/conpag_lbl_trinta"
-            android:layout_alignParentRight="true"
-            android:text="R$0,00"/>
-    </RelativeLayout>
-</LinearLayout>
+            <TextView
+                android:id="@+id/conpag_lbl_trinta"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_below="@id/conpag_lbl_quinze"
+                android:text="Em Trinta Dias:"/>
+
+            <TextView
+                android:id="@+id/conpag_txt_trinta"
+                style="@style/WebPosto.TextoBlocoInformacao"
+                android:layout_alignBaseline="@id/conpag_lbl_trinta"
+                android:layout_alignParentRight="true"
+                android:text="R$0,00"/>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

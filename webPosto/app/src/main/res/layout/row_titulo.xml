@@ -6,26 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
+        android:layout_marginBottom="@dimen/espacamento_micro"
+        android:id="@+id/rtit_txt_fornecedor"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fornecedor: "/>
-
-        <TextView
-            android:id="@+id/rtit_txt_fornecedor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Joao Jose"/>
-    </LinearLayout>
+        tools:text="Joao Jose"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

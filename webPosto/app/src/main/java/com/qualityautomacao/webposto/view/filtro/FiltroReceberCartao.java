@@ -12,6 +12,7 @@ import com.qualityautomacao.webposto.utils.Request;
 import com.qualityautomacao.webposto.utils.UtilsDate;
 import com.qualityautomacao.webposto.utils.UtilsWeb;
 import com.qualityautomacao.webposto.view.FiltroActivity;
+import com.qualityautomacao.webposto.view.ListaClienteActivity;
 import com.qualityautomacao.webposto.view.ReceberCartaoActivity;
 
 import org.json.JSONException;
@@ -35,41 +36,71 @@ public class FiltroReceberCartao implements FiltroPresenter {
                 UtilsDate.getHoje(UtilsDate.dd_MM_yyyy),
                 UtilsDate.getDataIncMes(UtilsDate.dd_MM_yyyy, 1));
         activity.initEstadoContaAR();
-        activity.initCliente();
+        activity.initAdministradora();
     }
 
     @Override
     public void consulta(DadosFiltro dados) {
-        if(UtilsDate.intervaloValido(dados.getDataInicio(), dados.getDataFim(), UtilsDate.dd_MM_yyyy)){
-            activity.showLoadDialog();
-            JSONObject requestParams = new JSONObject();
-            try {
-                requestParams.put("DATA_INICIAL", dados.getDataInicio());
-                requestParams.put("DATA_FINAL", dados.getDataFim());
-                requestParams.put("FL_DATA", dados.getBomparaMovimento());
-                requestParams.put("SITUACAO", dados.getEstadoContaAR());
-
-            } catch (JSONException e) {
-                Log.e("WEB_POSTO_LOG", "consulta: ", e);
-            }
-
-            UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_CARTAO", new Consumer<JSONObject>() {
-                @Override
-                public void accept(JSONObject jsonObject) {
-                        Intent intent = new Intent(activity, ReceberCartaoActivity.class);
-                        intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
-                        activity.startActivity(intent);
-                        activity.hideLoadDialog();
-                    }
-                }, new Consumer<String>() {
-                    @Override
-                    public void accept(String s) {
-                        activity.hideLoadDialog();
-                        activity.showMessage(s);
-                    }
-                }).setDados(requestParams.toString()));
-        }else{
+        if (!UtilsDate.intervaloValido(dados.getDataInicio(), dados.getDataFim(), UtilsDate.dd_MM_yyyy)) {
             activity.showMessage(R.string.intervalo_invalido);
+        } else if (dados.isPorAdministradora()) {
+            consultaClientes(dados);
+        } else {
+            consultaNormal(dados);
         }
+    }
+
+    private void consultaClientes(final DadosFiltro dados) {
+        activity.showLoadDialog();
+        JSONObject requestParams = new JSONObject();
+
+        UtilsWeb.requisitar(new Request(activity, "MOBILE", "COMBOBOX_ADMINISTRADORA", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                Intent intent = new Intent(activity, ListaClienteActivity.class);
+                intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
+                intent.putExtra(Constantes.EXTRA_DADO_FILTRO, dados);
+                intent.putExtra(Constantes.EXTRA_TIPO_CONSULTA, Constantes.TIPO_CONSULTA_CARTAO);
+                activity.hideLoadDialog();
+                activity.startActivity(intent);
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                activity.hideLoadDialog();
+                activity.showMessage(s);
+            }
+        }).setDados(requestParams.toString()));
+    }
+
+    public void consultaNormal(DadosFiltro dados) {
+        activity.showLoadDialog();
+        JSONObject requestParams = new JSONObject();
+        try {
+            requestParams.put("DATA_INICIAL", dados.getDataInicio());
+            requestParams.put("DATA_FINAL", dados.getDataFim());
+            requestParams.put("FL_DATA", dados.getBomparaMovimento());
+            requestParams.put("SITUACAO", dados.getEstadoContaAR());
+
+        } catch (JSONException e) {
+            Log.e("WEB_POSTO_LOG", "consulta: ", e);
+        }
+
+        UtilsWeb.requisitar(new Request(activity, "MOBILE", "DETALHE_CARTAO", new Consumer<JSONObject>() {
+            @Override
+            public void accept(JSONObject jsonObject) {
+                Intent intent = new Intent(activity, ReceberCartaoActivity.class);
+                intent.putExtra(Constantes.EXTRA_DADO, jsonObject.toString());
+                activity.hideLoadDialog();
+                activity.startActivity(intent);
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                activity.hideLoadDialog();
+                activity.showMessage(s);
+            }
+        }
+        ).setDados(requestParams.toString()));
     }
 }

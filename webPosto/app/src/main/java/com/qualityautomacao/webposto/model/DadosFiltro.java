@@ -13,6 +13,7 @@ public class DadosFiltro implements Serializable{
     private String estadoContaAP;
     private String estadoContaAR;
     private boolean porCliente;
+    private boolean porAdministradora;
 
     public String getBomparaMovimento() {
         return bomparaMovimento;
@@ -68,5 +69,13 @@ public class DadosFiltro implements Serializable{
 
     public void setPorCliente(boolean porCliente) {
         this.porCliente = porCliente;
+    }
+
+    public boolean isPorAdministradora() {
+        return porAdministradora;
+    }
+
+    public void setPorAdministradora(boolean porAdministradora) {
+        this.porAdministradora = porAdministradora;
     }
 }

@@ -72,7 +72,6 @@ public class ContasPagarActivity extends BaseActivity {
         }));
     }
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

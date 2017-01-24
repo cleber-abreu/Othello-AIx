@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/rlbl_txt_label"
-        style="@style/WebPosto.RowChaveChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
         tools:text="valor"/>
 
 </LinearLayout>

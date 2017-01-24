@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.adapter.DadoTotalAdapter;
+import com.qualityautomacao.webposto.adapter.ReceberChequeAdapter;
 import com.qualityautomacao.webposto.adapter.SeparadorLista;
 import com.qualityautomacao.webposto.utils.Constantes;
 import com.qualityautomacao.webposto.utils.UtilsString;
@@ -26,12 +27,7 @@ public class ReceberChequeActivity  extends BaseActivity {
 
     @BindView(R.id.recc_rec_cheques) RecyclerView recCheques;
 
-    private static final int INDEX_CLIENTE = 0;
-    private static final int INDEX_VALOR = 1;
-    private static final int INDEX_TOTAL = 3;
-
-    private JSONArray dados;
-    private static LayoutInflater inflater;
+    private JSONObject pacoteDados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,63 +35,15 @@ public class ReceberChequeActivity  extends BaseActivity {
         setContentView(R.layout.activity_receber_cheque);
         super.addToolbar(true);
         ButterKnife.bind(this);
-        inflater = LayoutInflater.from(this);
 
         try {
-            dados = new JSONObject(getIntent().getStringExtra(Constantes.EXTRA_DADO)).getJSONArray("DAD");
+            pacoteDados = new JSONObject(getIntent().getStringExtra(Constantes.EXTRA_DADO));
         } catch (JSONException e) {
-            dados = new JSONArray();
+            pacoteDados = new JSONObject();
         }
 
         recCheques.setLayoutManager(new LinearLayoutManager(this));
-        recCheques.addItemDecoration(new SeparadorLista(ContextCompat.getDrawable(this, R.drawable.separador_lista), dados.length()));
-        recCheques.setAdapter(new DadoTotalAdapter(this, dados, getProviderHolderAdapter()));
-    }
-
-    private DadoTotalAdapter.ProviderHolderAdapter getProviderHolderAdapter() {
-        return new DadoTotalAdapter.ProviderHolderAdapter() {
-            @Override
-            public DadoTotalAdapter.Holder getDadoHolder(ViewGroup parent) {
-                return new DadoHolder(inflater.inflate(R.layout.row_simple_item, parent, false));
-            }
-
-            @Override
-            public DadoTotalAdapter.Holder getTotalHolder(ViewGroup parent) {
-                return new TotalHolder(inflater.inflate(R.layout.row_total_simples, parent, false));
-            }
-        };
-    }
-
-    class DadoHolder extends DadoTotalAdapter.Holder {
-        @BindView(R.id.rsim_txt_chave) TextView txtCliente;
-        @BindView(R.id.rsim_txt_valor) TextView txtValor;
-
-        public DadoHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        public void popular(JSONArray dados, int position) throws JSONException {
-            itemView.setBackgroundColor(getResources().getColor(position % 2 == 0 ? R.color.bg_row_um : R.color.bg_row_dois));
-            JSONArray dado = dados.getJSONArray(position);
-            txtCliente.setText(dado.getString(INDEX_CLIENTE));
-            txtValor.setText(UtilsString.formatarMonetario(dado.optDouble(INDEX_VALOR, 0)));
-        }
-    }
-
-    class TotalHolder extends DadoTotalAdapter.Holder {
-        @BindView(R.id.rtot_txt_valor)
-        TextView txtValor;
-
-        public TotalHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        public void popular(JSONArray dado, int position) throws JSONException {
-            txtValor.setText(UtilsString.formatarMonetario(dado.getJSONArray(0).optDouble(INDEX_TOTAL, 0)));
-        }
+        recCheques.addItemDecoration(new SeparadorLista(ContextCompat.getDrawable(this, R.drawable.separador_lista), pacoteDados.optJSONArray("DAD").length()));
+        recCheques.setAdapter(new ReceberChequeAdapter(this, pacoteDados));
     }
 }
