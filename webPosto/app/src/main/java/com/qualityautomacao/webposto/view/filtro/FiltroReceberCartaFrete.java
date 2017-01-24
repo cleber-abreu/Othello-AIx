@@ -2,7 +2,6 @@ package com.qualityautomacao.webposto.view.filtro;
 
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.model.DadosFiltro;
@@ -23,7 +22,7 @@ import org.json.JSONObject;
  */
 
 public class FiltroReceberCartaFrete implements FiltroPresenter {
-    private FiltroActivity activity;
+    private final FiltroActivity activity;
 
     public FiltroReceberCartaFrete(FiltroActivity activity){
         this.activity = activity;

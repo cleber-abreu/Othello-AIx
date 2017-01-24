@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
 
 public class TituloAdapter extends RecyclerView.Adapter<TituloAdapter.Holder>{
 
-    private JSONObject pacoteDados;
-    private LayoutInflater inflater;
-    private int qtTitulos;
+    private final JSONObject pacoteDados;
+    private final LayoutInflater inflater;
+    private final int qtTitulos;
 
     private static final int TYPE_TITULO = 1;
     private static final int TYPE_TOTAL = 2;

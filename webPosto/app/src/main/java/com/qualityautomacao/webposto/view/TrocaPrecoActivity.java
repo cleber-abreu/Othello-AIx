@@ -3,6 +3,7 @@ package com.qualityautomacao.webposto.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,7 +75,7 @@ public class TrocaPrecoActivity extends AppCompatActivity {
                         .put("APP_VL_PRECO", Double.parseDouble(novoPreco)));
             }
         } catch (Exception e) {
-            System.err.println(e);
+            Log.e("WEB_POSTO_LOG", "getProdutosAlterados: ", e);
         }
 
         return json.toString();

@@ -4,19 +4,12 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;
-import com.qualityautomacao.webposto.adapter.DadoTotalAdapter;
 import com.qualityautomacao.webposto.adapter.ReceberChequeAdapter;
 import com.qualityautomacao.webposto.adapter.SeparadorLista;
 import com.qualityautomacao.webposto.utils.Constantes;
-import com.qualityautomacao.webposto.utils.UtilsString;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

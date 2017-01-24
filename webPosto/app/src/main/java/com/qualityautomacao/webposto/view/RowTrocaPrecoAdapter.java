@@ -1,6 +1,7 @@
 package com.qualityautomacao.webposto.view;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class RowTrocaPrecoAdapter extends ArrayAdapter<String> {
             final ViewHolder holder;
 
             if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.row_troca_preco, null);
+                convertView = layoutInflater.inflate(R.layout.row_troca_preco, parent, false);
                 holder = new ViewHolder();
 
                 holder.valorNovo = (EditText) convertView.findViewById(R.id.editTextPrecoNovo);
@@ -61,7 +62,7 @@ public class RowTrocaPrecoAdapter extends ArrayAdapter<String> {
             holder.valorAtual.setText("R$ " + jsonObject.getString("APP_VL_PRECO"));
             holder.produto.setText(jsonObject.getString("APP_CD_PRODUTO"));
         } catch (Exception e) {
-            System.err.println(e);
+            Log.e("WEB_POSTO_LOG", "getView: ", e);
         }
         return convertView;
     }

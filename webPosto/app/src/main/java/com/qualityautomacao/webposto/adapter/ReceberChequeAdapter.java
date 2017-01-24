@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
 
 public class ReceberChequeAdapter extends RecyclerView.Adapter<ReceberChequeAdapter.ReceberChequeHolder>{
 
-    private JSONObject pacoteDados;
-    private LayoutInflater inflater;
-    private boolean exibeData;
-    private int qtElementos;
+    private final JSONObject pacoteDados;
+    private final LayoutInflater inflater;
+    private final boolean exibeData;
+    private final int qtElementos;
 
     private static final int TYPE_ELEMENTO = 1;
     private static final int TYPE_TOTAL = 2;

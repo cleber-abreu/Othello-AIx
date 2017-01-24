@@ -2,15 +2,12 @@ package com.qualityautomacao.webposto.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.qualityautomacao.webposto.R;
 import com.qualityautomacao.webposto.adapter.ClienteAdapter;
-import com.qualityautomacao.webposto.adapter.SeparadorLista;
 import com.qualityautomacao.webposto.model.DadosFiltro;
 import com.qualityautomacao.webposto.utils.Constantes;
 import com.qualityautomacao.webposto.utils.Consumer;

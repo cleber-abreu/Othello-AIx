@@ -3,6 +3,7 @@ package com.qualityautomacao.webposto.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -65,7 +66,7 @@ public class FilialActivity extends Activity {
                                 }
                             });
                         } catch (Exception e) {
-                            System.err.println(e);
+                            Log.e("WEB_POSTO_LOG", "onClick: ", e);
                         }
                     }
                 });
@@ -74,7 +75,7 @@ public class FilialActivity extends Activity {
             }
 
         } catch (Exception e) {
-            System.err.println(e);
+            Log.e("WEB_POSTO_LOG", "onResume: ", e);
         }
     }
 }

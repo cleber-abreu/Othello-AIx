@@ -66,9 +66,7 @@ public abstract class UtilsInterface {
     public static String setDate(){
 
         long currentDate = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String formatDate = sdf.format(currentDate);
-        return formatDate;
+        return new SimpleDateFormat("dd/MM/yyyy").format(currentDate);
     }
 
     public static String setSevenDaysBefore(){

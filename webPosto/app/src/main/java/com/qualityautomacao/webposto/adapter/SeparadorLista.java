@@ -3,7 +3,6 @@ package com.qualityautomacao.webposto.adapter;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -12,8 +11,8 @@ import android.view.View;
  * @since 13/01/2017
  */
 public class SeparadorLista extends RecyclerView.ItemDecoration {
-    private Drawable divider;
-    private int aPartirIndex;
+    private final Drawable divider;
+    private final int aPartirIndex;
 
     public SeparadorLista(Drawable divider) {
         this(divider, 0);

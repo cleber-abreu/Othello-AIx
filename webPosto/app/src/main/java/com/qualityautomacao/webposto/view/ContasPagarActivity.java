@@ -91,6 +91,4 @@ public class ContasPagarActivity extends BaseActivity {
         intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_PAGAR_CHEQUE);
         startActivity(intent);
     }
-
-
 }

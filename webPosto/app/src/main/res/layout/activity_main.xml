@@ -1,69 +1,66 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewFiliais"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.qualityautomacao.webposto.view.MainActivity"
     android:background="@color/bg_dark">
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollViewFiliais" >
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            style="@style/WebPosto.TituloMenuPrincipal"
+            android:text="@string/title_financeiro"/>
 
-            <TextView
-                style="@style/WebPosto.TituloMenuPrincipal"
-                android:text="@string/title_financeiro"/>
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_contas_pagar"
+            android:onClick="contasPagar"
+            android:drawableStart="@drawable/contas_pagar"/>
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_contas_pagar"
-                android:onClick="contasPagar"
-                android:drawableStart="@drawable/contas_pagar"/>
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_contas_receber"
+            android:onClick="contasReceber"
+            android:drawableStart="@drawable/contas_receber"/>
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_contas_receber"
-                android:onClick="contasReceber"
-                android:drawableStart="@drawable/contas_receber"/>
+        <TextView
+            style="@style/WebPosto.TituloMenuPrincipal"
+            android:text="@string/title_movimento"/>
 
-            <TextView
-                style="@style/WebPosto.TituloMenuPrincipal"
-                android:text="@string/title_movimento"/>
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_vendas"
+            android:onClick="vendas"
+            android:drawableStart="@drawable/vendas" />
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_vendas"
-                android:onClick="vendas"
-                android:drawableStart="@drawable/vendas" />
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_tanques"
+            android:onClick="tanques"
+            android:drawableStart="@drawable/tanques" />
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_tanques"
-                android:onClick="tanques"
-                android:drawableStart="@drawable/tanques" />
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_troca_preco"
+            android:onClick="trocaPreco"
+            android:drawableStart="@drawable/troca_de_preco" />
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_troca_preco"
-                android:onClick="trocaPreco"
-                android:drawableStart="@drawable/troca_de_preco" />
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_projecao_abastecimento"
+            android:onClick="projecaoAbastecimento"
+            android:drawableStart="@drawable/projecao_de_abastecimento" />
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_projecao_abastecimento"
-                android:onClick="projecaoAbastecimento"
-                android:drawableStart="@drawable/projecao_de_abastecimento" />
+        <Button
+            style="@style/WebPosto.ItemMenuPrincipal"
+            android:text="@string/text_notificacoes"
+            android:onClick="notificacoes"
+            android:drawableStart="@drawable/notificacoes" />
 
-            <Button
-                style="@style/WebPosto.ItemMenuPrincipal"
-                android:text="@string/text_notificacoes"
-                android:onClick="notificacoes"
-                android:drawableStart="@drawable/notificacoes" />
-
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>

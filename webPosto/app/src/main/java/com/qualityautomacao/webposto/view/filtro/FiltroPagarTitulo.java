@@ -21,7 +21,7 @@ import org.json.JSONObject;
  */
 public class FiltroPagarTitulo implements FiltroPresenter {
 
-    private FiltroActivity activity;
+    private final FiltroActivity activity;
 
     public FiltroPagarTitulo(FiltroActivity activity){
         this.activity = activity;

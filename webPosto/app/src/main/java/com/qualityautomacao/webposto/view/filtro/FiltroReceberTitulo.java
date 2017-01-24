@@ -22,7 +22,7 @@ import org.json.JSONObject;
  */
 
 public class FiltroReceberTitulo implements FiltroPresenter {
-    private FiltroActivity activity;
+    private final FiltroActivity activity;
 
     public FiltroReceberTitulo(FiltroActivity activity){
         this.activity = activity;

@@ -10,8 +10,8 @@
         android:text="Medium Text"
         android:id="@+id/textViewProduto"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,8 +21,8 @@
         android:id="@+id/textViewPrecoAtual"
         android:layout_alignBottom="@+id/editTextPrecoNovo"
         android:layout_marginBottom="5dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,14 +30,14 @@
         android:ems="10"
         android:id="@+id/editTextPrecoNovo"
         android:layout_below="@+id/textViewProduto"
-        android:layout_alignParentEnd="true"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:layout_alignParentRight="true" />
 
     <Space
-        android:layout_width="20px"
+        android:layout_width="15dp"
         android:layout_height="10dp"
         android:layout_below="@+id/textViewPrecoAtual"
-        android:layout_alignStart="@+id/textViewPrecoAtual" />
+        android:layout_alignLeft="@+id/textViewPrecoAtual" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -21,11 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected void onStop() {
         if(progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
         super.onStop();

@@ -2,6 +2,7 @@ package com.qualityautomacao.webposto.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ExpandableListView;
 
 import com.qualityautomacao.webposto.R;
@@ -67,7 +68,7 @@ public class NotificacoesActivity extends Activity {
                                                  dados.getString("LIDA").equals("S")));
             }
         } catch (JSONException e) {
-            System.out.println(e);
+            Log.e("WEB_POSTO_LOG", "getNotificacoes: ", e);
         }
 
         return notificacoes;

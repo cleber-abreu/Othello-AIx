@@ -1,5 +1,4 @@
 <resources>
-    <string name="title_activity_contas_pagar">ContasPagarActivity</string>
     <string name="title_activity_filial">Filiais</string>
     <string name="title_activity_main"> </string>
     <string name="title_activity_vendas">Vendas</string>
@@ -8,8 +7,6 @@
     <string name="title_activity_projecao_abastecimento">Projeção de Abastecimento</string>
     <string name="title_activity_notificacoes">Notificações</string>
     <string name="title_activity_troca_preco_enviar"> </string>
-    <string name="title_activity_contas_receber">Contas a Receber</string>
-    <string name="title_activity_login">Seja Bem-vindo</string>
     <string name="title_pagar_titulo">Títulos</string>
     <string name="title_pagar_cheques">Cheques</string>
     <string name="title_receber_titulo">Titulos</string>
@@ -26,11 +23,6 @@
     <string name="text_senha">Senha</string>
     <string name="login_button">Login</string>
 
-    <string name="title_tab_venda_hoje">Hoje</string>
-    <string name="title_tab_venda_5">5 Dias</string>
-    <string name="title_tab_venda_15">15 Dias</string>
-    <string name="title_tab_venda_30">30 Dias</string>
-
     <string name="title_financeiro">Financeiro</string>
     <string name="text_contas_pagar">Contas a Pagar</string>
     <string name="text_contas_receber">Contas a Receber</string>
@@ -42,12 +34,9 @@
     <string name="text_projecao_abastecimento">Projeção de Abastecimento</string>
     <string name="text_notificacoes">Notificações</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="produto"></string>
-    <string name="valor"></string>
-    <string name="volume"></string>
+    <string name="produto">Produto</string>
+    <string name="valor">Valor</string>
+    <string name="volume">Volume</string>
     <string name="radio_inicio_turno">Início de Turno</string>
     <string name="radio_programado">Programado</string>
 
@@ -60,8 +49,10 @@
 
     <string name="menu_enviar_troca_preco">Enviar</string>
     <string name="menu_troca_preco">Programar</string>
-    <string name="load">Aguarde...</string>
+    <string name="load">Aguarde…</string>
     <string name="intervalo_invalido">Intervalo Inválido</string>
     <string name="dados_invalidos">Dados Inválidos</string>
     <string name="title_lista_cliente">Clientes</string>
+    <string name="desc_logo_login">logo webposto</string>
+    <string name="desc_buscar">buscar</string>
 </resources>

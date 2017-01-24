@@ -3,6 +3,7 @@ package com.qualityautomacao.webposto.view;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -106,7 +107,7 @@ public class ProjecaoAbastecimentoActivity extends Activity {
 
             lineChart.invalidate();
         } catch (Exception e) {
-            System.out.println(e);
+            Log.e("WEB_POSTO_LOG", "carregarDados: ", e);
         }
     }
 }

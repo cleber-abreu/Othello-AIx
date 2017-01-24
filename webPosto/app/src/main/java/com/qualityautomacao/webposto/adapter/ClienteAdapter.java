@@ -23,9 +23,9 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteH
 
     private static final int INDEX_NOME = 1;
 
-    private JSONArray dados;
-    private LayoutInflater inflater;
-    private OnClickClienteListener clickDelegate;
+    private final JSONArray dados;
+    private final LayoutInflater inflater;
+    private final OnClickClienteListener clickDelegate;
 
     public ClienteAdapter(Context context, JSONArray dados, OnClickClienteListener onClickClienteListener){
         this.dados = dados;

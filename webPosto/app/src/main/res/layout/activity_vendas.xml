@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/linearLayoutVendas"
@@ -10,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1"
-        android:weightSum="5">
+        android:layout_weight="1">
 
         <EditText
             android:id="@+id/dtInicioEditText"
@@ -29,10 +27,12 @@
 
         <ImageButton
             android:id="@+id/buscarButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/highlighted_text_material_dark"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:contentDescription="@string/desc_buscar"
+            android:background="@color/highlighted_text_material_dark"
             android:src="@drawable/ic_search_black_18dp" />
 
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.qualityautomacao.webposto.view;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,9 @@ public class RowVendasAdapter extends ArrayAdapter<String> {
             holder = new ViewHolder();
 
             if (position >= list.length()) {
-                convertView = layoutInflater.inflate(R.layout.row_rodape_vendas, null);
+                convertView = layoutInflater.inflate(R.layout.row_rodape_vendas, parent, false);
             }else{
-                convertView = layoutInflater.inflate(R.layout.row_vendas, null);
+                convertView = layoutInflater.inflate(R.layout.row_vendas, parent, false);
             }
 
             holder.quantidade = (TextView) convertView.findViewById(R.id.volume);
@@ -71,7 +72,7 @@ public class RowVendasAdapter extends ArrayAdapter<String> {
             }
 
         } catch (JSONException e) {
-            System.err.println(e);
+            Log.e("WEB_POSTO_LOG", "getView: ", e);
         }
         return convertView;
     }

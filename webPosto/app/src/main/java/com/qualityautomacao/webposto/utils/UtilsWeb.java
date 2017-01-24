@@ -60,7 +60,7 @@ public abstract class UtilsWeb {
                 @Override
                 public void onResponse(String response) {
                     try {
-                        Log.i("WEB_POSTO_LOG",  String.format("request: %s, dados: %s, token: %s, response: %s", url, request.getDados().toString(), token == null ? "" : token.toString(), response));
+                        Log.i("WEB_POSTO_LOG",  String.format("request: %s, dados: %s, token: %s, response: %s", url, request.getDados(), token == null ? "" : token.toString(), response));
                         JSONObject jsonObject = new JSONObject(response);
 
                         if (jsonObject.has("MEN")) {
@@ -122,7 +122,7 @@ public abstract class UtilsWeb {
             dados.put("MAQ_DS_COMPUTER", Build.MODEL);
             dados.put("MAQ_DS_VERSAO", BuildConfig.VERSION_NAME);
         } catch (Exception e) {
-            System.out.println(e);
+            Log.e("WEB_POSTO_LOG", "getDados: ", e);
         }
 
         return dados.toString();
@@ -134,6 +134,7 @@ public abstract class UtilsWeb {
         JSONObject json = null;
         try {
             json = new AsyncTask<Void, Void, JSONObject>() {
+                    @SuppressWarnings("deprecation")
                     @Override
                     protected JSONObject doInBackground(Void... params) {
                         try {

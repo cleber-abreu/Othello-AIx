@@ -2,6 +2,7 @@ package com.qualityautomacao.webposto.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,7 +69,7 @@ public class TrocaPrecoEnviarActivity extends AppCompatActivity {
 
             json.put("TROCAS", new JSONArray(getIntent().getStringExtra("TROCAS")));
         } catch (JSONException e) {
-            System.err.println(e);
+            Log.e("WEB_POSTO_LOG", "getDados: ", e);
         }
 
         return json.toString();

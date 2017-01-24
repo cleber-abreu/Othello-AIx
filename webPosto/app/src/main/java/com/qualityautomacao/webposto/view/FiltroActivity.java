@@ -5,7 +5,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.qualityautomacao.webposto.R;

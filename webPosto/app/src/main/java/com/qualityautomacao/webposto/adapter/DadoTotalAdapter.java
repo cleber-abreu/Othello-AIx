@@ -16,10 +16,9 @@ import org.json.JSONException;
  */
 public class DadoTotalAdapter extends RecyclerView.Adapter<DadoTotalAdapter.Holder>{
 
-    private Context context;
-    private JSONArray dados;
-    private ProviderHolderAdapter providerHolderAdapter;
-    private LayoutInflater inflater;
+    private final Context context;
+    private final JSONArray dados;
+    private final ProviderHolderAdapter providerHolderAdapter;
 
     private static final int CARD_DADO = 0;
     private static final int CARD_TOTAL = 1;
@@ -28,7 +27,6 @@ public class DadoTotalAdapter extends RecyclerView.Adapter<DadoTotalAdapter.Hold
         this.context = context;
         this.dados = dados;
         this.providerHolderAdapter = providerHolderAdapter;
-        this.inflater = LayoutInflater.from(context);
     }
 
     @Override

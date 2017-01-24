@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textSize="17dp"/>
+        android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:textSize="17sp"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -22,14 +23,13 @@
         android:layout_marginBottom="-15dp"
         android:focusableInTouchMode="false"
         android:focusable="false"
-        android:clickable="false"
-        android:cursorVisible="false"/>
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/textViewHora"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textSize="17dp" />
+        android:textSize="17sp" />
 
 </LinearLayout>

@@ -38,7 +38,7 @@ public class RowTanquesAdapter extends ArrayAdapter<String> {
         try {
             ViewHolder holder = new ViewHolder();
 
-            convertView = layoutInflater.inflate(R.layout.row_tanques, null);
+            convertView = layoutInflater.inflate(R.layout.row_tanques, parent, false);
             holder.capacidade = (TextView) convertView.findViewById(R.id.capacidade);
             holder.produto = (TextView) convertView.findViewById(R.id.produto);
             holder.data = (TextView) convertView.findViewById(R.id.data);
