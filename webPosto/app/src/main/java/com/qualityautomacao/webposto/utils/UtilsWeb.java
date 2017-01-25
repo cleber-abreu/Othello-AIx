@@ -1,11 +1,13 @@
 package com.qualityautomacao.webposto.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,12 +31,12 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,24 +45,37 @@ public abstract class UtilsWeb {
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
+    private static String IP = ip();
     private static final String IP_LOCAL = "192.168.0.50";
     private static final String PORTA = "8181";
-
-    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service";
 
     public static Token token;
     public static String KEY;
 
     public static void requisitar(final Request request) {
-        RequestQueue queue = Volley.newRequestQueue(request.getContext());
-        final String url = BASE_URL + "/" + request.getRotina() + "/" + request.getFuncao();
 
+        if(!isOnline(request.getContext())){
+            request.getOnFalha().accept("Internet Indisponível!");
+            return;
+        }
+
+        if (IP.isEmpty()) {
+            IP = ip();
+            request.getOnFalha().accept("Internet Indisponível!");
+            return;
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(request.getContext());
+        final String url = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/" + request.getRotina() + "/" + request.getFuncao();
+        
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, url,
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try {
+                        response = URLDecoder.decode(response, "UTF-8");
                         Log.i("WEB_POSTO_LOG",  String.format("request: %s, dados: %s, token: %s, response: %s", url, request.getDados(), token == null ? "" : token.toString(), response));
+
                         JSONObject jsonObject = new JSONObject(response);
 
                         if (jsonObject.has("MEN")) {
@@ -68,7 +83,7 @@ public abstract class UtilsWeb {
                         }else{
                             request.getOnSucesso().accept(new JSONObject(response));
                         }
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         request.getOnFalha().accept("Formato invalido");        //TODO FAZER POR RECURSO
                     }
                 }
@@ -87,13 +102,6 @@ public abstract class UtilsWeb {
                 params.put("token", (token == null ? "{}" : token.toString()));
                 return params;
             }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return super.getHeaders();
-            }
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -104,11 +112,16 @@ public abstract class UtilsWeb {
         queue.add(stringRequest);
     }
 
-    public static void verificarLiberacaoDispositivo(Context context, final Runnable seLiberado) {
+    public static void verificarLiberacaoDispositivo(final Context context, final Runnable seLiberado) {
         requisitar(new Request(context, "MAQUINA", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
                 seLiberado.run();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
             }
         }).setDados(getDados(context)));
     }
@@ -178,5 +191,11 @@ public abstract class UtilsWeb {
         }
 
         return json == null ? "" : json.optString("ip_ds_ip");
+    }
+
+    public static boolean isOnline(Context context) {
+        NetworkInfo netInfo =
+                ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected();
     }
 }

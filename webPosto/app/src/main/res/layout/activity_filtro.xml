@@ -142,6 +142,7 @@
                 android:text="Filtrar por Cliente"/>
 
             <android.support.v7.widget.SwitchCompat
+                android:theme="@style/AppTheme.Evidente"
                 android:id="@+id/fil_swt_por_cliente"
                 style="@style/WebPosto.TextoValor.MenuChaveValor"/>
         </RelativeLayout>
@@ -158,6 +159,7 @@
                 android:text="Filtrar por Administradora"/>
 
             <android.support.v7.widget.SwitchCompat
+                android:theme="@style/AppTheme.Evidente"
                 android:id="@+id/fil_swt_por_administradora"
                 style="@style/WebPosto.TextoValor.MenuChaveValor"/>
         </RelativeLayout>

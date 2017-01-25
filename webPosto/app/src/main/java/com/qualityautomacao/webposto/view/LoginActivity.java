@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity {
 
     public void login(View view) throws Exception {
         showLoadDialog();
+
         UtilsWeb.requisitar(new Request(this, "LOGIN", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
@@ -70,6 +71,7 @@ public class LoginActivity extends BaseActivity {
                 Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
             }
         }).setDados(getDadosLogin().toString()));
+
 
         preferences.setPreferences(UtilsPreferences.KEY_LOGIN, editTextLogin.getText().toString());
         preferences.setPreferences(UtilsPreferences.KEY_SENHA, editTextSenha.getText().toString());

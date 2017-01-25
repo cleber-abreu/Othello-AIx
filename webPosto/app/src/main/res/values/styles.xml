@@ -5,13 +5,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:windowBackground">@color/qualityCor</item>
-
-        <item name="colorControlActivated">@color/acentuada</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/qualityCor</item>
+    </style>
 
+    <style name="AppTheme.Evidente" parent="AppTheme.NoActionBar">
         <item name="colorControlActivated">@color/acentuada</item>
     </style>
 

@@ -4,12 +4,14 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion project.sdk
     buildToolsVersion project.buildTools
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId project.applicationId
         minSdkVersion project.minSdk
         targetSdkVersion project.sdk
-        versionName '1.2'
-        versionCode 3
+        versionName '2.0.2'
+        versionCode 6
     }
     buildTypes {
         debug {
@@ -18,7 +20,7 @@ android {
 
         release {
             minifyEnabled true
-            shrinkResources
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
