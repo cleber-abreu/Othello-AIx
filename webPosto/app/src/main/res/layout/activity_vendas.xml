@@ -1,60 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.VendasActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearLayoutVendas"
-    android:orientation="vertical"
-    android:weightSum="8">
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <include android:id="@+id/toolbar" layout="@layout/toolbar_normal"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/toolbar"
+        android:id="@+id/ven_rec_vendas"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_height="match_parent"/>
 
-        <EditText
-            android:id="@+id/dtInicioEditText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="Data Inicial:"/>
-
-        <EditText
-            android:id="@+id/dtFimEditText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="Data Final:"/>
-
-        <ImageButton
-            android:id="@+id/buscarButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:contentDescription="@string/desc_buscar"
-            android:background="@color/highlighted_text_material_dark"
-            android:src="@drawable/ic_search_black_18dp" />
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/listaVendas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7"
-        android:background="@android:color/white">
-    </ListView>
-
-    <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/viewpager_vendas"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0px"-->
-        <!--android:layout_weight="9"-->
-
-        <!--android:animationCache="true"-->
-        <!--android:alwaysDrawnWithCache="true"-->
-        <!--android:persistentDrawingCache="all"-->
-
-        <!--android:background="@android:color/white" />-->
-
-</LinearLayout>
+</RelativeLayout>

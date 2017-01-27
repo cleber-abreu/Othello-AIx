@@ -46,7 +46,7 @@
         <activity
             android:name=".view.VendasActivity"
             android:label="@string/title_activity_vendas"
-            android:parentActivityName=".view.MainActivity">
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qualityautomacao.webposto.view.MainActivity" />

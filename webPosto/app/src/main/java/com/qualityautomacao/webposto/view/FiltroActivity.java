@@ -19,6 +19,7 @@ import com.qualityautomacao.webposto.view.filtro.FiltroReceberCartaFrete;
 import com.qualityautomacao.webposto.view.filtro.FiltroReceberCartao;
 import com.qualityautomacao.webposto.view.filtro.FiltroReceberCheque;
 import com.qualityautomacao.webposto.view.filtro.FiltroReceberTitulo;
+import com.qualityautomacao.webposto.view.filtro.FiltroVendas;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +52,8 @@ public class FiltroActivity extends BaseActivity {
     public static final int DESTINO_RECEBER_CARTA_FRETE = 5;
     public static final int DESTINO_RECEBER_CARTAO = 6;
 
+    public static final int DESTINO_VENDAS = 7;
+
     private FiltroPresenter filtroImp;
 
     @Override
@@ -66,6 +69,7 @@ public class FiltroActivity extends BaseActivity {
             case DESTINO_RECEBER_CHEQUE: filtroImp = new FiltroReceberCheque(this); break;
             case DESTINO_RECEBER_CARTA_FRETE: filtroImp = new FiltroReceberCartaFrete(this); break;
             case DESTINO_RECEBER_CARTAO: filtroImp = new FiltroReceberCartao(this); break;
+            case DESTINO_VENDAS: filtroImp = new FiltroVendas(this); break;
         }
 
         filtroImp.carregaComponentes();

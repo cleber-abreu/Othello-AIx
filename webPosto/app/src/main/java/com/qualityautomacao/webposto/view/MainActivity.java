@@ -24,7 +24,9 @@ public class MainActivity extends Activity {
     }
 
     public void vendas(View view) {
-        startActivity(new Intent(this, VendasActivity.class));
+        Intent intent = new Intent(this, FiltroActivity.class);
+        intent.putExtra(FiltroActivity.EXTRA_DESTINO, FiltroActivity.DESTINO_VENDAS);
+        startActivity(intent);
     }
 
     public void tanques(View view) {

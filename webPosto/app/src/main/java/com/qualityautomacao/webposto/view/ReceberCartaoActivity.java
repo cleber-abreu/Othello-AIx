@@ -25,7 +25,8 @@ public class ReceberCartaoActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receber_cartao);super.addToolbar(true);
+        setContentView(R.layout.activity_receber_cartao);
+        super.addToolbar(true);
         ButterKnife.bind(this);
 
         try {

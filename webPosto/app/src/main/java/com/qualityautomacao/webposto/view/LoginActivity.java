@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    public void login(View view) throws Exception {
+    public void login(View view){
         showLoadDialog();
 
         UtilsWeb.requisitar(new Request(this, "LOGIN", new Consumer<JSONObject>() {
@@ -77,13 +77,18 @@ public class LoginActivity extends BaseActivity {
         preferences.setPreferences(UtilsPreferences.KEY_SENHA, editTextSenha.getText().toString());
     }
 
-    private JSONObject getDadosLogin() throws Exception {
+    private JSONObject getDadosLogin(){
         final String usuario = editTextLogin.getText().toString();
         final String senha = editTextSenha.getText().toString();
 
-        return new JSONObject()
-                .put("USU_DS_LOGIN", usuario)
-                .put("USU_DS_SENHA", senha);
+        try{
+            return new JSONObject()
+                    .put("USU_DS_LOGIN", usuario)
+                    .put("USU_DS_SENHA", senha);
+        }catch (Exception e){
+            return new JSONObject();
+        }
+
     }
 
     private void loginUnicaFilial(JSONObject jsonObject){

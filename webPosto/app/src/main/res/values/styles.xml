@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="qualityCor">#E4F6FA</color>
+
     <color name="qualityButton">@android:color/white</color>
 
     <!-- Base application theme. -->
