@@ -15,25 +15,24 @@
         android:id="@+id/rven_txt_quantidade"
         style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
-        android:layout_below="@id/rven_txt_produto"
+        android:layout_alignParentRight="false"
+        android:layout_toRightOf="@+id/rven_lbl_unidade"
+        android:layout_below="@+id/rven_txt_produto"
         tools:text="Quantidade"/>
 
     <TextView
         android:id="@+id/rven_txt_valor"
         style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginTop="@dimen/espacamento_micro"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/rven_txt_produto"
+        android:layout_below="@+id/rven_txt_produto"
         tools:text="Valor"/>
 
     <TextView
         android:id="@+id/rven_lbl_unidade"
         style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
         android:layout_marginRight="@dimen/espacamento_micro"
-        android:layout_alignBaseline="@id/rven_txt_quantidade"
-        android:layout_toLeftOf="@id/rven_txt_quantidade"
         android:layout_alignParentRight="false"
+        android:layout_alignBaseline="@id/rven_txt_quantidade"
         android:text="Qt:"/>
 
 </RelativeLayout>

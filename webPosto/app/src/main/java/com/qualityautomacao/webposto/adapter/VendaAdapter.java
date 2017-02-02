@@ -39,6 +39,8 @@ public class VendaAdapter extends RecyclerView.Adapter<VendaAdapter.VendaHolder>
     private static final String INDEX_TOTAL_QUANTIDADE = "TOTAL_QUANTIDADE";
     private static final String INDEX_MEDIA_VALOR = "MEDIA_VALOR";
     private static final String INDEX_MEDIA_QUANTIDADE = "MEDIA_QUANTIDADE";
+    private static final String INDEX_DIA_SEMANA_PASSADA = "DIA_SEMANA_PASSADA";
+    private static final String INDEX_DIA_SEMANA = "DIA_SEMANA";
 
     public VendaAdapter(Context ctx, JSONObject jsonDados){
         this.inflater = LayoutInflater.from(ctx);
@@ -51,7 +53,12 @@ public class VendaAdapter extends RecyclerView.Adapter<VendaAdapter.VendaHolder>
         switch (viewType){
             case TYPE_ELEMENTO: return new ProdutoVendaHolder(inflater.inflate(R.layout.row_vendas, parent, false));
             case TYPE_TOTAL: return new TotalVendaHolder(inflater.inflate(R.layout.row_rodape_vendas, parent, false));
-            default: return new MediaVendaHolder(inflater.inflate(R.layout.row_rodape_vendas, parent, false));
+        }
+
+        if(jsonDados.optBoolean(INDEX_DIA_SEMANA_PASSADA, false)){
+            return new DiaSemanaAnteriorHolder(inflater.inflate(R.layout.row_rodape_vendas, parent, false));
+        }else{
+            return new MediaVendaHolder(inflater.inflate(R.layout.row_rodape_vendas, parent, false));
         }
     }
 
@@ -132,6 +139,23 @@ public class VendaAdapter extends RecyclerView.Adapter<VendaAdapter.VendaHolder>
         @Override
         void popula(JSONObject jsonObject, int position) {
             txtTitulo.setText("Média");
+            txtValor.setText(UtilsString.formatarMonetario(jsonObject.optDouble(INDEX_MEDIA_VALOR, 0)));
+            txtQuantidade.setText(jsonObject.optString(INDEX_MEDIA_QUANTIDADE));
+        }
+    }
+
+    class DiaSemanaAnteriorHolder extends VendaHolder{
+        @BindView(R.id.rrv_txt_titulo) TextView txtTitulo;
+        @BindView(R.id.rrv_txt_quantidade) TextView txtQuantidade;
+        @BindView(R.id.rrv_txt_valor) TextView txtValor;
+
+        DiaSemanaAnteriorHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        void popula(JSONObject jsonObject, int position) {
+            txtTitulo.setText("Vendas do(a) último(a) " + jsonObject.optString(INDEX_DIA_SEMANA));
             txtValor.setText(UtilsString.formatarMonetario(jsonObject.optDouble(INDEX_MEDIA_VALOR, 0)));
             txtQuantidade.setText(jsonObject.optString(INDEX_MEDIA_QUANTIDADE));
         }

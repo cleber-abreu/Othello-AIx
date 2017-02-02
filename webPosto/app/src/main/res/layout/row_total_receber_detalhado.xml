@@ -18,6 +18,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_evidencia"
                 android:textSize="@dimen/fonte_micro"
                 android:text="Valor total"/>
 
@@ -25,6 +26,7 @@
                 android:id="@+id/rtrd_txt_total_documentos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_evidencia"
                 tools:text="R$: 428,88"/>
 
         </LinearLayout>
@@ -43,11 +45,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_evidencia"
                 android:textSize="@dimen/fonte_micro"
                 android:text="Valor a receber"/>
 
             <TextView
                 android:id="@+id/rtrd_txt_total_a_receber"
+                android:textColor="@color/text_color_evidencia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="R$: 0,00"/>

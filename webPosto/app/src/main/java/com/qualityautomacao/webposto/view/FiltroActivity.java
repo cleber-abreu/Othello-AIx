@@ -128,6 +128,10 @@ public class FiltroActivity extends BaseActivity {
     }
 
     public void initDatePicker(String dataInicio, String dataFim) {
+        initDatePicker(dataInicio, dataFim, 0);
+    }
+
+    public void initDatePicker(String dataInicio, String dataFim, long maxDia) {
         txtDataInicio.setText(dataInicio);
         txtDataFim.setText(dataFim);
 
@@ -141,7 +145,7 @@ public class FiltroActivity extends BaseActivity {
             public void accept(String s){
                 txtDataInicio.setText(s);
             }
-        });
+        }, maxDia);
 
         UtilsInterface.setDateCalendario(relDataFim, new Supplier<String>() {
             @Override
@@ -153,7 +157,7 @@ public class FiltroActivity extends BaseActivity {
             public void accept(String s){
                 txtDataFim.setText(s);
             }
-        });
+        }, maxDia);
 
         viewPediodo.setVisibility(View.VISIBLE);
     }

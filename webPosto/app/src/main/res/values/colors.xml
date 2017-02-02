@@ -12,6 +12,8 @@
 
     <color name="bg_row_um">@color/bg_light</color>
     <color name="bg_row_dois">@color/bg_dark</color>
-    <color name="bg_row_evidencia">#60B0FF</color>
+    <color name="bg_row_evidencia">#007AFF</color>
+
+    <color name="text_color_evidencia">#DDD</color>
 
 </resources>

@@ -15,7 +15,11 @@ import java.util.Locale;
 
 public abstract class UtilsInterface {
 
-    public static void setDateCalendario(final EditText editText) {
+    public static void setDateCalendario(final EditText editText){
+        setDateCalendario(editText, 0);
+    }
+
+    public static void setDateCalendario(final EditText editText, final long maxDia) {
 
         setDateCalendario(editText, new Supplier<String>() {
             @Override
@@ -27,10 +31,14 @@ public abstract class UtilsInterface {
             public void accept(String s){
                 editText.setText(s);
             }
-        });
+        }, maxDia);
     }
 
-    public static void setDateCalendario(final View view, final Supplier<String> getter, final Consumer<String> setter) {
+    public static void setDateCalendario(final View view, final Supplier<String> getter, final Consumer<String> setter){
+        setDateCalendario(view, getter, setter, 0);
+    }
+
+    public static void setDateCalendario(final View view, final Supplier<String> getter, final Consumer<String> setter, final long maxDia) {
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +66,9 @@ public abstract class UtilsInterface {
                     }
                 }, mYear, mMonth, mDay);
 
+                if(maxDia > 0){
+                    mDatePicker.getDatePicker().setMaxDate(maxDia);
+                }
                 mDatePicker.show();
             }
         });

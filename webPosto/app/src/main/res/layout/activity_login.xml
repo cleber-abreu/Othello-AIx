@@ -46,7 +46,6 @@
         android:text="@string/login_button"
         android:id="@+id/buttonLogin"
         android:layout_gravity="center_horizontal"
-        android:onClick="login"
         android:layout_marginTop="20dp" />
 
 </LinearLayout>

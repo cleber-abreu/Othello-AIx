@@ -116,6 +116,14 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+    <style name="WebPosto.TextoValor.RowTitulo" parent="WebPosto.TextoChave.ChaveGrandeValorPequeno">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_color_evidencia</item>
+    </style>
+
+    <style name="WebPosto.TextoValor.RowValor" parent="WebPosto.TextoValor.ChaveGrandeValorPequeno">
+        <item name="android:textColor">@color/text_color_evidencia</item>
+    </style>
 
     <style name="WebPosto.Row">
         <item name="android:layout_width">match_parent</item>

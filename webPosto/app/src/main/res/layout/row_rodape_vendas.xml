@@ -8,19 +8,19 @@
 
     <TextView
         android:id="@+id/rrv_txt_titulo"
-        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.RowTitulo"
         tools:text="Total"/>
 
     <TextView
         android:id="@+id/rrv_txt_quantidade"
-        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.RowValor"
         android:layout_marginTop="@dimen/espacamento_micro"
         android:layout_below="@id/rrv_txt_titulo"
         tools:text="2455"/>
 
     <TextView
         android:id="@+id/rrv_txt_valor"
-        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.RowValor"
         android:layout_marginTop="@dimen/espacamento_micro"
         android:layout_alignParentRight="false"
         android:layout_alignParentLeft="true"
@@ -28,7 +28,7 @@
         tools:text="R$ 2.143,55"/>
 
     <TextView
-        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.RowValor"
         android:layout_marginRight="@dimen/espacamento_micro"
         android:layout_alignBaseline="@id/rrv_txt_quantidade"
         android:layout_toLeftOf="@id/rrv_txt_quantidade"

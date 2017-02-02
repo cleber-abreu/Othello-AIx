@@ -10,8 +10,8 @@ android {
         applicationId project.applicationId
         minSdkVersion project.minSdk
         targetSdkVersion project.sdk
-        versionName '2.0.2'
-        versionCode 6
+        versionName '2.1.0'
+        versionCode 8
     }
     buildTypes {
         debug {

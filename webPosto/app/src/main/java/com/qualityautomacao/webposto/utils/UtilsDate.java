@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by wiliam on 05/01/17.
@@ -12,6 +13,7 @@ import java.util.Calendar;
 public abstract class UtilsDate {
 
     public static final String dd_MM_yyyy = "dd/MM/yyyy";
+    private static final String[] DIAS_SEMANA = {"Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"};
 
     public static String getHoje(String formato){
         return new SimpleDateFormat(formato).format(Calendar.getInstance().getTime());
@@ -37,5 +39,9 @@ public abstract class UtilsDate {
             Log.e("WEB_POSTO_LOG", "intervaloValido: " + e.getMessage());
             return false;
         }
+    }
+
+    public static String diaDaSemana(){
+        return new SimpleDateFormat("EEEE").format(new Date());
     }
 }

@@ -16,6 +16,8 @@ import com.qualityautomacao.webposto.view.VendasActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 /**
  * Created by wiliam on 26/01/17.
  */
@@ -32,7 +34,7 @@ public class FiltroVendas implements FiltroPresenter {
     public void carregaComponentes() {
         activity.initDatePicker(
                 UtilsDate.getDataIncDia(UtilsDate.dd_MM_yyyy, -7),
-                UtilsDate.getHoje(UtilsDate.dd_MM_yyyy));
+                UtilsDate.getHoje(UtilsDate.dd_MM_yyyy), new Date().getTime());
     }
 
     @Override

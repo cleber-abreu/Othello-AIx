@@ -3,8 +3,6 @@ package com.qualityautomacao.webposto.view;
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,11 +26,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            default: return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     protected void addToolbar(boolean backButton){
@@ -41,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(backButton);
         getSupportActionBar().setDisplayShowHomeEnabled(backButton);
     }
+
     public void showLoadDialog(){
         bloqueiaOrientacao();
 

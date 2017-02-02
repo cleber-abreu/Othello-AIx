@@ -8,12 +8,12 @@
 
     <TextView
         android:id="@+id/rtot_txt_total"
-        style="@style/WebPosto.TextoChave.ChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.RowTitulo"
         android:text="Total"/>
 
     <TextView
         android:id="@+id/rtot_txt_valor"
-        style="@style/WebPosto.TextoValor.ChaveGrandeValorPequeno"
+        style="@style/WebPosto.TextoValor.RowValor"
         android:layout_marginTop="@dimen/espacamento_micro"
         android:layout_below="@id/rtot_txt_total"
         tools:text="R$ 2.143,55"/>
