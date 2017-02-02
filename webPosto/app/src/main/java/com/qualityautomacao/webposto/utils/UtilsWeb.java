@@ -1,9 +1,12 @@
 package com.qualityautomacao.webposto.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -29,86 +32,113 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class UtilsWeb {
 
     private static final int MINUTO_TIMEOUT = 1;
     private static final int TIMEOUT = MINUTO_TIMEOUT * 60000;
 
+    public static String IP = null;
     private static final String IP_LOCAL = "192.168.0.50";
     private static final String PORTA = "8181";
-
-    private static final String BASE_URL = "http://" + ip() + ":" + PORTA + "/QualityPostoWEB/webresources/service";
 
     public static Token token;
     public static String KEY;
 
     public static void requisitar(final Request request) {
-        RequestQueue queue = Volley.newRequestQueue(request.getContext());
-        final String url = BASE_URL + "/" + request.getRotina() + "/" + request.getFuncao();
 
-        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, url,
-            new Response.Listener<String>() {
+        if(!isOnline(request.getContext())){
+            request.getOnFalha().accept("Internet Indisponível!");
+            return;
+        }
+
+        if(IP == null){
+            carregaIP(new Runnable() {
                 @Override
-                public void onResponse(String response) {
-                    try {
-                        Log.i("WEB_POSTO_LOG",  String.format("request: %s, dados: %s, token: %s, response: %s", url, request.getDados(), token == null ? "" : token.toString(), response));
-                        JSONObject jsonObject = new JSONObject(response);
-
-                        if (jsonObject.has("MEN")) {
-                            request.getOnFalha().accept(jsonObject.getString("MEN"));
-                        }else{
-                            request.getOnSucesso().accept(new JSONObject(response));
-                        }
-                    } catch (JSONException e) {
-                        request.getOnFalha().accept("Formato invalido");        //TODO FAZER POR RECURSO
-                    }
+                public void run() {
+                    requisitar(request);
                 }
-            }, new Response.ErrorListener() {
+            }, new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    request.getOnFalha().accept(s);
+                }
+            });
+        }else{
+            RequestQueue queue = Volley.newRequestQueue(request.getContext());
+            final String url = "http://" + IP + ":" + PORTA + "/QualityPostoWEB/webresources/service/" + request.getRotina() + "/" + request.getFuncao();
+
+            StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                response = URLDecoder.decode(response, "UTF-8");
+                                Log.i("WEB_POSTO_LOG",  String.format("request: %s, dados: %s, token: %s, response: %s", url, request.getDados(), token == null ? "" : token.toString(), response));
+
+                                JSONObject jsonObject = new JSONObject(response);
+
+                                if (jsonObject.has("MEN")) {
+                                    request.getOnFalha().accept(jsonObject.getString("MEN"));
+                                }else{
+                                    request.getOnSucesso().accept(new JSONObject(response));
+                                }
+                            } catch (Exception e) {
+                                request.getOnFalha().accept("Formato invalido");        //TODO FAZER POR RECURSO
+                            }
+                        }
+                    }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     request.getOnFalha().accept("Server error");
                     Log.e("WEB_POSTO_LOG", "request: " + url + " dados: " + request.getDados() + " error: " + error.getMessage());
                 }
             }
-        ){
-            @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<>();
-                params.put("pacoteDados", request.getDados());
-                params.put("token", (token == null ? "{}" : token.toString()));
-                return params;
-            }
+            ){
+                @Override
+                protected Map<String,String> getParams(){
+                    Map<String,String> params = new HashMap<>();
+                    params.put("pacoteDados", request.getDados());
+                    params.put("token", (token == null ? "{}" : token.toString()));
+                    return params;
+                }
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return super.getHeaders();
-            }
-        };
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("encode", "true");
+                    return params;
+                }
+            };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                8000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    8000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        queue.add(stringRequest);
+            queue.add(stringRequest);
+        }
     }
 
-    public static void verificarLiberacaoDispositivo(Context context, final Runnable seLiberado) {
+    public static void verificarLiberacaoDispositivo(final Context context, final Runnable seLiberado) {
         requisitar(new Request(context, "MAQUINA", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
                 seLiberado.run();
+            }
+        }, new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
             }
         }).setDados(getDados(context)));
     }
@@ -128,55 +158,59 @@ public abstract class UtilsWeb {
         return dados.toString();
     }
 
-    private static String ip() {
-        if(BuildConfig.DEBUG) return IP_LOCAL;
 
-        JSONObject json = null;
-        try {
-            json = new AsyncTask<Void, Void, JSONObject>() {
-                    @SuppressWarnings("deprecation")
-                    @Override
-                    protected JSONObject doInBackground(Void... params) {
-                        try {
-                            final String stringUrl = "http://wpadmin.qualityautomacao.com/server/ip/principal";
-                            URL url = new URL(stringUrl);
-                            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-
-                            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-                                public String handleResponse(final HttpResponse response) throws IOException {
-                                    StatusLine statusLine = response.getStatusLine();
-                                    if (statusLine.getStatusCode() >= 300) {
-                                        throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
-                                    }
-
-                                    HttpEntity entity = response.getEntity();
-                                    return entity == null ? null : EntityUtils.toString(entity, "UTF-8");
-                                }
-                            };
-
-                            HttpParams httpParams = new BasicHttpParams();
-                            HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT);
-                            HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT);
-
-                            DefaultHttpClient client = new DefaultHttpClient(httpParams);
-                            HttpGet get = new HttpGet(uri.toASCIIString());
-
-                            client.getCredentialsProvider().setCredentials(new AuthScope("wpadmin.qualityautomacao.com", 80), new UsernamePasswordCredentials("dev", "dev@2015"));
-
-                            String pacote = client.execute(get, responseHandler);
-
-                            return new JSONObject(pacote);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                        return null;
-                    }
-                }.execute().get();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    private static void carregaIP(final Runnable sucesso, final Consumer<String> erro) {
+        if(BuildConfig.DEBUG){
+            IP = IP_LOCAL;
+            sucesso.run();
+            return;
         }
 
-        return json == null ? "" : json.optString("ip_ds_ip");
+        new AsyncTask<Void, Void, Void>(){
+            @Override @SuppressWarnings("deprecation")
+            protected Void doInBackground(Void... params) {
+                try {
+                    final String stringUrl = "http://wpadmin.qualityautomacao.com/server/ip/principal";
+                    URL url = new URL(stringUrl);
+                    URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+
+                    ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+                        public String handleResponse(final HttpResponse response) throws IOException {
+                            StatusLine statusLine = response.getStatusLine();
+                            if (statusLine.getStatusCode() >= 300) {
+                                throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+                            }
+
+                            HttpEntity entity = response.getEntity();
+                            return entity == null ? null : EntityUtils.toString(entity, "UTF-8");
+                        }
+                    };
+
+                    HttpParams httpParams = new BasicHttpParams();
+                    HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT);
+                    HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT);
+
+                    DefaultHttpClient client = new DefaultHttpClient(httpParams);
+                    HttpGet get = new HttpGet(uri.toASCIIString());
+
+                    client.getCredentialsProvider().setCredentials(new AuthScope("wpadmin.qualityautomacao.com", 80), new UsernamePasswordCredentials("dev", "dev@2015"));
+
+                    String pacote = client.execute(get, responseHandler);
+
+                    IP = new JSONObject(pacote).getString("ip_ds_ip");
+                    sucesso.run();
+                } catch (Exception e) {
+                    erro.accept("ERRO INESPERADO");
+                }
+
+                return null;
+            }
+        }.execute();
+    }
+
+    public static boolean isOnline(Context context) {
+        NetworkInfo netInfo =
+                ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected();
     }
 }

@@ -2,9 +2,11 @@ package com.qualityautomacao.webposto.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,21 +23,26 @@ import com.qualityautomacao.webposto.utils.UtilsWeb;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends BaseActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    private EditText editTextLogin;
-    private EditText editTextSenha;
+    @BindView(R.id.editTextLogin) EditText editTextLogin;
+    @BindView(R.id.editTextSenha) EditText editTextSenha;
+    @BindView(R.id.buttonLogin) Button btnLogin;
+
     private UtilsPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
-        editTextLogin = (EditText)findViewById(R.id.editTextLogin);
-        editTextSenha = (EditText)findViewById(R.id.editTextSenha);
         preferences = new UtilsPreferences(this);
 
         editTextLogin.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
@@ -48,9 +55,11 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    public void login(View view) throws Exception {
+    @OnClick(R.id.buttonLogin)
+    public void login(View view){
         showLoadDialog();
-        UtilsWeb.requisitar(new Request(this, "LOGIN", new Consumer<JSONObject>() {
+
+        UtilsWeb.requisitar(new Request(LoginActivity.this, "LOGIN", new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject jsonObject) {
                 int ret = jsonObject.optInt("RET", -1);
@@ -75,13 +84,18 @@ public class LoginActivity extends BaseActivity {
         preferences.setPreferences(UtilsPreferences.KEY_SENHA, editTextSenha.getText().toString());
     }
 
-    private JSONObject getDadosLogin() throws Exception {
+    private JSONObject getDadosLogin(){
         final String usuario = editTextLogin.getText().toString();
         final String senha = editTextSenha.getText().toString();
 
-        return new JSONObject()
-                .put("USU_DS_LOGIN", usuario)
-                .put("USU_DS_SENHA", senha);
+        try{
+            return new JSONObject()
+                    .put("USU_DS_LOGIN", usuario)
+                    .put("USU_DS_SENHA", senha);
+        }catch (Exception e){
+            return new JSONObject();
+        }
+
     }
 
     private void loginUnicaFilial(JSONObject jsonObject){
