@@ -7,8 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import com.tcc.othello.global.Game;
+import com.tcc.othello.model.PlayerObservable;
+import com.tcc.othello.model.Locale;
+import com.tcc.othello.model.Player;
 
-public class MainWindow {
+public class MainWindow implements PlayerObservable{
 	
 	private Gameboard gameboard;
 	private DataPanel dataPanel;
@@ -27,7 +30,7 @@ public class MainWindow {
 	}
 
 	public void newGame() {
-		game = new Game();
+		game = new Game(this);
 		game.start();
 	}
 	
@@ -53,5 +56,9 @@ public class MainWindow {
         	e.printStackTrace();
         }
 	}
-	
+
+	@Override
+	public void move(Player player, Locale locale) {
+		
+	}
 }
