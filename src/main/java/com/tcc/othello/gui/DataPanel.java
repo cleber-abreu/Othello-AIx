@@ -92,7 +92,7 @@ public class DataPanel  extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				enableSelectionPlayer(false);
-				MainWindow.newGame();
+//				MainWindow.newGame();
 				super.mouseClicked(e);
 			}
 		});

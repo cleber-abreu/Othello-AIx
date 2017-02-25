@@ -71,10 +71,8 @@ public class JDisc extends JPanel {
 			addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					player.addDisc(row, col);
-					MainWindow.getGame().changeTurn();
+//					MainWindow.getGame().changeTurn();
 					System.out.println("RETORNA AO LOOP "+row+","+col);
-					MainWindow.getGame().run();
 					System.out.println(row+","+col);
 				}
 			});

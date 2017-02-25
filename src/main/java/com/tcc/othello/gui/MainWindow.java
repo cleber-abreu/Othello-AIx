@@ -2,76 +2,56 @@ package com.tcc.othello.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
-import com.tcc.othello.dao.DB;
-import com.tcc.othello.dao.TestDAO;
 import com.tcc.othello.global.Game;
-import com.tcc.othello.global.Rules;
-import com.tcc.othello.model.FieldStatus;
-import com.tcc.othello.model.Player;
-import com.tcc.othello.model.PlayerHuman;
-import com.tcc.othello.model.PlayerRandom;
-import com.tcc.othello.model.Players;
-import com.tcc.othello.model.Test;
 
-@SuppressWarnings("serial")
-public class MainWindow extends JFrame {
+public class MainWindow {
 	
-	private static Gameboard gameboard;
-	private static DataPanel dataPanel;
-	private static Game game;
+	private Gameboard gameboard;
+	private DataPanel dataPanel;
+	private Game game;
 	
-	public static Gameboard getGameboard() {
+	public Gameboard getGameboard() {
 		return gameboard;
 	}
 
-	public static DataPanel getDataPanel() {
+	public DataPanel getDataPanel() {
 		return dataPanel;
 	}
 	
-	public static Game getGame() {
+	public Game getGame() {
 		return game;
 	}
 
-	public static void newGame() {
+	public void newGame() {
 		game = new Game();
 		game.start();
 	}
 	
 	public static void main(String[] args) {
 
-		gameboard = new Gameboard();
-		dataPanel = new DataPanel();
+		MainWindow main = new MainWindow();
+		main.gameboard = new Gameboard();
+		main.dataPanel = new DataPanel();
 		
-		EventQueue.invokeLater(new Runnable() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | 
-                		InstantiationException | 
-                		IllegalAccessException | 
-                		UnsupportedLookAndFeelException e) {
-                }
-				
-				JFrame frmMain = new JFrame("Othello AIx");
-				frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frmMain.setLayout(new BorderLayout());
-				frmMain.setBackground(Color.DARK_GRAY);
-				frmMain.add(gameboard, BorderLayout.CENTER);
-				frmMain.add(dataPanel, BorderLayout.EAST);
-				frmMain.pack();
-				frmMain.setLocationRelativeTo(null);
-				frmMain.setVisible(true);
-			}
-		});
+			JFrame frmMain = new JFrame("Othello AIx");
+			frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frmMain.setLayout(new BorderLayout());
+			frmMain.setBackground(Color.DARK_GRAY);
+			frmMain.add(main.gameboard, BorderLayout.CENTER);
+			frmMain.add(main.dataPanel, BorderLayout.EAST);
+			frmMain.pack();
+			frmMain.setLocationRelativeTo(null);
+			frmMain.setVisible(true);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
 	}
 	
 }

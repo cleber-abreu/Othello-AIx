@@ -23,7 +23,6 @@ public class Gameboard extends JPanel {
 	}
 
 	public Gameboard() {
-
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
@@ -88,17 +87,6 @@ public class Gameboard extends JPanel {
 					.getDisc().repaint();
 		}
 	}
-	
-//	public void drawMoveOptionsWithOnClick(ArrayList<Field> fields, FieldStatus status) {
-//		for (Field field : fields) {
-//			this.fields[field.getRow()][field.getCol()]
-//					.getDisc().setStatus(status);
-//			this.fields[field.getRow()][field.getCol()]
-//					.getDisc().enableOnClick();
-//			this.fields[field.getRow()][field.getCol()]
-//					.getDisc().repaint();
-//		}
-//	}
 	
 	public void clearDiscs(ArrayList<Field> fieldsBlack, ArrayList<Field> fieldsWhite) {
 		if (fieldsBlack != null) {
