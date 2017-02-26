@@ -29,6 +29,8 @@ public class Game implements PlayerObservable, BoardObservable{
 		
 		activePlayer.setOpponent(opponent);
 		opponent.setOpponent(activePlayer);
+		
+		activePlayer.takeTurn();
 	}
 	
 	public void changeTurn() {

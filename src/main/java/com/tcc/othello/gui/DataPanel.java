@@ -95,7 +95,6 @@ public class DataPanel extends JPanel{
 		btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				enableSelectionPlayer(false);
 				DataPanel.this.dataPanelObervable.onNewGame(getPlayer1(), getPlayer2());
 			}
 		});

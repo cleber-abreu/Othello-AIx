@@ -52,4 +52,14 @@ public class AlternativeBoard extends JPanel{
 		btns[locale.getX()][locale.getY()].setText(FieldStatus.WHITE.equals(player.getColor()) ? "X" : "O");
 		repaint();
 	}
+	
+	public void clean(){
+		for (int y = 0; y < btns.length; y++) {
+			for (int x = 0; x < btns[y].length; x++) {
+				btns[x][y].setText("");
+			}
+		}
+		
+		repaint();
+	}
 }

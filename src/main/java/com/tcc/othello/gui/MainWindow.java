@@ -48,6 +48,7 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	 */
 	@Override
 	public void onNewGame(PlayerType blackPlayer, PlayerType whitePlayer) {
+		gameboard.clean();
 		game = new Game(this);
 		game.start(blackPlayer, whitePlayer);
 	}
