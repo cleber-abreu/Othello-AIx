@@ -1,15 +1,38 @@
 package com.tcc.othello.model;
 
 public abstract class Player {	
-	private PlayerObservable gameObservable;
+	protected PlayerObservable playerObservable;
+	private FieldStatus color;
+	private Player opponent;
 	
-	protected abstract void takeTurn();
-	
-	protected void executeMovement(Locale locale){
-		gameObservable.move(this, locale);
+	public static Player initWith(PlayerType playerType){
+		switch (playerType) {
+		case HUMAN:
+			return new PlayerHuman();
+		default:
+			return new PlayerRandom();
+		}
 	}
 
-	public void setGameObservable(PlayerObservable gameObservable) {
-		this.gameObservable = gameObservable;
+	public abstract void takeTurn();
+
+	public void setPlayerObservable(PlayerObservable playerObservable) {
+		this.playerObservable = playerObservable;
+	}
+	
+	public FieldStatus getColor() {
+		return color;
+	}
+
+	public void setColor(FieldStatus color) {
+		this.color = color;
+	}
+
+	public Player getOpponent() {
+		return opponent;
+	}
+
+	public void setOpponent(Player opponent) {
+		this.opponent = opponent;
 	}
 }

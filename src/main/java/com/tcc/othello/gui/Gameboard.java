@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
+import com.tcc.othello.model.BoardObservable;
 import com.tcc.othello.model.Field;
 import com.tcc.othello.model.FieldStatus;
 
@@ -22,7 +23,7 @@ public class Gameboard extends JPanel {
 		return fields[row][col];
 	}
 
-	public Gameboard() {
+	public Gameboard(BoardObservable boardObservable) {
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);

@@ -15,11 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
+import com.tcc.othello.model.DataPanelObervable;
 import com.tcc.othello.model.FieldStatus;
-import com.tcc.othello.model.Players;
+import com.tcc.othello.model.PlayerType;
 
 @SuppressWarnings("serial")
-public class DataPanel  extends JPanel {
+public class DataPanel extends JPanel{
 	
 	private final static Font fontTittle = new Font(Font.DIALOG, Font.BOLD, 12);
 	private final static Font fontText = new Font(Font.DIALOG_INPUT, Font.PLAIN, 14);
@@ -31,15 +32,18 @@ public class DataPanel  extends JPanel {
 	private JLabel lblTittleScoreboard;
 	private JLabel lblPlayer1;
 	private JLabel lblPlayer2;
-	private JComboBox<Players> listNamePlayer1;
-	private JComboBox<Players> listNamePlayer2;
+	private JComboBox<PlayerType> listNamePlayer1;
+	private JComboBox<PlayerType> listNamePlayer2;
 	private JDisc colorPlayer1Disc;
 	private JDisc colorPlayer2Disc;
 	private JLabel lblPointsPlayer1;
 	private JLabel lblPointsPlayer2;
 	private JButton btnNewGame;
 	
-	public DataPanel() {
+	private DataPanelObervable dataPanelObervable;
+	
+	public DataPanel(DataPanelObervable dataPanelObervable){
+		this.dataPanelObervable = dataPanelObervable;
 		setPreferredSize(new Dimension(360, 420));
 		setBackground(Color.DARK_GRAY);
 		setLayout(new GridBagLayout());
@@ -50,8 +54,8 @@ public class DataPanel  extends JPanel {
 		lblTittleScoreboard = new JLabel("PLACAR GERAL");
 		lblPlayer1 = new JLabel("Jogador 1");
 		lblPlayer2 = new JLabel("Jogador 2");
-		listNamePlayer1 = new JComboBox<>(Players.values());
-		listNamePlayer2 = new JComboBox<>(Players.values());
+		listNamePlayer1 = new JComboBox<>(PlayerType.values());
+		listNamePlayer2 = new JComboBox<>(PlayerType.values());
 		colorPlayer1Disc = new JDisc(FieldStatus.BLACK);
 		colorPlayer2Disc = new JDisc(FieldStatus.WHITE);
 		lblNumDiscsPlayer1 = new JLabel("0");
@@ -92,11 +96,9 @@ public class DataPanel  extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				enableSelectionPlayer(false);
-//				MainWindow.newGame();
-				super.mouseClicked(e);
+				DataPanel.this.dataPanelObervable.onNewGame(getPlayer1(), getPlayer2());
 			}
 		});
-		
 		
 		gbc.insets = new Insets(10, 0, 0, 0);
 		gbc.gridwidth = 3;
@@ -174,12 +176,12 @@ public class DataPanel  extends JPanel {
 		
 	}
 	
-	public Players getPlayer1() {
-		return (Players) listNamePlayer1.getSelectedItem();
+	public PlayerType getPlayer1() {
+		return (PlayerType) listNamePlayer1.getSelectedItem();
 	}
 	
-	public Players getPlayer2() {
-		return (Players) listNamePlayer2.getSelectedItem();
+	public PlayerType getPlayer2() {
+		return (PlayerType) listNamePlayer2.getSelectedItem();
 	}
 
 	public String getStringPlayer1() {

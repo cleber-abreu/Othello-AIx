@@ -8,37 +8,23 @@ import javax.swing.UIManager;
 
 import com.tcc.othello.global.Game;
 import com.tcc.othello.model.PlayerObservable;
+import com.tcc.othello.model.PlayerType;
+import com.tcc.othello.model.BoardObservable;
+import com.tcc.othello.model.DataPanelObervable;
 import com.tcc.othello.model.Locale;
 import com.tcc.othello.model.Player;
 
-public class MainWindow implements PlayerObservable{
+public class MainWindow implements PlayerObservable, BoardObservable, DataPanelObervable{
 	
-	private Gameboard gameboard;
+	private AlternativeBoard gameboard;
 	private DataPanel dataPanel;
 	private Game game;
-	
-	public Gameboard getGameboard() {
-		return gameboard;
-	}
-
-	public DataPanel getDataPanel() {
-		return dataPanel;
-	}
-	
-	public Game getGame() {
-		return game;
-	}
-
-	public void newGame() {
-		game = new Game(this);
-		game.start();
-	}
 	
 	public static void main(String[] args) {
 
 		MainWindow main = new MainWindow();
-		main.gameboard = new Gameboard();
-		main.dataPanel = new DataPanel();
+		main.gameboard = new AlternativeBoard(main);
+		main.dataPanel = new DataPanel(main);
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -56,9 +42,29 @@ public class MainWindow implements PlayerObservable{
         	e.printStackTrace();
         }
 	}
+	
+	/*
+	 * implementacao do DataPanelObervable, observar o aviso de nova partida
+	 */
+	@Override
+	public void onNewGame(PlayerType blackPlayer, PlayerType whitePlayer) {
+		game = new Game(this);
+		game.start(blackPlayer, whitePlayer);
+	}
 
+	/*
+	 * implementacao do PlayerObservable, observar o aviso de nova jogada a ser executada
+	 */
 	@Override
 	public void move(Player player, Locale locale) {
-		
+		gameboard.paintMovement(player, locale);
+	}
+
+	/*
+	 * implementacao do BoardObervable, observar o click no tabuleiro
+	 */
+	@Override
+	public void onBoardClick(Locale locale) {
+		game.onBoardClick(locale);
 	}
 }

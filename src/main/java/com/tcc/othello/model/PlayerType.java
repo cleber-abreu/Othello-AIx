@@ -1,6 +1,6 @@
 package com.tcc.othello.model;
 
-public enum Players {
+public enum PlayerType {
 
 	HUMAN {
 		@Override
@@ -12,7 +12,7 @@ public enum Players {
 	RANDOM {
 		@Override
 		public String toString() {
-			return "Aleatório";
+			return "Aleatï¿½rio";
 		}
 	},
 	
