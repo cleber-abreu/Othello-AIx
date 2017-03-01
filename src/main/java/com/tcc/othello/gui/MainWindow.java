@@ -16,14 +16,14 @@ import com.tcc.othello.model.Player;
 
 public class MainWindow implements PlayerObservable, BoardObservable, DataPanelObervable{
 	
-	private AlternativeBoard gameboard;
+	private Gameboard gameboard;
 	private DataPanel dataPanel;
 	private Game game;
 	
 	public static void main(String[] args) {
 
 		MainWindow main = new MainWindow();
-		main.gameboard = new AlternativeBoard(main);
+		main.gameboard = new Gameboard(main);
 		main.dataPanel = new DataPanel(main);
 		
 		try {
@@ -48,7 +48,7 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	 */
 	@Override
 	public void onNewGame(PlayerType blackPlayer, PlayerType whitePlayer) {
-		gameboard.clean();
+		gameboard.clearAll();
 		game = new Game(this);
 		game.start(blackPlayer, whitePlayer);
 	}

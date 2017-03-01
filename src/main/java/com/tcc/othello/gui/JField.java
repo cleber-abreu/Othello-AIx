@@ -3,11 +3,11 @@ package com.tcc.othello.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class JField extends JPanel {
+public class JField extends JButton {
 
 	private static final Color defaultBackground = new Color(36, 128, 48);
 	private static final Color borderBackground = new Color(2, 8, 4);

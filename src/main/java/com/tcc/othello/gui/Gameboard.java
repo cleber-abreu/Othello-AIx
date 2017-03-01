@@ -1,9 +1,10 @@
 package com.tcc.othello.gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -13,17 +14,21 @@ import javax.swing.border.MatteBorder;
 import com.tcc.othello.model.BoardObservable;
 import com.tcc.othello.model.Field;
 import com.tcc.othello.model.FieldStatus;
+import com.tcc.othello.model.Locale;
+import com.tcc.othello.model.Player;
 
 @SuppressWarnings("serial")
 public class Gameboard extends JPanel {
 
 	private JField[][] fields;
+	BoardObservable boardObservable;
 	
 	public JField getField(int row, int col) {
 		return fields[row][col];
 	}
 
 	public Gameboard(BoardObservable boardObservable) {
+		this.boardObservable = boardObservable;
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
@@ -37,15 +42,28 @@ public class Gameboard extends JPanel {
 				grid.gridx = col;
 				grid.gridy = row;
 
+				// IDENTIFICAÇÃO DE LINHAS E COLUNAS
 				if (row == 0 || row == 9) {
 					fields[row][col]= new JField(lettersBorder[col]);
 					border = null;
 				} else if ((row != 0 || row != 9) && (col == 0 || col == 9)) {
 					fields[row][col]= new JField(row);
 					border = null;
+					
+				// CAMPOS DO TABULEIRO
 				} else {
-					fields[row][col]= new JField(row, col);
-
+					final int finalRow = row;
+					final int finalCol = col;
+					fields[row][col] = new JField(row, col);
+					fields[row][col].addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if (FieldStatus.VOID == fields[finalRow][finalCol].getDisc().getStatus()) {
+								Gameboard.this.boardObservable.onBoardClick(new Locale(finalRow, finalCol));
+							}
+						}
+					});
+					
 					if (row < 9) {
 						if (col < 9) {
 							border = new MatteBorder(1, 1, 0, 0, colorLine);
@@ -63,11 +81,7 @@ public class Gameboard extends JPanel {
 				fields[row][col].setBorder(border);
 				add(fields[row][col], grid);
 			}
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					repaint();
-				}
-			});
+			repaint();
 		}
 	}
 	
@@ -78,6 +92,11 @@ public class Gameboard extends JPanel {
 			this.fields[field.getRow()][field.getCol()]
 					.getDisc().repaint();
 		}
+	}
+	
+	public void paintMovement(Player player, Locale locale) {
+		fields[locale.getX()][locale.getY()].getDisc().setStatus(player.getColor());
+		repaint();
 	}
 	
 	public void drawMoveOptions(ArrayList<Field> fields) {
@@ -128,5 +147,5 @@ public class Gameboard extends JPanel {
 			}
 		}
 	}
-	
+
 }

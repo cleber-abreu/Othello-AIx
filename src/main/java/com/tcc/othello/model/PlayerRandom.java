@@ -23,7 +23,7 @@ public class PlayerRandom extends Player {
 	}
 	
 	private void va() {
-		PlayerRandom.this.playerObservable.move(this, new Locale(random.nextInt(8), random.nextInt(8)));
+		PlayerRandom.this.playerObservable.move(this, new Locale(1+random.nextInt(8), 1+random.nextInt(8)));
 	
 
 	}
