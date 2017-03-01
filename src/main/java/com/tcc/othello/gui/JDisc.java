@@ -16,13 +16,9 @@ public class JDisc extends JPanel {
 
 	private Color color = new Color(36, 128, 48);
 	private FieldStatus status;
-	private int row;
-	private int col;
 
-	public JDisc(int row, int col) {
+	public JDisc() {
 		status = FieldStatus.VOID;
-		this.row = row;
-		this.col = col;
 	}
 
 	public JDisc(FieldStatus status) {
@@ -71,9 +67,6 @@ public class JDisc extends JPanel {
 			addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-//					MainWindow.getGame().changeTurn();
-					System.out.println("RETORNA AO LOOP "+row+","+col);
-					System.out.println(row+","+col);
 				}
 			});
 		}
@@ -114,22 +107,6 @@ public class JDisc extends JPanel {
 
 	public void setBgColor(Color color) {
 		this.color = color;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	public int getCol() {
-		return col;
-	}
-
-	public void setCol(int col) {
-		this.col = col;
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.tcc.othello.model.Field;
 import com.tcc.othello.model.FieldStatus;
 
-public class Rules {
+public class GameboardController {
 
 	private static ArrayList<Field> moveOptions;
 	
@@ -15,6 +15,7 @@ public class Rules {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 

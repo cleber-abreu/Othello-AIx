@@ -17,11 +17,11 @@ public class JField extends JButton {
 	private static final Dimension dimBorderX = new Dimension(20, 20);
 	private JDisc disc;
 
-	public JField(int row, int col) {
+	public JField() {
 		this.setBackground(defaultBackground);
 		this.setSize(dim);
 		this.setPreferredSize(dim);
-		disc = new JDisc(row, col);
+		disc = new JDisc();
 		add(disc);
 	}
 

@@ -8,24 +8,15 @@ public class PlayerRandom extends Player {
 	
 	@Override
 	public void takeTurn() {
-		Thread a = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Thread.sleep(1200);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				va();
+				PlayerRandom.this.playerObservable.move(PlayerRandom.this, new Locale(random.nextInt(8), random.nextInt(8)));
 			}
-		});
-		
-		a.start();
+		}).start();
 	}
-	
-	private void va() {
-		PlayerRandom.this.playerObservable.move(this, new Locale(1+random.nextInt(8), 1+random.nextInt(8)));
-	
-
-	}
-	
 }

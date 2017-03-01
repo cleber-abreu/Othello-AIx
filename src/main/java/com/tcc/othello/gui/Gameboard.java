@@ -23,8 +23,8 @@ public class Gameboard extends JPanel {
 	private JField[][] fields;
 	BoardObservable boardObservable;
 	
-	public JField getField(int row, int col) {
-		return fields[row][col];
+	public JField getField(Locale locale) {
+		return fields[locale.getY()][locale.getX()];
 	}
 
 	public Gameboard(BoardObservable boardObservable) {
@@ -32,7 +32,7 @@ public class Gameboard extends JPanel {
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
-		fields = new JField[10][10];
+		fields = new JField[8][8];
 		String[] lettersBorder = { " ", "A", "B", "C", "D", "E", "F", "G", "H", " " };
 		Border border = null;
 
@@ -41,21 +41,23 @@ public class Gameboard extends JPanel {
 			for (int col = 0; col < 10; col++) {
 				grid.gridx = col;
 				grid.gridy = row;
-
+				
 				// IDENTIFICAÇÃO DE LINHAS E COLUNAS
 				if (row == 0 || row == 9) {
-					fields[row][col]= new JField(lettersBorder[col]);
-					border = null;
+					JField current = new JField(lettersBorder[col]);
+					add(current, grid);
+					current.setBorder(null);
 				} else if ((row != 0 || row != 9) && (col == 0 || col == 9)) {
-					fields[row][col]= new JField(row);
-					border = null;
+					JField current = new JField(row);
+					add(current, grid);
+					current.setBorder(null);
 					
 				// CAMPOS DO TABULEIRO
 				} else {
-					final int finalRow = row;
-					final int finalCol = col;
-					fields[row][col] = new JField(row, col);
-					fields[row][col].addActionListener(new ActionListener() {
+					final int finalRow = row -1;
+					final int finalCol = col -1;
+					fields[finalRow][finalCol] = new JField();
+					fields[finalRow][finalCol].addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							if (FieldStatus.VOID == fields[finalRow][finalCol].getDisc().getStatus()) {
@@ -77,9 +79,9 @@ public class Gameboard extends JPanel {
 							border = new MatteBorder(1, 1, 1, 1, colorLine);
 						}
 					}
+					fields[finalRow][finalCol].setBorder(border);
+					add(fields[finalRow][finalCol], grid);
 				}
-				fields[row][col].setBorder(border);
-				add(fields[row][col], grid);
 			}
 			repaint();
 		}
