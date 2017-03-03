@@ -1,19 +1,17 @@
 package com.tcc.othello.model;
 
 public class Locale {
-	private int x;
-	private int y;
+	private int id;
 	
-	public Locale(int x, int y){
-		this.x = x;
-		this.y = y;
+	public Locale(int id){
+		this.id = id;
 	}
 
-	public int getX() {
-		return x;
+	public int getId() {
+		return id;
 	}
 
-	public int getY() {
-		return y;
+	public void setId(int id) {
+		this.id = id;
 	}
 }

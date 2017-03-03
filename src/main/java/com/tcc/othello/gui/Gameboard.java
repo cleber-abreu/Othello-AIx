@@ -5,14 +5,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
 import com.tcc.othello.model.BoardObservable;
-import com.tcc.othello.model.Field;
 import com.tcc.othello.model.FieldStatus;
 import com.tcc.othello.model.Locale;
 import com.tcc.othello.model.Player;
@@ -20,11 +18,11 @@ import com.tcc.othello.model.Player;
 @SuppressWarnings("serial")
 public class Gameboard extends JPanel {
 
-	private JField[][] fields;
+	private JField[] fields;
 	BoardObservable boardObservable;
 	
 	public JField getField(Locale locale) {
-		return fields[locale.getY()][locale.getX()];
+		return fields[locale.getId()];
 	}
 
 	public Gameboard(BoardObservable boardObservable) {
@@ -32,11 +30,12 @@ public class Gameboard extends JPanel {
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
-		fields = new JField[8][8];
+		fields = new JField[64];
 		String[] lettersBorder = { " ", "A", "B", "C", "D", "E", "F", "G", "H", " " };
 		Border border = null;
 
 		GridBagConstraints grid = new GridBagConstraints();
+		int id = 0;
 		for (int row = 0; row < 10; row++) {
 			for (int col = 0; col < 10; col++) {
 				grid.gridx = col;
@@ -54,14 +53,13 @@ public class Gameboard extends JPanel {
 					
 				// CAMPOS DO TABULEIRO
 				} else {
-					final int finalRow = row -1;
-					final int finalCol = col -1;
-					fields[finalRow][finalCol] = new JField();
-					fields[finalRow][finalCol].addActionListener(new ActionListener() {
+					final int finalId = id;
+					fields[id] = new JField();
+					fields[id].addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							if (FieldStatus.VOID == fields[finalRow][finalCol].getDisc().getStatus()) {
-								Gameboard.this.boardObservable.onBoardClick(new Locale(finalRow, finalCol));
+							if (FieldStatus.VOID == fields[finalId].getDisc().getStatus()) {
+								Gameboard.this.boardObservable.onBoardClick(new Locale(finalId));
 							}
 						}
 					});
@@ -79,73 +77,24 @@ public class Gameboard extends JPanel {
 							border = new MatteBorder(1, 1, 1, 1, colorLine);
 						}
 					}
-					fields[finalRow][finalCol].setBorder(border);
-					add(fields[finalRow][finalCol], grid);
+					fields[id].setBorder(border);
+					add(fields[id], grid);
+					id++;
 				}
 			}
 			repaint();
 		}
 	}
 	
-	public void drawDiscs(ArrayList<Field> fields) {
-		for (Field field : fields) {
-			this.fields[field.getRow()][field.getCol()]
-					.getDisc().setStatus(field.getStatus());
-			this.fields[field.getRow()][field.getCol()]
-					.getDisc().repaint();
-		}
-	}
-	
 	public void paintMovement(Player player, Locale locale) {
-		fields[locale.getX()][locale.getY()].getDisc().setStatus(player.getColor());
+		fields[locale.getId()].getDisc().setStatus(player.getColor());
 		repaint();
 	}
 	
-	public void drawMoveOptions(ArrayList<Field> fields) {
-		for (Field field : fields) {
-			this.fields[field.getRow()][field.getCol()]
-					.getDisc().setStatus(field.getStatus());
-			this.fields[field.getRow()][field.getCol()]
-					.getDisc().repaint();
-		}
-	}
-	
-	public void clearDiscs(ArrayList<Field> fieldsBlack, ArrayList<Field> fieldsWhite) {
-		if (fieldsBlack != null) {
-			for (Field field : fieldsBlack) {
-				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(FieldStatus.VOID);
-				this.fields[field.getRow()][field.getCol()]
-						.getDisc().repaint();
-			}
-		}
-		
-		if (fieldsWhite != null) {
-			for (Field field : fieldsWhite) {
-				this.fields[field.getRow()][field.getCol()]
-						.getDisc().setStatus(FieldStatus.VOID);
-				this.fields[field.getRow()][field.getCol()]
-						.getDisc().repaint();
-			}
-		}
-	}
-	
 	public void clearAll() {
-		for (int row = 0; row < fields.length; row++) {
-			for (int col = 0; col < fields.length; col++) {
-				if (fields[row][col].getDisc() != null)
-					fields[row][col].getDisc().setStatus(FieldStatus.VOID);
-			}
-		}
-	}
-	
-	public void clearMoveOptions(ArrayList<Field> fields) {
-			for (Field field : fields) {
-				if (fields != null) {
-					this.fields[field.getRow()][field.getCol()]
-							.getDisc().setStatus(FieldStatus.VOID);
-					this.fields[field.getRow()][field.getCol()]
-							.getDisc().repaint();
+		for (int i = 0; i < fields.length; i++) {
+			if (fields[i].getDisc() != null) {
+				fields[i].getDisc().setStatus(FieldStatus.VOID);
 			}
 		}
 	}

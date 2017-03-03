@@ -11,11 +11,11 @@ public class PlayerRandom extends Player {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Thread.sleep(200);
+					Thread.sleep(600);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				PlayerRandom.this.playerObservable.move(PlayerRandom.this, new Locale(random.nextInt(8), random.nextInt(8)));
+				PlayerRandom.this.playerObservable.move(PlayerRandom.this, new Locale(random.nextInt(64)));
 			}
 		}).start();
 	}
