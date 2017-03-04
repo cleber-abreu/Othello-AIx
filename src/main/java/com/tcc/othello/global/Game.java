@@ -1,5 +1,7 @@
 package com.tcc.othello.global;
 
+import java.util.ArrayList;
+
 import com.tcc.othello.model.BoardObservable;
 import com.tcc.othello.model.Field;
 import com.tcc.othello.model.FieldStatus;
@@ -58,8 +60,8 @@ public class Game implements PlayerObservable, BoardObservable{
 	@Override
 	public void move(Player player, Locale locale) {
 		if (!containsDisc(locale)) {
-			gameObservable.move(player, locale);
 			fields[locale.getId()].setStatus(player.getColor());
+			gameObservable.move(player.getColor(), changeDiscs(locale));
 			changeTurn();
 		}
 		else {
@@ -77,10 +79,59 @@ public class Game implements PlayerObservable, BoardObservable{
 		}
 	}
 	
+	@Override
+	public void move(FieldStatus color, ArrayList<Locale> changeDiscs) {}
+	
 	private boolean containsDisc(Locale locale) {
 		if (FieldStatus.VOID == fields[locale.getId()].getStatus()) {
 			return false;
 		}
 		return true;
 	}
+	
+	private ArrayList<Locale> changeDiscs(Locale locale) {
+		ArrayList<Locale> changeDiscs = new ArrayList<>();
+		ArrayList<Locale> sequenceDiscs = new ArrayList<>();
+		changeDiscs.add(locale);
+		
+		/*
+		 * HORIZONTAL DIREITA
+		 */
+		for (int i = locale.getId()+1; i < locale.getId()+8-(locale.getId()%8); i++) {
+			if (i > 62 || fields[i+1].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[i].getStatus()) {
+				sequenceDiscs.add(new Locale(i));
+			}
+			if (fields[i+1].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		
+		/*
+		 * HORIZONTAL ESQUERDA
+		 */
+		for (int i = locale.getId()-1; i > locale.getId()-8-(locale.getId()%8); i--) {
+			if (i < 2 || fields[i-1].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[i].getStatus()) {
+				sequenceDiscs.add(new Locale(i));
+			}
+			if (fields[i-1].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		
+		for (Locale locale2 : changeDiscs) {
+			fields[locale2.getId()].setStatus(activePlayer.getColor());
+		}
+		
+		return changeDiscs;
+		
+	}
+	
 }

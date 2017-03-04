@@ -2,17 +2,19 @@ package com.tcc.othello.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import com.tcc.othello.global.Game;
-import com.tcc.othello.model.PlayerObservable;
-import com.tcc.othello.model.PlayerType;
 import com.tcc.othello.model.BoardObservable;
 import com.tcc.othello.model.DataPanelObervable;
+import com.tcc.othello.model.FieldStatus;
 import com.tcc.othello.model.Locale;
 import com.tcc.othello.model.Player;
+import com.tcc.othello.model.PlayerObservable;
+import com.tcc.othello.model.PlayerType;
 
 public class MainWindow implements PlayerObservable, BoardObservable, DataPanelObervable{
 	
@@ -58,7 +60,11 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	 */
 	@Override
 	public void move(Player player, Locale locale) {
-		gameboard.paintMovement(player, locale);
+		gameboard.paintMovement(player.getColor(), locale);
+	}
+	
+	public void move(FieldStatus playerColor, ArrayList<Locale> locales) {
+		gameboard.paintMovement(playerColor, locales);
 	}
 
 	/*

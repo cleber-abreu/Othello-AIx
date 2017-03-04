@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -13,7 +14,6 @@ import javax.swing.border.MatteBorder;
 import com.tcc.othello.model.BoardObservable;
 import com.tcc.othello.model.FieldStatus;
 import com.tcc.othello.model.Locale;
-import com.tcc.othello.model.Player;
 
 @SuppressWarnings("serial")
 public class Gameboard extends JPanel {
@@ -86,9 +86,15 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
-	public void paintMovement(Player player, Locale locale) {
-		fields[locale.getId()].getDisc().setStatus(player.getColor());
+	public void paintMovement(FieldStatus colorPlayer, Locale locale) {
+		fields[locale.getId()].getDisc().setStatus(colorPlayer);
 		repaint();
+	}
+	
+	public void paintMovement(FieldStatus colorPlayer, ArrayList<Locale> discs) {
+		for (Locale locale : discs) {
+			paintMovement(colorPlayer, locale);
+		}
 	}
 	
 	public void clearAll() {
