@@ -15,7 +15,7 @@ public class PlayerRandom extends Player {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				PlayerRandom.this.playerObservable.move(PlayerRandom.this, new Locale(random.nextInt(64)));
+				PlayerRandom.this.playerObservable.move(PlayerRandom.this, new Locale(random.nextInt(8), random.nextInt(8)));
 			}
 		}).start();
 	}

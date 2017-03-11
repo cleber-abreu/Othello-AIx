@@ -13,7 +13,7 @@ import com.tcc.othello.model.PlayerType;
 
 public class Game implements PlayerObservable, BoardObservable{
 	private PlayerObservable gameObservable;
-	private Field[] fields;
+	private Field[][] fields;
 	private Player activePlayer;
 	
 	public Game(PlayerObservable gameObservable) {
@@ -33,18 +33,20 @@ public class Game implements PlayerObservable, BoardObservable{
 		activePlayer.setOpponent(opponent);
 		opponent.setOpponent(activePlayer);
 		
-		fields = new Field[64];
-		for (int i = 0; i < fields.length; i++) {
-			fields[i] = new Field();
+		fields = new Field[8][8];
+		for (int row = 0; row < fields.length; row++) {
+			for (int col = 0; col < fields.length; col++) {
+				fields[row][col] = new Field();
+			}
 		}
-		gameObservable.move(activePlayer, new Locale(27));
-		gameObservable.move(activePlayer, new Locale(36));
-		gameObservable.move(activePlayer.getOpponent(), new Locale(28));
-		gameObservable.move(activePlayer.getOpponent(), new Locale(35));
-		fields[27].setStatus(activePlayer.getColor());
-		fields[36].setStatus(activePlayer.getColor());
-		fields[28].setStatus(activePlayer.getOpponent().getColor());
-		fields[35].setStatus(activePlayer.getOpponent().getColor());
+		gameObservable.move(activePlayer, new Locale(3, 4));
+		gameObservable.move(activePlayer, new Locale(4, 3));
+		gameObservable.move(activePlayer.getOpponent(), new Locale(3, 3));
+		gameObservable.move(activePlayer.getOpponent(), new Locale(4, 4));
+		fields[3][4].setStatus(activePlayer.getColor());
+		fields[4][3].setStatus(activePlayer.getColor());
+		fields[3][3].setStatus(activePlayer.getOpponent().getColor());
+		fields[4][4].setStatus(activePlayer.getOpponent().getColor());
 		
 		activePlayer.takeTurn();
 	}
@@ -60,7 +62,7 @@ public class Game implements PlayerObservable, BoardObservable{
 	@Override
 	public void move(Player player, Locale locale) {
 		if (!containsDisc(locale)) {
-			fields[locale.getId()].setStatus(player.getColor());
+			fields[locale.getRow()][locale.getCol()].setStatus(player.getColor());
 			gameObservable.move(player.getColor(), changeDiscs(locale));
 			changeTurn();
 		}
@@ -83,7 +85,7 @@ public class Game implements PlayerObservable, BoardObservable{
 	public void move(FieldStatus color, ArrayList<Locale> changeDiscs) {}
 	
 	private boolean containsDisc(Locale locale) {
-		if (FieldStatus.VOID == fields[locale.getId()].getStatus()) {
+		if (FieldStatus.VOID == fields[locale.getRow()][locale.getCol()].getStatus()) {
 			return false;
 		}
 		return true;
@@ -97,37 +99,38 @@ public class Game implements PlayerObservable, BoardObservable{
 		/*
 		 * HORIZONTAL DIREITA
 		 */
-		for (int i = locale.getId()+1; i < locale.getId()+8-(locale.getId()%8); i++) {
-			if (i > 62 || fields[i+1].getStatus() == FieldStatus.VOID) {
+		for (int col = locale.getCol(); col < 7; col++) {
+			if (fields[locale.getRow()][col+1].getStatus() == FieldStatus.VOID) {
 				break;
 			}
-			if (activePlayer.getOpponent().getColor() == fields[i].getStatus()) {
-				sequenceDiscs.add(new Locale(i));
+			if (activePlayer.getOpponent().getColor() == fields[locale.getRow()][col].getStatus()) {
+				sequenceDiscs.add(new Locale(locale.getRow(), col));
 			}
-			if (fields[i+1].getStatus() == activePlayer.getColor()) {
+			if (fields[locale.getRow()][col+1].getStatus() == activePlayer.getColor()) {
 				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
+		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * HORIZONTAL ESQUERDA
 		 */
-		for (int i = locale.getId()-1; i > locale.getId()-8-(locale.getId()%8); i--) {
-			if (i < 2 || fields[i-1].getStatus() == FieldStatus.VOID) {
+		for (int col = locale.getCol(); col > 0; col--) {
+			if (fields[locale.getRow()][col-1].getStatus() == FieldStatus.VOID) {
 				break;
 			}
-			if (activePlayer.getOpponent().getColor() == fields[i].getStatus()) {
-				sequenceDiscs.add(new Locale(i));
+			if (activePlayer.getOpponent().getColor() == fields[locale.getRow()][col].getStatus()) {
+				sequenceDiscs.add(new Locale(locale.getRow(), col));
 			}
-			if (fields[i-1].getStatus() == activePlayer.getColor()) {
+			if (fields[locale.getRow()][col-1].getStatus() == activePlayer.getColor()) {
 				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
 		
-		for (Locale locale2 : changeDiscs) {
-			fields[locale2.getId()].setStatus(activePlayer.getColor());
+		for (Locale localeChange : changeDiscs) {
+			fields[localeChange.getRow()][localeChange.getCol()].setStatus(activePlayer.getColor());
 		}
 		
 		return changeDiscs;

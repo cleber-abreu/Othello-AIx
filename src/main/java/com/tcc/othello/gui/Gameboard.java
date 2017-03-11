@@ -18,11 +18,11 @@ import com.tcc.othello.model.Locale;
 @SuppressWarnings("serial")
 public class Gameboard extends JPanel {
 
-	private JField[] fields;
+	private JField[][] fields;
 	BoardObservable boardObservable;
 	
 	public JField getField(Locale locale) {
-		return fields[locale.getId()];
+		return fields[locale.getRow()][locale.getCol()];
 	}
 
 	public Gameboard(BoardObservable boardObservable) {
@@ -30,12 +30,11 @@ public class Gameboard extends JPanel {
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
 		Color colorLine = new Color(6, 97, 18);
-		fields = new JField[64];
+		fields = new JField[8][8];
 		String[] lettersBorder = { " ", "A", "B", "C", "D", "E", "F", "G", "H", " " };
 		Border border = null;
 
 		GridBagConstraints grid = new GridBagConstraints();
-		int id = 0;
 		for (int row = 0; row < 10; row++) {
 			for (int col = 0; col < 10; col++) {
 				grid.gridx = col;
@@ -53,13 +52,14 @@ public class Gameboard extends JPanel {
 					
 				// CAMPOS DO TABULEIRO
 				} else {
-					final int finalId = id;
-					fields[id] = new JField();
-					fields[id].addActionListener(new ActionListener() {
+					final int finalRow = row -1;
+					final int finalCol = col -1;
+					fields[finalRow][finalCol] = new JField();
+					fields[finalRow][finalCol].addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							if (FieldStatus.VOID == fields[finalId].getDisc().getStatus()) {
-								Gameboard.this.boardObservable.onBoardClick(new Locale(finalId));
+							if (FieldStatus.VOID == fields[finalRow][finalCol].getDisc().getStatus()) {
+								Gameboard.this.boardObservable.onBoardClick(new Locale(finalRow, finalCol));
 							}
 						}
 					});
@@ -77,9 +77,8 @@ public class Gameboard extends JPanel {
 							border = new MatteBorder(1, 1, 1, 1, colorLine);
 						}
 					}
-					fields[id].setBorder(border);
-					add(fields[id], grid);
-					id++;
+					fields[finalRow][finalCol].setBorder(border);
+					add(fields[finalRow][finalCol], grid);
 				}
 			}
 			repaint();
@@ -87,7 +86,7 @@ public class Gameboard extends JPanel {
 	}
 	
 	public void paintMovement(FieldStatus colorPlayer, Locale locale) {
-		fields[locale.getId()].getDisc().setStatus(colorPlayer);
+		fields[locale.getRow()][locale.getCol()].getDisc().setStatus(colorPlayer);
 		repaint();
 	}
 	
@@ -98,9 +97,11 @@ public class Gameboard extends JPanel {
 	}
 	
 	public void clearAll() {
-		for (int i = 0; i < fields.length; i++) {
-			if (fields[i].getDisc() != null) {
-				fields[i].getDisc().setStatus(FieldStatus.VOID);
+		for (int row = 0; row < fields.length; row++) {
+			for (int col = 0; col < fields.length; col++) {
+				if (fields[row][col].getDisc() != null) {
+					fields[row][col].getDisc().setStatus(FieldStatus.VOID);
+				}
 			}
 		}
 	}

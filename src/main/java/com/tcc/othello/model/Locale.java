@@ -1,17 +1,27 @@
 package com.tcc.othello.model;
 
 public class Locale {
-	private int id;
+	private int row, col;
 	
-	public Locale(int id){
-		this.id = id;
+	public Locale(int row, int col) {
+		this.row = row;
+		this.col = col;
 	}
 
-	public int getId() {
-		return id;
+	public int getRow() {
+		return row;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setRow(int row) {
+		this.row = row;
 	}
+
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
+	}
+	
 }
