@@ -97,7 +97,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		changeDiscs.add(locale);
 		
 		/*
-		 * HORIZONTAL DIREITA
+		 * HORIZONTAL RIGHT
 		 */
 		for (int col = locale.getCol(); col < 7; col++) {
 			if (fields[locale.getRow()][col+1].getStatus() == FieldStatus.VOID) {
@@ -114,7 +114,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		sequenceDiscs = new ArrayList<>();
 		
 		/*
-		 * HORIZONTAL ESQUERDA
+		 * HORIZONTAL LEFT
 		 */
 		for (int col = locale.getCol(); col > 0; col--) {
 			if (fields[locale.getRow()][col-1].getStatus() == FieldStatus.VOID) {
@@ -124,6 +124,108 @@ public class Game implements PlayerObservable, BoardObservable{
 				sequenceDiscs.add(new Locale(locale.getRow(), col));
 			}
 			if (fields[locale.getRow()][col-1].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		sequenceDiscs = new ArrayList<>();
+		
+		/*
+		 * VERTICAL DOWN
+		 */
+		for (int row = locale.getRow(); row < 7; row++) {
+			if (fields[row+1][locale.getCol()].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[row][locale.getCol()].getStatus()) {
+				sequenceDiscs.add(new Locale(row, locale.getCol()));
+			}
+			if (fields[row+1][locale.getCol()].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		sequenceDiscs = new ArrayList<>();
+		
+		/*
+		 * VERTICAL UP
+		 */
+		for (int row = locale.getRow(); row > 0; row--) {
+			if (fields[row-1][locale.getCol()].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[row][locale.getCol()].getStatus()) {
+				sequenceDiscs.add(new Locale(row, locale.getCol()));
+			}
+			if (fields[row-1][locale.getCol()].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		sequenceDiscs = new ArrayList<>();
+		
+		/*
+		 * DIAGONAL DOWN-RIGHT
+		 */
+		for (int row = locale.getRow(), col = locale.getCol(); row < 7 && col < 7; row++, col++) {
+			if (fields[row+1][col+1].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
+				sequenceDiscs.add(new Locale(row, col));
+			}
+			if (fields[row+1][col+1].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		sequenceDiscs = new ArrayList<>();
+		
+		/*
+		 * DIAGONAL DOWN-LEFT
+		 */
+		for (int row = locale.getRow(), col = locale.getCol(); row < 7 && col > 0; row++, col--) {
+			if (fields[row+1][col-1].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
+				sequenceDiscs.add(new Locale(row, col));
+			}
+			if (fields[row+1][col-1].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		sequenceDiscs = new ArrayList<>();
+		
+		/*
+		 * DIAGONAL UP-LEFT
+		 */
+		for (int row = locale.getRow(), col = locale.getCol(); row > 0 && col > 0; row--, col--) {
+			if (fields[row-1][col-1].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
+				sequenceDiscs.add(new Locale(row, col));
+			}
+			if (fields[row-1][col-1].getStatus() == activePlayer.getColor()) {
+				changeDiscs.addAll(sequenceDiscs);
+				break;
+			}
+		}
+		sequenceDiscs = new ArrayList<>();
+		
+		/*
+		 * DIAGONAL UP-RIGHT
+		 */
+		for (int row = locale.getRow(), col = locale.getCol(); row > 0 && col < 7; row--, col++) {
+			if (fields[row-1][col+1].getStatus() == FieldStatus.VOID) {
+				break;
+			}
+			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
+				sequenceDiscs.add(new Locale(row, col));
+			}
+			if (fields[row-1][col+1].getStatus() == activePlayer.getColor()) {
 				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
