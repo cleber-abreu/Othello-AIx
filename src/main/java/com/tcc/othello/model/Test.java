@@ -1,5 +1,9 @@
 package com.tcc.othello.model;
 
+import com.tcc.othello.dao.BaseDAO;
+import com.tcc.othello.dao.DB;
+import com.tcc.othello.dao.GameBoardDAO;
+
 public class Test {
 	private long id;
 	private String column1;
@@ -10,7 +14,28 @@ public class Test {
 	public Test() {
 		super();
 	}
-
+	
+	public static void main(String[] args) {
+		System.out.println(BaseDAO.count(GameBoardDAO.TABLE_NAME));
+		
+//		DB.initDB();
+//		GameBoardDAO dao = new GameBoardDAO();
+//		long time = System.currentTimeMillis();
+//		for (long i = 0; i < 100_000; i++) {
+//			for (long j = 0; j < 100_000; j++) {
+//				GameBoardBean bean = new GameBoardBean();
+//				bean.setHeroFields(i);
+//				bean.setOponnentFields(j);
+//				bean.setRating(0);
+//				dao.insert(bean);
+//			}
+//			
+//			System.out.println(i+ ": " + (System.currentTimeMillis() - time));
+//		}
+//		
+//		System.out.println("acabou");
+	}
+	
 	public Test(String column1, String column2, int column3, double column4) {
 		super();
 		this.column1 = column1;
