@@ -1,5 +1,7 @@
 package com.tcc.othello.model;
 
+import java.util.ArrayList;
+
 public abstract class Player {	
 	protected PlayerObservable playerObservable;
 	private FieldStatus color;
@@ -14,7 +16,7 @@ public abstract class Player {
 		}
 	}
 
-	public abstract void takeTurn();
+	public abstract void takeTurn(ArrayList<Locale> moveOptions);
 
 	public void setPlayerObservable(PlayerObservable playerObservable) {
 		this.playerObservable = playerObservable;

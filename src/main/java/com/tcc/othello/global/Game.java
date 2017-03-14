@@ -15,6 +15,7 @@ public class Game implements PlayerObservable, BoardObservable{
 	private PlayerObservable gameObservable;
 	private Field[][] fields;
 	private Player activePlayer;
+	ArrayList<Locale> moveOptions;
 	
 	public Game(PlayerObservable gameObservable) {
 		this.gameObservable = gameObservable;
@@ -48,12 +49,27 @@ public class Game implements PlayerObservable, BoardObservable{
 		fields[3][3].setStatus(activePlayer.getOpponent().getColor());
 		fields[4][4].setStatus(activePlayer.getOpponent().getColor());
 		
-		activePlayer.takeTurn();
+		updateMoveOptions();
+		activePlayer.takeTurn(moveOptions);
 	}
 	
 	public void changeTurn() {
 		activePlayer = activePlayer.getOpponent();
-		activePlayer.takeTurn();
+		updateMoveOptions();
+		if (moveOptions.size() > 0) {
+			activePlayer.takeTurn(moveOptions);
+		}
+		else {
+			// passa a vez
+			activePlayer = activePlayer.getOpponent();
+			updateMoveOptions();
+			if (moveOptions.size() > 0) {
+				activePlayer.takeTurn(moveOptions);
+			}
+			else {
+				System.out.println("Fim de jogo!");
+			}
+		}
 	}
 
 	/*
@@ -61,13 +77,13 @@ public class Game implements PlayerObservable, BoardObservable{
 	 */
 	@Override
 	public void move(Player player, Locale locale) {
-		if (!containsDisc(locale)) {
+		if (emptyField(locale)) {
 			fields[locale.getRow()][locale.getCol()].setStatus(player.getColor());
 			gameObservable.move(player.getColor(), changeDiscs(locale));
 			changeTurn();
 		}
 		else {
-			activePlayer.takeTurn();
+			activePlayer.takeTurn(moveOptions);
 		}
 	}
 
@@ -77,18 +93,37 @@ public class Game implements PlayerObservable, BoardObservable{
 	@Override
 	public void onBoardClick(Locale locale) {
 		if(activePlayer instanceof PlayerHuman){
-			move(activePlayer, locale);
+			if (availablePlay(locale)) {
+				move(activePlayer, locale);
+			}
 		}
 	}
 	
 	@Override
 	public void move(FieldStatus color, ArrayList<Locale> changeDiscs) {}
 	
-	private boolean containsDisc(Locale locale) {
-		if (FieldStatus.VOID == fields[locale.getRow()][locale.getCol()].getStatus()) {
-			return false;
+	private boolean containsDisc(int row, int col, FieldStatus playerColor) {
+		if (playerColor == fields[row][col].getStatus()) {
+			return true;
 		}
-		return true;
+		return false;
+	}
+	
+	private boolean emptyField(int row, int col) {
+		return containsDisc(row, col, FieldStatus.VOID);
+	}
+	
+	private boolean emptyField(Locale locale) {
+		return containsDisc(locale.getRow(), locale.getCol(), FieldStatus.VOID);
+	}
+	
+	private boolean availablePlay(Locale locale) {
+		for (Locale locales: moveOptions) {
+			if (locales.equals(locale)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private ArrayList<Locale> changeDiscs(Locale locale) {
@@ -100,7 +135,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * HORIZONTAL RIGHT
 		 */
 		for (int col = locale.getCol(); col < 7; col++) {
-			if (fields[locale.getRow()][col+1].getStatus() == FieldStatus.VOID) {
+			if (emptyField(locale.getRow(), col+1)) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[locale.getRow()][col].getStatus()) {
@@ -117,7 +152,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * HORIZONTAL LEFT
 		 */
 		for (int col = locale.getCol(); col > 0; col--) {
-			if (fields[locale.getRow()][col-1].getStatus() == FieldStatus.VOID) {
+			if (emptyField(locale.getRow(), col-1)) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[locale.getRow()][col].getStatus()) {
@@ -134,7 +169,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * VERTICAL DOWN
 		 */
 		for (int row = locale.getRow(); row < 7; row++) {
-			if (fields[row+1][locale.getCol()].getStatus() == FieldStatus.VOID) {
+			if (emptyField(row+1, locale.getCol())) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[row][locale.getCol()].getStatus()) {
@@ -151,7 +186,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * VERTICAL UP
 		 */
 		for (int row = locale.getRow(); row > 0; row--) {
-			if (fields[row-1][locale.getCol()].getStatus() == FieldStatus.VOID) {
+			if (emptyField(row-1, locale.getCol())) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[row][locale.getCol()].getStatus()) {
@@ -168,7 +203,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * DIAGONAL DOWN-RIGHT
 		 */
 		for (int row = locale.getRow(), col = locale.getCol(); row < 7 && col < 7; row++, col++) {
-			if (fields[row+1][col+1].getStatus() == FieldStatus.VOID) {
+			if (emptyField(row+1, col+1)) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
@@ -185,7 +220,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * DIAGONAL DOWN-LEFT
 		 */
 		for (int row = locale.getRow(), col = locale.getCol(); row < 7 && col > 0; row++, col--) {
-			if (fields[row+1][col-1].getStatus() == FieldStatus.VOID) {
+			if (emptyField(row+1, col-1)) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
@@ -202,7 +237,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * DIAGONAL UP-LEFT
 		 */
 		for (int row = locale.getRow(), col = locale.getCol(); row > 0 && col > 0; row--, col--) {
-			if (fields[row-1][col-1].getStatus() == FieldStatus.VOID) {
+			if (emptyField(row-1, col-1)) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
@@ -219,7 +254,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		 * DIAGONAL UP-RIGHT
 		 */
 		for (int row = locale.getRow(), col = locale.getCol(); row > 0 && col < 7; row--, col++) {
-			if (fields[row-1][col+1].getStatus() == FieldStatus.VOID) {
+			if (emptyField(row-1, col+1)) {
 				break;
 			}
 			if (activePlayer.getOpponent().getColor() == fields[row][col].getStatus()) {
@@ -239,4 +274,118 @@ public class Game implements PlayerObservable, BoardObservable{
 		
 	}
 	
+	private void updateMoveOptions() {
+		moveOptions = new ArrayList<Locale>();
+		
+		for (int row = 0; row < 7; row++) {
+			for (int col = 0; col < 7; col++) {
+				if (containsDisc(row, col, activePlayer.getColor())) {
+					/*
+					* HORIZONTAL RIGHT
+					*/
+					for (int sequenceCol = col+1; sequenceCol < 7; sequenceCol++) {
+						if (!containsDisc(row, sequenceCol, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(row, sequenceCol+1)) {
+							moveOptions.add(new Locale(row, sequenceCol+1));
+							//break;
+						}
+					}
+					
+					/*
+					* HORIZONTAL LEFT
+					*/
+					for (int sequenceCol = col-1; sequenceCol > 0; sequenceCol--) {
+						if (!containsDisc(row, sequenceCol, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(row, sequenceCol-1)) {
+							moveOptions.add(new Locale(row, sequenceCol-1));
+							//break;
+						}
+					}
+					
+					/*
+					* VERTICAL DOWN
+					*/
+					for (int sequenceRow = row+1; sequenceRow < 7; sequenceRow++) {
+						if (!containsDisc(sequenceRow, col, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(sequenceRow+1, col)) {
+							moveOptions.add(new Locale(sequenceRow+1, col));
+							//break;
+						}
+					}
+					
+					/*
+					* VERTICAL UP
+					*/
+					for (int sequenceRow = row-1; sequenceRow > 0; sequenceRow--) {
+						if (!containsDisc(sequenceRow, col, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(sequenceRow-1, col)) {
+							moveOptions.add(new Locale(sequenceRow-1, col));
+							//break;
+						}
+					}
+					
+					/*
+					* DIAGONAL DOWN-RIGHT
+					*/
+					for (int sequenceRow = row+1, sequenceCol = col+1; sequenceRow < 7 && sequenceCol < 7; sequenceRow++, sequenceCol++) {
+						if (!containsDisc(sequenceRow, sequenceCol, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(sequenceRow+1, sequenceCol+1)) {
+							moveOptions.add(new Locale(sequenceRow+1, sequenceCol+1));
+							//break;
+						}
+					}
+					
+					/*
+					* DIAGONAL DOWN-LEFT
+					*/
+					for (int sequenceRow = row+1, sequenceCol = col-1; sequenceRow < 7 && sequenceCol > 0; sequenceRow++, sequenceCol--) {
+						if (!containsDisc(sequenceRow, sequenceCol, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(sequenceRow+1, sequenceCol-1)) {
+							moveOptions.add(new Locale(sequenceRow+1, sequenceCol-1));
+							//break;
+						}
+					}
+
+					/*
+					* DIAGONAL UP-RIGHT
+					*/
+					for (int sequenceRow = row-1, sequenceCol = col+1; sequenceRow > 0 && sequenceCol < 7; sequenceRow--, sequenceCol++) {
+						if (!containsDisc(sequenceRow, sequenceCol, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(sequenceRow-1, sequenceCol+1)) {
+							moveOptions.add(new Locale(sequenceRow-1, sequenceCol+1));
+							//break;
+						}
+					}
+					
+					/*
+					* DIAGONAL UP-LEFT
+					*/
+					for (int sequenceRow = row-1, sequenceCol = col-1; sequenceRow > 0 && sequenceCol > 0; sequenceRow--, sequenceCol--) {
+						if (!containsDisc(sequenceRow, sequenceCol, activePlayer.getOpponent().getColor())) {
+							break;
+						}
+						else if (emptyField(sequenceRow-1, sequenceCol-1)) {
+							moveOptions.add(new Locale(sequenceRow-1, sequenceCol-1));
+							//break;
+						}
+					}
+				}
+			}
+		}
+	}
+
 }

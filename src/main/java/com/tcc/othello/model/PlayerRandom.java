@@ -1,5 +1,6 @@
 package com.tcc.othello.model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerRandom extends Player {
@@ -7,7 +8,7 @@ public class PlayerRandom extends Player {
 	Random random = new Random();
 	
 	@Override
-	public void takeTurn() {
+	public void takeTurn(final ArrayList<Locale> moveOptions) {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
@@ -15,7 +16,8 @@ public class PlayerRandom extends Player {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				PlayerRandom.this.playerObservable.move(PlayerRandom.this, new Locale(random.nextInt(8), random.nextInt(8)));
+				int move = random.nextInt(moveOptions.size());
+				PlayerRandom.this.playerObservable.move(PlayerRandom.this, moveOptions.get(move));
 			}
 		}).start();
 	}

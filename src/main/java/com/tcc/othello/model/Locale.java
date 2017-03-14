@@ -24,4 +24,11 @@ public class Locale {
 		this.col = col;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (((Locale) obj).getRow() == getRow() && ((Locale) obj).getCol() == getCol()) {
+			return true;
+		}
+		return false;
+	}
 }
