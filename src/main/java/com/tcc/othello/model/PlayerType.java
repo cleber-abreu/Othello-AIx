@@ -12,7 +12,7 @@ public enum PlayerType {
 	RANDOM {
 		@Override
 		public String toString() {
-			return "Aleat�rio";
+			return "Aleatório";
 		}
 	},
 	

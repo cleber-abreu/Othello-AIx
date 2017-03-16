@@ -20,7 +20,7 @@ import com.tcc.othello.model.FieldStatus;
 import com.tcc.othello.model.PlayerType;
 
 @SuppressWarnings("serial")
-public class DataPanel extends JPanel{
+public class JDataPanel extends JPanel{
 	
 	private final static Font fontTittle = new Font(Font.DIALOG, Font.BOLD, 12);
 	private final static Font fontText = new Font(Font.DIALOG_INPUT, Font.PLAIN, 14);
@@ -42,7 +42,7 @@ public class DataPanel extends JPanel{
 	
 	private DataPanelObervable dataPanelObervable;
 	
-	public DataPanel(DataPanelObervable dataPanelObervable){
+	public JDataPanel(DataPanelObervable dataPanelObervable){
 		this.dataPanelObervable = dataPanelObervable;
 		setPreferredSize(new Dimension(360, 420));
 		setBackground(Color.DARK_GRAY);
@@ -95,7 +95,7 @@ public class DataPanel extends JPanel{
 		btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DataPanel.this.dataPanelObervable.onNewGame(getPlayer1(), getPlayer2());
+				JDataPanel.this.dataPanelObervable.onNewGame(getPlayer1(), getPlayer2());
 			}
 		});
 		
@@ -196,9 +196,9 @@ public class DataPanel extends JPanel{
 		colorPlayer2Disc.setStatus(colorPlayer2);
 	}
 	
-	public void setNumDiscs(int numDiscsPlayer1, int numDiscsPlayer2) {
-		lblNumDiscsPlayer1.setText(String.valueOf(numDiscsPlayer1));
-		lblNumDiscsPlayer2.setText(String.valueOf(numDiscsPlayer2));
+	public void updateNumberDiscs(int numberDiscsPlayerBlack, int numberDiscsPlayerWhite) {
+		lblNumDiscsPlayer1.setText(String.valueOf(numberDiscsPlayerBlack));
+		lblNumDiscsPlayer2.setText(String.valueOf(numberDiscsPlayerWhite));
 	}
 	
 	public void enableSelectionPlayer(boolean b) {

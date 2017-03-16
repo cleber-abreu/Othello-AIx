@@ -19,14 +19,14 @@ import com.tcc.othello.model.PlayerType;
 public class MainWindow implements PlayerObservable, BoardObservable, DataPanelObervable{
 	
 	private JGameboard gameboard;
-	private DataPanel dataPanel;
+	private JDataPanel dataPanel;
 	private Game game;
 	
 	public static void main(String[] args) {
 
 		MainWindow main = new MainWindow();
 		main.gameboard = new JGameboard(main);
-		main.dataPanel = new DataPanel(main);
+		main.dataPanel = new JDataPanel(main);
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -83,5 +83,10 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	@Override
 	public void paintMoveOptions(FieldStatus playerColor, ArrayList<Locale> locales) {
 		gameboard.paintMoveOptions(playerColor, locales);
+	}
+
+	@Override
+	public void updateNumberDiscs(int numberDiscsPlayer1, int numberDiscsPlayer2) {
+		dataPanel.updateNumberDiscs(numberDiscsPlayer1, numberDiscsPlayer2);
 	}
 }
