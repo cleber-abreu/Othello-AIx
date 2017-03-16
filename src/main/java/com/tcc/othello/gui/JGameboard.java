@@ -16,7 +16,7 @@ import com.tcc.othello.model.FieldStatus;
 import com.tcc.othello.model.Locale;
 
 @SuppressWarnings("serial")
-public class Gameboard extends JPanel {
+public class JGameboard extends JPanel {
 
 	private JField[][] fields;
 	BoardObservable boardObservable;
@@ -25,7 +25,7 @@ public class Gameboard extends JPanel {
 		return fields[locale.getRow()][locale.getCol()];
 	}
 
-	public Gameboard(BoardObservable boardObservable) {
+	public JGameboard(BoardObservable boardObservable) {
 		this.boardObservable = boardObservable;
 		setLayout(new GridBagLayout());
 		setBackground(Color.DARK_GRAY);
@@ -58,8 +58,9 @@ public class Gameboard extends JPanel {
 					fields[finalRow][finalCol].addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							if (FieldStatus.VOID == fields[finalRow][finalCol].getDisc().getStatus()) {
-								Gameboard.this.boardObservable.onBoardClick(new Locale(finalRow, finalCol));
+							if (FieldStatus.BLACK != fields[finalRow][finalCol].getDisc().getStatus()
+									&& FieldStatus.WHITE != fields[finalRow][finalCol].getDisc().getStatus()) {
+								JGameboard.this.boardObservable.onBoardClick(new Locale(finalRow, finalCol));
 							}
 						}
 					});
@@ -96,10 +97,28 @@ public class Gameboard extends JPanel {
 		}
 	}
 	
+	public void paintMoveOptions(FieldStatus playerColor, ArrayList<Locale> discs) {
+		playerColor = (playerColor == FieldStatus.BLACK ? FieldStatus.OPTION_BLACK : FieldStatus.OPTION_WHITE);
+		clearMoveOptions();
+		for (Locale locale : discs) {
+			fields[locale.getRow()][locale.getCol()].getDisc().setStatus(playerColor);
+		}
+	}
+	
 	public void clearAll() {
 		for (int row = 0; row < fields.length; row++) {
 			for (int col = 0; col < fields.length; col++) {
 				if (fields[row][col].getDisc() != null) {
+					fields[row][col].getDisc().setStatus(FieldStatus.VOID);
+				}
+			}
+		}
+	}
+	
+	private void clearMoveOptions() {
+		for (int row = 0; row < fields.length; row++) {
+			for (int col = 0; col < fields.length; col++) {
+				if (fields[row][col].getDisc().getStatus() == FieldStatus.OPTION_BLACK || fields[row][col].getDisc().getStatus() == FieldStatus.OPTION_WHITE) {
 					fields[row][col].getDisc().setStatus(FieldStatus.VOID);
 				}
 			}

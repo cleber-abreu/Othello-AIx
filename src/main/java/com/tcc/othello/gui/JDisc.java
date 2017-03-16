@@ -3,13 +3,10 @@ package com.tcc.othello.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
 import com.tcc.othello.model.FieldStatus;
-import com.tcc.othello.model.Player;
 
 @SuppressWarnings("serial")
 public class JDisc extends JPanel {
@@ -59,17 +56,6 @@ public class JDisc extends JPanel {
 	
 	public void setStatus(FieldStatus discStatus) {
 		status = discStatus;
-	}
-	
-	public void enableOnClick(final Player player) {
-		
-		if (status == FieldStatus.OPTION_BLACK || status == FieldStatus.OPTION_WHITE) {
-			addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-				}
-			});
-		}
 	}
 
 	@Override

@@ -18,14 +18,14 @@ import com.tcc.othello.model.PlayerType;
 
 public class MainWindow implements PlayerObservable, BoardObservable, DataPanelObervable{
 	
-	private Gameboard gameboard;
+	private JGameboard gameboard;
 	private DataPanel dataPanel;
 	private Game game;
 	
 	public static void main(String[] args) {
 
 		MainWindow main = new MainWindow();
-		main.gameboard = new Gameboard(main);
+		main.gameboard = new JGameboard(main);
 		main.dataPanel = new DataPanel(main);
 		
 		try {
@@ -73,5 +73,15 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	@Override
 	public void onBoardClick(Locale locale) {
 		game.onBoardClick(locale);
+	}
+	
+	@Override
+	public void paintMovement(FieldStatus playerColor, ArrayList<Locale> locales) {
+		gameboard.paintMovement(playerColor, locales);
+	}
+	
+	@Override
+	public void paintMoveOptions(FieldStatus playerColor, ArrayList<Locale> locales) {
+		gameboard.paintMoveOptions(playerColor, locales);
 	}
 }

@@ -48,8 +48,8 @@ public class Game implements PlayerObservable, BoardObservable{
 		fields[4][3].setStatus(activePlayer.getColor());
 		fields[3][3].setStatus(activePlayer.getOpponent().getColor());
 		fields[4][4].setStatus(activePlayer.getOpponent().getColor());
-		
 		updateMoveOptions();
+		paintMoveOptions(activePlayer.getColor(), moveOptions);
 		activePlayer.takeTurn(moveOptions);
 	}
 	
@@ -57,6 +57,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		activePlayer = activePlayer.getOpponent();
 		updateMoveOptions();
 		if (moveOptions.size() > 0) {
+			paintMoveOptions(activePlayer.getColor(), moveOptions);
 			activePlayer.takeTurn(moveOptions);
 		}
 		else {
@@ -64,6 +65,7 @@ public class Game implements PlayerObservable, BoardObservable{
 			activePlayer = activePlayer.getOpponent();
 			updateMoveOptions();
 			if (moveOptions.size() > 0) {
+				paintMoveOptions(activePlayer.getColor(), moveOptions);
 				activePlayer.takeTurn(moveOptions);
 			}
 			else {
@@ -79,7 +81,7 @@ public class Game implements PlayerObservable, BoardObservable{
 	public void move(Player player, Locale locale) {
 		if (emptyField(locale)) {
 			fields[locale.getRow()][locale.getCol()].setStatus(player.getColor());
-			gameObservable.move(player.getColor(), changeDiscs(locale));
+			paintMovement(player.getColor(), changeDiscs(locale));
 			changeTurn();
 		}
 		else {
@@ -100,7 +102,14 @@ public class Game implements PlayerObservable, BoardObservable{
 	}
 	
 	@Override
-	public void move(FieldStatus color, ArrayList<Locale> changeDiscs) {}
+	public void paintMovement(FieldStatus playerColor, ArrayList<Locale> locales) {
+		gameObservable.paintMovement(playerColor, locales);
+	}
+	
+	@Override
+	public void paintMoveOptions(FieldStatus playerColor, ArrayList<Locale> locales) {
+		gameObservable.paintMoveOptions(playerColor, locales);
+	}
 	
 	private boolean containsDisc(int row, int col, FieldStatus playerColor) {
 		if (playerColor == fields[row][col].getStatus()) {
@@ -277,8 +286,8 @@ public class Game implements PlayerObservable, BoardObservable{
 	private void updateMoveOptions() {
 		moveOptions = new ArrayList<Locale>();
 		
-		for (int row = 0; row < 7; row++) {
-			for (int col = 0; col < 7; col++) {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
 				if (containsDisc(row, col, activePlayer.getColor())) {
 					/*
 					* HORIZONTAL RIGHT
@@ -289,7 +298,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(row, sequenceCol+1)) {
 							moveOptions.add(new Locale(row, sequenceCol+1));
-							//break;
+							break;
 						}
 					}
 					
@@ -302,7 +311,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(row, sequenceCol-1)) {
 							moveOptions.add(new Locale(row, sequenceCol-1));
-							//break;
+							break;
 						}
 					}
 					
@@ -315,7 +324,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(sequenceRow+1, col)) {
 							moveOptions.add(new Locale(sequenceRow+1, col));
-							//break;
+							break;
 						}
 					}
 					
@@ -328,7 +337,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(sequenceRow-1, col)) {
 							moveOptions.add(new Locale(sequenceRow-1, col));
-							//break;
+							break;
 						}
 					}
 					
@@ -341,7 +350,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(sequenceRow+1, sequenceCol+1)) {
 							moveOptions.add(new Locale(sequenceRow+1, sequenceCol+1));
-							//break;
+							break;
 						}
 					}
 					
@@ -354,7 +363,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(sequenceRow+1, sequenceCol-1)) {
 							moveOptions.add(new Locale(sequenceRow+1, sequenceCol-1));
-							//break;
+							break;
 						}
 					}
 
@@ -367,7 +376,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(sequenceRow-1, sequenceCol+1)) {
 							moveOptions.add(new Locale(sequenceRow-1, sequenceCol+1));
-							//break;
+							break;
 						}
 					}
 					
@@ -380,7 +389,7 @@ public class Game implements PlayerObservable, BoardObservable{
 						}
 						else if (emptyField(sequenceRow-1, sequenceCol-1)) {
 							moveOptions.add(new Locale(sequenceRow-1, sequenceCol-1));
-							//break;
+							break;
 						}
 					}
 				}

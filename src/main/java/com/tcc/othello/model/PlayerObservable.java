@@ -4,5 +4,6 @@ import java.util.ArrayList;
 
 public interface PlayerObservable {
 	void move(Player player, Locale locale);
-	void move(FieldStatus color, ArrayList<Locale> changeDiscs);
+	void paintMovement(FieldStatus playerColor, ArrayList<Locale> locales);
+	void paintMoveOptions(FieldStatus playerColor, ArrayList<Locale> locales);
 }
