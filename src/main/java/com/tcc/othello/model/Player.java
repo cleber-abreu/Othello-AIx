@@ -9,10 +9,12 @@ public abstract class Player {
 	
 	public static Player initWith(PlayerType playerType){
 		switch (playerType) {
-		case HUMAN:
-			return new PlayerHuman();
-		default:
+		case RANDOM:
 			return new PlayerRandom();
+		case MINIMAX:
+			return new PlayerMinmax();
+		default :
+			return new PlayerHuman();
 		}
 	}
 
