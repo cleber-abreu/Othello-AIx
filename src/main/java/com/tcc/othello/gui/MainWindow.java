@@ -89,4 +89,12 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	public void updateNumberDiscs(int numberDiscsPlayer1, int numberDiscsPlayer2) {
 		dataPanel.updateNumberDiscs(numberDiscsPlayer1, numberDiscsPlayer2);
 	}
+	
+	@Override
+	public void gameOver(int winner) {
+		dataPanel.updateScoreboard(winner);
+		if (dataPanel.getPlayer1() != PlayerType.HUMAN && dataPanel.getPlayer2() != PlayerType.HUMAN) {
+			dataPanel.newGame();
+		}
+	}
 }

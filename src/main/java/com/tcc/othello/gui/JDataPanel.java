@@ -41,12 +41,14 @@ public class JDataPanel extends JPanel{
 	private JButton btnNewGame;
 	
 	private DataPanelObervable dataPanelObervable;
+	private int gameCounter;
 	
 	public JDataPanel(DataPanelObervable dataPanelObervable){
 		this.dataPanelObervable = dataPanelObervable;
 		setPreferredSize(new Dimension(360, 420));
 		setBackground(Color.DARK_GRAY);
 		setLayout(new GridBagLayout());
+		gameCounter = 0;
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		
@@ -95,7 +97,7 @@ public class JDataPanel extends JPanel{
 		btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JDataPanel.this.dataPanelObervable.onNewGame(getPlayer1(), getPlayer2());
+				newGame();
 			}
 		});
 		
@@ -207,9 +209,41 @@ public class JDataPanel extends JPanel{
 		}
 	}
 	
+	public void newGame() {
+		if (gameCounter > 0) {
+			changeFirstPlayer();
+		}
+		if (gameCounter % 2 == 0) {
+			JDataPanel.this.dataPanelObervable.onNewGame(getPlayer1(), getPlayer2());
+		} else {
+			JDataPanel.this.dataPanelObervable.onNewGame(getPlayer2(), getPlayer1());
+		}
+		gameCounter++;
+	}
+	
+	public void updateScoreboard(int winner) {
+		int newScoreboard = 1;
+		switch (winner) {
+		case 1:
+			newScoreboard += Integer.parseInt(lblPointsPlayer1.getText());
+			lblPointsPlayer1.setText(String.valueOf(newScoreboard));
+			break;
+		case 2:
+			newScoreboard += Integer.parseInt(lblPointsPlayer2.getText());
+			lblPointsPlayer2.setText(String.valueOf(newScoreboard));
+			break;
+		}
+	}
+	
 	public void enableSelectionPlayer(boolean b) {
 		listNamePlayer1.setEnabled(b);
 		listNamePlayer2.setEnabled(b);
+	}
+	
+	public void changeFirstPlayer() {
+		FieldStatus color = colorPlayer1Disc.getStatus();
+		colorPlayer1Disc.setStatus(colorPlayer2Disc.getStatus());
+		colorPlayer2Disc.setStatus(color);
 	}
 	
 }

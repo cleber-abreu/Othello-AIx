@@ -15,7 +15,7 @@ public class Game implements PlayerObservable, BoardObservable{
 	private PlayerObservable gameObservable;
 	private Field[][] fields;
 	private Player activePlayer;
-	ArrayList<Locale> moveOptions;
+	private ArrayList<Locale> moveOptions;
 	
 	public Game(PlayerObservable gameObservable) {
 		this.gameObservable = gameObservable;
@@ -48,7 +48,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		fields[4][3].setStatus(activePlayer.getColor());
 		fields[3][3].setStatus(activePlayer.getOpponent().getColor());
 		fields[4][4].setStatus(activePlayer.getOpponent().getColor());
-		updateNumberDiscs(countDiscs(activePlayer.getColor()), countDiscs(activePlayer.getOpponent().getColor()));
+		updateNumberDiscs(countDiscs(FieldStatus.BLACK), countDiscs(FieldStatus.WHITE));
 		updateMoveOptions();
 		paintMoveOptions(activePlayer.getColor(), moveOptions);
 		activePlayer.takeTurn(moveOptions);
@@ -70,7 +70,15 @@ public class Game implements PlayerObservable, BoardObservable{
 				activePlayer.takeTurn(moveOptions);
 			}
 			else {
-				System.out.println("Fim de jogo!");
+				if (countDiscs(FieldStatus.BLACK) > countDiscs(FieldStatus.WHITE)) {
+					gameOver(1);
+				}
+				else if (countDiscs(FieldStatus.BLACK) < countDiscs(FieldStatus.WHITE)) {
+					gameOver(2);
+				}
+				else {
+					gameOver(0);
+				}
 			}
 		}
 	}
@@ -83,7 +91,6 @@ public class Game implements PlayerObservable, BoardObservable{
 		if (emptyField(locale)) {
 			fields[locale.getRow()][locale.getCol()].setStatus(player.getColor());
 			paintMovement(player.getColor(), changeDiscs(locale));
-			updateNumberDiscs(countDiscs(FieldStatus.BLACK), countDiscs(FieldStatus.WHITE));
 			changeTurn();
 		}
 		else {
@@ -106,6 +113,7 @@ public class Game implements PlayerObservable, BoardObservable{
 	@Override
 	public void paintMovement(FieldStatus playerColor, ArrayList<Locale> locales) {
 		gameObservable.paintMovement(playerColor, locales);
+		updateNumberDiscs(countDiscs(FieldStatus.BLACK), countDiscs(FieldStatus.WHITE));
 	}
 	
 	@Override
@@ -116,6 +124,11 @@ public class Game implements PlayerObservable, BoardObservable{
 	@Override
 	public void updateNumberDiscs(int numberDiscsPlayer1, int numberDiscsPlayer2) {
 		gameObservable.updateNumberDiscs(numberDiscsPlayer1, numberDiscsPlayer2);
+	}
+	
+	@Override
+	public void gameOver(int winner) {
+		gameObservable.gameOver(winner);
 	}
 	
 	private boolean containsDisc(int row, int col, FieldStatus playerColor) {
@@ -144,8 +157,8 @@ public class Game implements PlayerObservable, BoardObservable{
 	
 	private int countDiscs(FieldStatus playerColor) {
 		int count = 0;
-		for (int row = 0; row < 7; row++) {
-			for (int col = 0; col < 7; col++) {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
 				if (fields[row][col].getStatus() == playerColor) {
 					count++;
 				}
