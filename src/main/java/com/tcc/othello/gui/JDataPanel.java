@@ -197,8 +197,14 @@ public class JDataPanel extends JPanel{
 	}
 	
 	public void updateNumberDiscs(int numberDiscsPlayerBlack, int numberDiscsPlayerWhite) {
-		lblNumDiscsPlayer1.setText(String.valueOf(numberDiscsPlayerBlack));
-		lblNumDiscsPlayer2.setText(String.valueOf(numberDiscsPlayerWhite));
+		if (colorPlayer1Disc.getStatus() == FieldStatus.BLACK) {
+			lblNumDiscsPlayer1.setText(String.valueOf(numberDiscsPlayerBlack));
+			lblNumDiscsPlayer2.setText(String.valueOf(numberDiscsPlayerWhite));
+		}
+		else {
+			lblNumDiscsPlayer1.setText(String.valueOf(numberDiscsPlayerWhite));
+			lblNumDiscsPlayer2.setText(String.valueOf(numberDiscsPlayerBlack));
+		}
 	}
 	
 	public void enableSelectionPlayer(boolean b) {
