@@ -8,7 +8,7 @@ public class PlayerRandom extends Player {
 	Random random = new Random();
 	
 	@Override
-	public void takeTurn(final ArrayList<Locale> moveOptions) {
+	public void takeTurn(final ArrayList<Locale> moveOptions, Field[][] fields) {
 		new Thread(new Runnable() {
 			public void run() {
 				try {

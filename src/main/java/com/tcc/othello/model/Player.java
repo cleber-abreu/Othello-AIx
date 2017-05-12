@@ -18,7 +18,7 @@ public abstract class Player {
 		}
 	}
 
-	public abstract void takeTurn(ArrayList<Locale> moveOptions);
+	public abstract void takeTurn(ArrayList<Locale> moveOptions, Field[][] fields);
 
 	public void setPlayerObservable(PlayerObservable playerObservable) {
 		this.playerObservable = playerObservable;
