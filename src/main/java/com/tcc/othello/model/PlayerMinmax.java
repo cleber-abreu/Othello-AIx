@@ -22,42 +22,36 @@ public class PlayerMinmax extends Player {
 
 	@Override
 	public void takeTurn(final ArrayList<Locale> moveOptions, final Field[][] fields) {
-		//playerObservable.move(this, max(moveOptions));
-		
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Thread.sleep(600);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				Move move = minimax(moveOptions, fields, PlayerMinmax.this, null, 0);
+				Move move = minimax(moveOptions, fields, PlayerMinmax.this, new Move(0), 0);
 				playerObservable.move(PlayerMinmax.this, move.locale);
 			}
 		}).start();
 	}
 	
 	private Move minimax(ArrayList<Locale> moveOptions, Field[][] fields, Player player, Move move, int level) {
-		if(level == LEVEL) {
-			return move;
-		}
-		
-		if (moveOptions.size() < 1) {
-			System.out.println("");
-		}
-		
 		int modifier = level % 2 == 0 ? 1 : -1;
 		Move bestMove = new Move(Integer.MIN_VALUE);
 		Field[][] newFields;
+		
 		for (Locale locale : moveOptions) {
+			if(level == LEVEL) {
+				return move;
+			}
 			Move aux = new Move(locale, RATING[locale.getRow()][locale.getCol()]);
 			newFields = Rules.simulate(player, locale, fields);
-			ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
+			ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player, newFields);
 			Move magic = minimax(newMoveOptions, newFields, player.getOpponent(), aux, level + 1);
 			bestMove = bestMove.value > magic.value ? bestMove : magic;
 		}
 		
-		bestMove.value = bestMove.value * modifier;
+		bestMove.value = bestMove.value * modifier + move.value;
 		return bestMove;
 	}
 	
@@ -76,6 +70,10 @@ public class PlayerMinmax extends Player {
 		}
 		System.out.println();
 		System.out.println();
+	}
+	
+	private void printaIsso(Move m) {
+		System.out.println("col:" + m.locale.getCol() + "\nrow:" + m.locale.getRow() + "\nval" + m.value + "\n\n\n");
 	}
 	
 	class Move{
