@@ -44,10 +44,9 @@ public class PlayerMinmax extends Player {
 	}
 	
 	private Locale minimax(ArrayList<Locale> moveOptions, Field[][] fields) {
-		Move bestMove = new Move(Integer.MIN_VALUE);
+		Move bestMove = new Move(-1_000_000_000);
 		
 		for (Locale locale : moveOptions) {
-			printaIsso(new Move(locale, 0));
 			Move m = minimax(moveOptions, fields, this, new Move(locale, 0), 1);
 			bestMove = bestMove.value > m.value ? bestMove : m;
 		}
@@ -66,7 +65,7 @@ public class PlayerMinmax extends Player {
 		Field[][] newFields = Rules.simulate(player, move.locale, fields);
 		ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player, newFields);
 		
-		Move bestMove = new Move(Integer.MIN_VALUE);
+		Move bestMove = new Move(-1_000_000_000);
 		for (Locale locale : newMoveOptions) {
 			Move m = minimax(moveOptions, fields, this, new Move(locale, 0), level + 1);
 			bestMove = bestMove.value > m.value ? bestMove : m;

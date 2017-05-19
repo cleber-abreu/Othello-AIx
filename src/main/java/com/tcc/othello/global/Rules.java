@@ -181,7 +181,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(row, sequenceCol+1, fields)) {
-							moveOptions.add(new Locale(row, sequenceCol+1));
+							addIfNotContains(moveOptions, new Locale(row, sequenceCol+1));
 							break;
 						}
 					}
@@ -194,7 +194,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(row, sequenceCol-1, fields)) {
-							moveOptions.add(new Locale(row, sequenceCol-1));
+							addIfNotContains(moveOptions, new Locale(row, sequenceCol-1));
 							break;
 						}
 					}
@@ -207,7 +207,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow+1, col, fields)) {
-							moveOptions.add(new Locale(sequenceRow+1, col));
+							addIfNotContains(moveOptions, new Locale(sequenceRow+1, col));
 							break;
 						}
 					}
@@ -220,7 +220,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow-1, col, fields)) {
-							moveOptions.add(new Locale(sequenceRow-1, col));
+							addIfNotContains(moveOptions, new Locale(sequenceRow-1, col));
 							break;
 						}
 					}
@@ -233,7 +233,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow+1, sequenceCol+1, fields)) {
-							moveOptions.add(new Locale(sequenceRow+1, sequenceCol+1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow+1, sequenceCol+1));
 							break;
 						}
 					}
@@ -246,7 +246,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow+1, sequenceCol-1, fields)) {
-							moveOptions.add(new Locale(sequenceRow+1, sequenceCol-1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow+1, sequenceCol-1));
 							break;
 						}
 					}
@@ -259,7 +259,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow-1, sequenceCol+1, fields)) {
-							moveOptions.add(new Locale(sequenceRow-1, sequenceCol+1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow-1, sequenceCol+1));
 							break;
 						}
 					}
@@ -272,7 +272,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow-1, sequenceCol-1, fields)) {
-							moveOptions.add(new Locale(sequenceRow-1, sequenceCol-1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow-1, sequenceCol-1));
 							break;
 						}
 					}
@@ -282,4 +282,12 @@ public class Rules {
 		
 		return moveOptions;
 	}
+	
+	private static void addIfNotContains(ArrayList<Locale> locales, Locale locale) {
+		if(!locales.contains(locale)) {
+			locales.add(locale);
+		}
+		
+	}
+	
 }
