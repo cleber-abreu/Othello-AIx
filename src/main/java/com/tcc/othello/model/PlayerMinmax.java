@@ -8,7 +8,7 @@ import com.tcc.othello.global.Rules;
 
 public class PlayerMinmax extends Player {
 	
-	private static final int LEVEL = 8;
+	private static final int LEVEL = 6;
 	
 	private static final int SCORE_CO = 100;	// CORNER
 	private static final int SCORE_WL = 15;		// WALL
@@ -18,6 +18,13 @@ public class PlayerMinmax extends Player {
 	private static final int SCORE_CE = 2;		// IN CENTER
 	
 //	HashMap<Integer, ArrayList<Move>> olharIsso = new HashMap<>();
+	
+	Comparator<Locale> comparator = new Comparator<Locale>() {
+		@Override
+		public int compare(Locale o1, Locale o2) {
+			return RATING[o1.getRow()][o1.getCol()] + RATING[o2.getRow()][o2.getCol()];
+		}
+	};
 	
 	
 	private static final int[][] RATING = {
@@ -48,23 +55,47 @@ public class PlayerMinmax extends Player {
 	}
 	
 	private Locale minimax(ArrayList<Locale> moveOptions, Field[][] fields) {
-		Locale aux = Collections.max(moveOptions, new Comparator<Locale>() {
-			@Override
-			public int compare(Locale o1, Locale o2) {
-				return RATING[o1.getRow()][o1.getCol()] - RATING[o2.getRow()][o2.getCol()];
-			}
-		});
+		Locale locale = minimaxMax(moveOptions, fields, this, 0, 0).locale;
+		return locale == null ? Collections.max(moveOptions, comparator) : locale;
+	}
+	
+	private Move minimaxMax(ArrayList<Locale> moveOptions, Field[][] fields, Player player, int value, int level) {
+		int bestMove = -10_000_000;
 		
-		int bestMove = RATING[aux.getRow()][aux.getCol()];
-		for (Locale locale : moveOptions) {
-			int m = minimaxMax(moveOptions, fields, this, new Move(locale,  RATING[locale.getRow()][locale.getCol()]), 1);
-			if(m > bestMove) {
-				bestMove = m;
-				aux = locale;
+		if(moveOptions.size() == 0) {
+			return new Move(null, -5_000_000);
+		}else if(level >= LEVEL) {
+			Locale locale = Collections.max(moveOptions, comparator);
+			return new Move(locale, value + rateFrom(locale));
+		}else {
+			Locale aux = null;
+			
+			for (Locale locale : moveOptions) {
+				Field[][] newFields = Rules.simulate(player, locale, fields);
+				ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
+				
+				int m = minimaxMin(newMoveOptions, newFields, player.getOpponent(), value + rateFrom(locale), level +1);
+				if(m > bestMove) {
+					bestMove = m;
+					aux = locale;
+				}
 			}
+			
+			return new Move(aux, aux == null ? -5_000_000 : value + rateFrom(aux));
 		}
-		
-		return aux;
+	}
+	
+	private int minimaxMin(ArrayList<Locale> moveOptions, Field[][] fields, Player player, int value, int level) {
+		if(moveOptions.size() == 0) {
+			return 5_000_000;
+		}else {
+			Locale locale = Collections.max(moveOptions, comparator);
+			
+			Field[][] newFields = Rules.simulate(player, locale, fields);
+			ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
+			
+			return minimaxMax(newMoveOptions, newFields, player.getOpponent(), value - rateFrom(locale), level + 1).value;
+		}
 	}
 	
 	private int minimaxMin(ArrayList<Locale> moveOptions, Field[][] fields, Player player, Move move, int level) {
@@ -75,12 +106,7 @@ public class PlayerMinmax extends Player {
 		if(newMoveOptions.size() == 0) {
 			return -1_000_000_000;
 		}else {
-			Locale aux = Collections.max(newMoveOptions, new Comparator<Locale>() {
-				@Override
-				public int compare(Locale o1, Locale o2) {
-					return RATING[o1.getRow()][o1.getCol()] + RATING[o2.getRow()][o2.getCol()];
-				}
-			});
+			Locale aux = Collections.max(newMoveOptions, comparator);
 			
 			return minimaxMax(newMoveOptions, newFields, player.getOpponent(), new Move(aux, move.value - RATING[aux.getRow()][aux.getCol()]), level+1);
 		}
@@ -95,12 +121,7 @@ public class PlayerMinmax extends Player {
 		if(newMoveOptions.size() == 0) {
 			return 1_000_000_000;
 		}else if(lastLevel){
-			Locale aux = Collections.max(newMoveOptions, new Comparator<Locale>() {
-				@Override
-				public int compare(Locale o1, Locale o2) {
-					return RATING[o1.getRow()][o1.getCol()] - RATING[o2.getRow()][o2.getCol()];
-				}
-			});
+			Locale aux = Collections.max(newMoveOptions, comparator);
 			
 			return move.value + RATING[aux.getRow()][aux.getCol()];
 		}else {
