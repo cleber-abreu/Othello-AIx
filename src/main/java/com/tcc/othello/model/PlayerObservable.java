@@ -7,5 +7,5 @@ public interface PlayerObservable {
 	void paintMovement(FieldStatus playerColor, ArrayList<Locale> locales);
 	void paintMoveOptions(FieldStatus playerColor, ArrayList<Locale> locales);
 	void updateNumberDiscs(int numberDiscsPlayerBlack, int numberDiscsPlayerWhite);
-	void gameOver(int winner);
+	void gameOver(FieldStatus winnerColor);
 }

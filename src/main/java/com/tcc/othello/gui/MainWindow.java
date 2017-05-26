@@ -91,8 +91,8 @@ public class MainWindow implements PlayerObservable, BoardObservable, DataPanelO
 	}
 	
 	@Override
-	public void gameOver(int winner) {
-		dataPanel.updateScoreboard(winner);
+	public void gameOver(FieldStatus winnerColor) {
+		dataPanel.updateScoreboard(winnerColor);
 		if (dataPanel.getPlayer1() != PlayerType.HUMAN && dataPanel.getPlayer2() != PlayerType.HUMAN) {
 			dataPanel.newGame();
 		}

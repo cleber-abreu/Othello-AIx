@@ -221,17 +221,16 @@ public class JDataPanel extends JPanel{
 		gameCounter++;
 	}
 	
-	public void updateScoreboard(int winner) {
+	public void updateScoreboard(FieldStatus winnerColor) {
 		int newScoreboard = 1;
-		switch (winner) {
-		case 1:
+		
+		if (winnerColor == colorPlayer1Disc.getStatus()) {
 			newScoreboard += Integer.parseInt(lblPointsPlayer1.getText());
 			lblPointsPlayer1.setText(String.valueOf(newScoreboard));
-			break;
-		case 2:
+		}
+		else if (winnerColor == colorPlayer2Disc.getStatus()) {
 			newScoreboard += Integer.parseInt(lblPointsPlayer2.getText());
 			lblPointsPlayer2.setText(String.valueOf(newScoreboard));
-			break;
 		}
 	}
 	

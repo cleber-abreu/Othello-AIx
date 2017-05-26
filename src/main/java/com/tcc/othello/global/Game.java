@@ -75,14 +75,14 @@ public class Game implements PlayerObservable, BoardObservable{
 				
 				if (countBlackField > countWhiteField) {
 					System.out.println("Preto ganhou com " + countBlackField + " x " + countWhiteField);
-					gameOver(1);
+					gameOver(FieldStatus.BLACK);
 				}
 				else if (countBlackField < countWhiteField) {
 					System.out.println("Branco ganhou com " + countWhiteField + " x " + countBlackField);
-					gameOver(2);
+					gameOver(FieldStatus.WHITE);
 				}
 				else {
-					gameOver(0);
+					gameOver(FieldStatus.VOID);
 				}
 			}
 		}
@@ -145,8 +145,8 @@ public class Game implements PlayerObservable, BoardObservable{
 	}
 	
 	@Override
-	public void gameOver(int winner) {
-		gameObservable.gameOver(winner);
+	public void gameOver(FieldStatus winnerColor) {
+		gameObservable.gameOver(winnerColor);
 	}
 	
 	private boolean emptyField(Locale locale, Field[][] fields) {
