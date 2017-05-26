@@ -1,6 +1,7 @@
 package com.tcc.othello.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.tcc.othello.global.Rules;
 
@@ -14,6 +15,8 @@ public class PlayerMinmax extends Player {
 	private static final int SCORE_DC = -80;	// ON THE DIAGONAL OF THE CORNER
 	private static final int SCORE_SW = -5;		// ON THE SIDE OF THE WALL
 	private static final int SCORE_CE = 2;		// IN CENTER
+	
+//	HashMap<Integer, ArrayList<Move>> olharIsso = new HashMap<>();
 	
 	
 	private static final int[][] RATING = {
@@ -47,19 +50,18 @@ public class PlayerMinmax extends Player {
 		Move bestMove = new Move(-1_000_000_000);
 		
 		for (Locale locale : moveOptions) {
-			Move m = minimax(moveOptions, fields, this, new Move(locale, 0), 1);
+			Move m = minimax(moveOptions, fields, this, new Move(locale,  RATING[locale.getRow()][locale.getCol()]), 1);
 			bestMove = bestMove.value > m.value ? bestMove : m;
 		}
 		
-		printaIsso(bestMove);
 		return bestMove.locale;
 	}
 			
 	private Move minimax(ArrayList<Locale> moveOptions, Field[][] fields, Player player, Move move, int level) {
-		int modifier = level % 2 == 0 ? 1 : -1;
+		int modifier = level % 2 == 1 ? 1 : -1;
 		
 		if(level == LEVEL) {
-			return new Move(move.locale, move.value + (rateFrom(move.locale) * modifier));
+			return move;
 		}
 		
 		Field[][] newFields = Rules.simulate(player, move.locale, fields);
@@ -67,12 +69,23 @@ public class PlayerMinmax extends Player {
 		
 		Move bestMove = new Move(-1_000_000_000);
 		for (Locale locale : newMoveOptions) {
-			Move m = minimax(moveOptions, fields, this, new Move(locale, 0), level + 1);
+			Move m = minimax(moveOptions, fields, player.getOpponent(), new Move(locale, 0), level + 1);
+//			addMoveNoHashMap(level, m);
 			bestMove = bestMove.value > m.value ? bestMove : m;
 		}
 		
 		bestMove.value =  move.value + (bestMove.value * modifier);
 		return bestMove;
+	}
+	
+	private Move minimaMin() {
+		
+		return null;
+	}
+	
+	private Move minimaxMax() {
+		
+		return null;
 	}
 	
 	private int rateFrom(Locale locale) {
@@ -100,6 +113,14 @@ public class PlayerMinmax extends Player {
 		System.out.println("col:" + m.locale.getCol() + "\nrow:" + m.locale.getRow() + "\nval" + m.value + "\n\n\n");
 	}
 	
+	private void addMoveNoHashMap(Integer position, Move move) {
+//		if(olharIsso.get(position) == null) {
+//			olharIsso.put(position, new ArrayList<Move>());
+//		}
+//		
+//		olharIsso.get(position).add(move);
+	}
+	
 	class Move{
 		int value;
 		Locale locale;
@@ -111,6 +132,11 @@ public class PlayerMinmax extends Player {
 		
 		public Move(int value) {
 			this.value = value;
+		}
+		
+		@Override
+		public String toString() {
+			return "[row: " + locale.getRow() + " col:" + locale.getCol() + "]: " + value ;
 		}
 	}
 }

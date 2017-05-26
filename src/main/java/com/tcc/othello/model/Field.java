@@ -18,5 +18,10 @@ public class Field {
 	public void setStatus(FieldStatus status) {
 		this.status = status;
 	}
+	
+	@Override
+	public String toString() {
+		return status.name();
+	}
 
 }

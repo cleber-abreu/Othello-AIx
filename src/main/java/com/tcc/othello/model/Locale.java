@@ -31,4 +31,10 @@ public class Locale {
 		}
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "[row: " + getRow() + " col:" + getCol() + "]";
+		
+	}
 }
