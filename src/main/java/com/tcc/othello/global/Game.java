@@ -70,10 +70,15 @@ public class Game implements PlayerObservable, BoardObservable{
 				activePlayer.takeTurn(moveOptions, fields);
 			}
 			else {
-				if (countDiscs(FieldStatus.BLACK, fields) > countDiscs(FieldStatus.WHITE, fields)) {
+				int countBlackField = countDiscs(FieldStatus.BLACK, fields);
+				int countWhiteField = countDiscs(FieldStatus.WHITE, fields);
+				
+				if (countBlackField > countWhiteField) {
+					System.out.println("Preto ganhou com " + countBlackField + " x " + countWhiteField);
 					gameOver(1);
 				}
-				else if (countDiscs(FieldStatus.BLACK, fields) < countDiscs(FieldStatus.WHITE, fields)) {
+				else if (countBlackField < countWhiteField) {
+					System.out.println("Branco ganhou com " + countWhiteField + " x " + countBlackField);
 					gameOver(2);
 				}
 				else {

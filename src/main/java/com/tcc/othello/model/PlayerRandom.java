@@ -12,7 +12,7 @@ public class PlayerRandom extends Player {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Thread.sleep(600);
+					Thread.sleep(0);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
