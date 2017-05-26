@@ -38,7 +38,6 @@ public class Rules {
 	
 	public static ArrayList<Locale> changeDiscs(Player player, Locale locale, Field[][] fields) {
 		ArrayList<Locale> changeDiscs = new ArrayList<>();
-		ArrayList<Locale> sequenceDiscs = new ArrayList<>();
 		changeDiscs.add(locale);
 		
 		/*
@@ -49,14 +48,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[locale.getRow()][col].getStatus()) {
-				sequenceDiscs.add(new Locale(locale.getRow(), col));
+				changeDiscs.add(new Locale(locale.getRow(), col));
 			}
 			if (fields[locale.getRow()][col+1].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * HORIZONTAL LEFT
@@ -66,14 +63,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[locale.getRow()][col].getStatus()) {
-				sequenceDiscs.add(new Locale(locale.getRow(), col));
+				changeDiscs.add(new Locale(locale.getRow(), col));
 			}
 			if (fields[locale.getRow()][col-1].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * VERTICAL DOWN
@@ -83,14 +78,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[row][locale.getCol()].getStatus()) {
-				sequenceDiscs.add(new Locale(row, locale.getCol()));
+				changeDiscs.add(new Locale(row, locale.getCol()));
 			}
 			if (fields[row+1][locale.getCol()].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * VERTICAL UP
@@ -100,14 +93,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[row][locale.getCol()].getStatus()) {
-				sequenceDiscs.add(new Locale(row, locale.getCol()));
+				changeDiscs.add(new Locale(row, locale.getCol()));
 			}
 			if (fields[row-1][locale.getCol()].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * DIAGONAL DOWN-RIGHT
@@ -117,14 +108,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[row][col].getStatus()) {
-				sequenceDiscs.add(new Locale(row, col));
+				changeDiscs.add(new Locale(row, col));
 			}
 			if (fields[row+1][col+1].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * DIAGONAL DOWN-LEFT
@@ -134,14 +123,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[row][col].getStatus()) {
-				sequenceDiscs.add(new Locale(row, col));
+				changeDiscs.add(new Locale(row, col));
 			}
 			if (fields[row+1][col-1].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * DIAGONAL UP-LEFT
@@ -151,14 +138,12 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[row][col].getStatus()) {
-				sequenceDiscs.add(new Locale(row, col));
+				changeDiscs.add(new Locale(row, col));
 			}
 			if (fields[row-1][col-1].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
-		sequenceDiscs = new ArrayList<>();
 		
 		/*
 		 * DIAGONAL UP-RIGHT
@@ -168,10 +153,9 @@ public class Rules {
 				break;
 			}
 			if (player.getOpponent().getColor() == fields[row][col].getStatus()) {
-				sequenceDiscs.add(new Locale(row, col));
+				changeDiscs.add(new Locale(row, col));
 			}
 			if (fields[row-1][col+1].getStatus() == player.getColor()) {
-				changeDiscs.addAll(sequenceDiscs);
 				break;
 			}
 		}
@@ -197,7 +181,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(row, sequenceCol+1, fields)) {
-							moveOptions.add(new Locale(row, sequenceCol+1));
+							addIfNotContains(moveOptions, new Locale(row, sequenceCol+1));
 							break;
 						}
 					}
@@ -210,7 +194,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(row, sequenceCol-1, fields)) {
-							moveOptions.add(new Locale(row, sequenceCol-1));
+							addIfNotContains(moveOptions, new Locale(row, sequenceCol-1));
 							break;
 						}
 					}
@@ -223,7 +207,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow+1, col, fields)) {
-							moveOptions.add(new Locale(sequenceRow+1, col));
+							addIfNotContains(moveOptions, new Locale(sequenceRow+1, col));
 							break;
 						}
 					}
@@ -236,7 +220,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow-1, col, fields)) {
-							moveOptions.add(new Locale(sequenceRow-1, col));
+							addIfNotContains(moveOptions, new Locale(sequenceRow-1, col));
 							break;
 						}
 					}
@@ -249,7 +233,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow+1, sequenceCol+1, fields)) {
-							moveOptions.add(new Locale(sequenceRow+1, sequenceCol+1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow+1, sequenceCol+1));
 							break;
 						}
 					}
@@ -262,7 +246,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow+1, sequenceCol-1, fields)) {
-							moveOptions.add(new Locale(sequenceRow+1, sequenceCol-1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow+1, sequenceCol-1));
 							break;
 						}
 					}
@@ -275,7 +259,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow-1, sequenceCol+1, fields)) {
-							moveOptions.add(new Locale(sequenceRow-1, sequenceCol+1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow-1, sequenceCol+1));
 							break;
 						}
 					}
@@ -288,7 +272,7 @@ public class Rules {
 							break;
 						}
 						else if (emptyField(sequenceRow-1, sequenceCol-1, fields)) {
-							moveOptions.add(new Locale(sequenceRow-1, sequenceCol-1));
+							addIfNotContains(moveOptions, new Locale(sequenceRow-1, sequenceCol-1));
 							break;
 						}
 					}
@@ -298,4 +282,12 @@ public class Rules {
 		
 		return moveOptions;
 	}
+	
+	private static void addIfNotContains(ArrayList<Locale> locales, Locale locale) {
+		if(!locales.contains(locale)) {
+			locales.add(locale);
+		}
+		
+	}
+	
 }
