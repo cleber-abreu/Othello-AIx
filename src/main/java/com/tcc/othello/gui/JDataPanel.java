@@ -58,6 +58,8 @@ public class JDataPanel extends JPanel{
 		lblPlayer2 = new JLabel("Jogador 2");
 		listNamePlayer1 = new JComboBox<>(PlayerType.values());
 		listNamePlayer2 = new JComboBox<>(PlayerType.values());
+		listNamePlayer1.setSelectedIndex(2);
+		listNamePlayer2.setSelectedIndex(1);
 		colorPlayer1Disc = new JDisc(FieldStatus.BLACK);
 		colorPlayer2Disc = new JDisc(FieldStatus.WHITE);
 		lblNumDiscsPlayer1 = new JLabel("0");
@@ -210,6 +212,8 @@ public class JDataPanel extends JPanel{
 	}
 	
 	public void newGame() {
+		if (1000 == Integer.parseInt(lblPointsPlayer1.getText()) + Integer.parseInt(lblPointsPlayer2.getText()))
+			return;
 		if (gameCounter > 0) {
 			changeFirstPlayer();
 		}

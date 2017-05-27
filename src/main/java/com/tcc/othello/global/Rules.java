@@ -21,6 +21,27 @@ public class Rules {
 		return containsDisc(row, col, FieldStatus.VOID, fields);
 	}
 	
+	public static int countDiscs(FieldStatus playerColor, Field[][] fields) {
+		int count = 0;
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if (fields[row][col].getStatus() == playerColor) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	
+	public static int difference(Field[][] fields, FieldStatus playerColor) {
+		if (playerColor == FieldStatus.BLACK) {
+			return countDiscs(FieldStatus.BLACK, fields) - countDiscs(FieldStatus.WHITE, fields);
+		}
+		else {
+			return countDiscs(FieldStatus.WHITE, fields) - countDiscs(FieldStatus.BLACK, fields);
+		}
+	}
+	
 	public static Field[][] simulate(Player player, Locale locale, Field[][] fields) {
 		Field[][] copy = new Field[fields.length][fields[0].length];
 		

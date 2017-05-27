@@ -48,7 +48,7 @@ public class Game implements PlayerObservable, BoardObservable{
 		fields[4][3].setStatus(activePlayer.getColor());
 		fields[3][3].setStatus(activePlayer.getOpponent().getColor());
 		fields[4][4].setStatus(activePlayer.getOpponent().getColor());
-		updateNumberDiscs(countDiscs(FieldStatus.BLACK, fields), countDiscs(FieldStatus.WHITE, fields));
+		updateNumberDiscs(Rules.countDiscs(FieldStatus.BLACK, fields), Rules.countDiscs(FieldStatus.WHITE, fields));
 		moveOptions = Rules.updateMoveOptions(activePlayer, fields);
 		paintMoveOptions(activePlayer.getColor(), moveOptions);
 		activePlayer.takeTurn(moveOptions, fields);
@@ -70,15 +70,15 @@ public class Game implements PlayerObservable, BoardObservable{
 				activePlayer.takeTurn(moveOptions, fields);
 			}
 			else {
-				int countBlackField = countDiscs(FieldStatus.BLACK, fields);
-				int countWhiteField = countDiscs(FieldStatus.WHITE, fields);
+				int countBlackField = Rules.countDiscs(FieldStatus.BLACK, fields);
+				int countWhiteField = Rules.countDiscs(FieldStatus.WHITE, fields);
 				
 				if (countBlackField > countWhiteField) {
-					System.out.println("Preto ganhou com " + countBlackField + " x " + countWhiteField);
+//					System.out.println("Preto ganhou com " + countBlackField + " x " + countWhiteField);
 					gameOver(FieldStatus.BLACK);
 				}
 				else if (countBlackField < countWhiteField) {
-					System.out.println("Branco ganhou com " + countWhiteField + " x " + countBlackField);
+//					System.out.println("Branco ganhou com " + countWhiteField + " x " + countBlackField);
 					gameOver(FieldStatus.WHITE);
 				}
 				else {
@@ -116,22 +116,10 @@ public class Game implements PlayerObservable, BoardObservable{
 		}
 	}
 	
-	private int countDiscs(FieldStatus playerColor, Field[][] fields) {
-		int count = 0;
-		for (int row = 0; row < 8; row++) {
-			for (int col = 0; col < 8; col++) {
-				if (fields[row][col].getStatus() == playerColor) {
-					count++;
-				}
-			}
-		}
-		return count;
-	}
-	
 	@Override
 	public void paintMovement(FieldStatus playerColor, ArrayList<Locale> locales) {
 		gameObservable.paintMovement(playerColor, locales);
-		updateNumberDiscs(countDiscs(FieldStatus.BLACK, fields), countDiscs(FieldStatus.WHITE, fields));
+		updateNumberDiscs(Rules.countDiscs(FieldStatus.BLACK, fields), Rules.countDiscs(FieldStatus.WHITE, fields));
 	}
 	
 	@Override

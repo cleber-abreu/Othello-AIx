@@ -8,8 +8,8 @@ import com.tcc.othello.global.Rules;
 
 public class PlayerMinmax extends Player {
 	
-	private static final int LEVEL = 6;
-	
+	private static final int LEVEL = 5;
+
 	private static final int SCORE_CO = 100;	// CORNER
 	private static final int SCORE_WL = 15;		// WALL
 	private static final int SCORE_SC = 15;		// ON THE SIDE OF THE CORNER
@@ -44,12 +44,15 @@ public class PlayerMinmax extends Player {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Thread.sleep(0);
+					Thread.sleep(6);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+//				long time = System.currentTimeMillis();
 				Locale locale = minimax(moveOptions, fields);
 				playerObservable.move(PlayerMinmax.this, locale);
+//				time = System.currentTimeMillis() - time;
+//				System.out.println(time);
 			}
 		}).start();
 	}
@@ -61,12 +64,11 @@ public class PlayerMinmax extends Player {
 	
 	private Move minimaxMax(ArrayList<Locale> moveOptions, Field[][] fields, Player player, int value, int level) {
 		int bestMove = -10_000_000;
-		
 		if(moveOptions.size() == 0) {
 			return new Move(null, -5_000_000);
 		}else if(level >= LEVEL) {
 			Locale locale = Collections.max(moveOptions, comparator);
-			return new Move(locale, value + rateFrom(locale));
+			return new Move(locale, value + rateFrom(locale, fields, player.getColor()));
 		}else {
 			Locale aux = null;
 			
@@ -74,14 +76,14 @@ public class PlayerMinmax extends Player {
 				Field[][] newFields = Rules.simulate(player, locale, fields);
 				ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
 				
-				int m = minimaxMin(newMoveOptions, newFields, player.getOpponent(), value + rateFrom(locale), level +1);
+				int m = minimaxMin(newMoveOptions, newFields, player.getOpponent(), value + rateFrom(locale, fields, player.getColor()), level +1);
 				if(m > bestMove) {
 					bestMove = m;
 					aux = locale;
 				}
 			}
 			
-			return new Move(aux, aux == null ? -5_000_000 : value + rateFrom(aux));
+			return new Move(aux, aux == null ? -5_000_000 : value + rateFrom(aux, fields, player.getColor()));
 		}
 	}
 	
@@ -94,7 +96,7 @@ public class PlayerMinmax extends Player {
 			Field[][] newFields = Rules.simulate(player, locale, fields);
 			ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
 			
-			return minimaxMax(newMoveOptions, newFields, player.getOpponent(), value - rateFrom(locale), level + 1).value;
+			return minimaxMax(newMoveOptions, newFields, player.getOpponent(), value - rateFrom(locale, fields, player.getColor()), level + 1).value;
 		}
 	}
 	
@@ -135,7 +137,8 @@ public class PlayerMinmax extends Player {
 		}
 	}
 	
-	private int rateFrom(Locale locale) {
+	private int rateFrom(Locale locale, Field[][] fields, FieldStatus playerColor) {
+//		return RATING[locale.getRow()][locale.getCol()] + Rules.difference(fields, playerColor);
 		return RATING[locale.getRow()][locale.getCol()];
 	}
 	
