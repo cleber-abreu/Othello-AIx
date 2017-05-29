@@ -8,7 +8,7 @@ import com.tcc.othello.global.Rules;
 
 public class PlayerMinmax extends Player {
 	
-	private static final int LEVEL = 5;
+	private static final int LEVEL = 6;
 
 	private static final int SCORE_CO = 100;	// CORNER
 	private static final int SCORE_WL = 15;		// WALL
@@ -68,7 +68,7 @@ public class PlayerMinmax extends Player {
 			return new Move(null, -5_000_000);
 		}else if(level >= LEVEL) {
 			Locale locale = Collections.max(moveOptions, comparator);
-			return new Move(locale, value + rateFrom(locale, fields, player.getColor()));
+			return new Move(locale, value + rateFrom(locale, fields, player.getColor(), player));
 		}else {
 			Locale aux = null;
 			
@@ -76,14 +76,14 @@ public class PlayerMinmax extends Player {
 				Field[][] newFields = Rules.simulate(player, locale, fields);
 				ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
 				
-				int m = minimaxMin(newMoveOptions, newFields, player.getOpponent(), value + rateFrom(locale, fields, player.getColor()), level +1);
+				int m = minimaxMin(newMoveOptions, newFields, player.getOpponent(), value + rateFrom(locale, newFields, player.getColor(), player), level +1);
 				if(m > bestMove) {
 					bestMove = m;
 					aux = locale;
 				}
 			}
 			
-			return new Move(aux, aux == null ? -5_000_000 : value + rateFrom(aux, fields, player.getColor()));
+			return new Move(aux, aux == null ? -5_000_000 : value + rateFrom(aux, fields, player.getColor(), player));
 		}
 	}
 	
@@ -96,7 +96,7 @@ public class PlayerMinmax extends Player {
 			Field[][] newFields = Rules.simulate(player, locale, fields);
 			ArrayList<Locale> newMoveOptions = Rules.updateMoveOptions(player.getOpponent(), newFields);
 			
-			return minimaxMax(newMoveOptions, newFields, player.getOpponent(), value - rateFrom(locale, fields, player.getColor()), level + 1).value;
+			return minimaxMax(newMoveOptions, newFields, player.getOpponent(), value - rateFrom(locale, newFields, player.getColor(), player), level + 1).value;
 		}
 	}
 	
@@ -137,9 +137,11 @@ public class PlayerMinmax extends Player {
 		}
 	}
 	
-	private int rateFrom(Locale locale, Field[][] fields, FieldStatus playerColor) {
-//		return RATING[locale.getRow()][locale.getCol()] + Rules.difference(fields, playerColor);
-		return RATING[locale.getRow()][locale.getCol()];
+	private int rateFrom(Locale locale, Field[][] fields, FieldStatus playerColor, Player player) {
+		Field[][] newFields = Rules.simulate(player, locale, fields);
+		int x = Rules.countDiscs(playerColor, newFields) - Rules.countDiscs(playerColor, fields);
+		int y = RATING[locale.getRow()][locale.getCol()];
+		return x + y;
 	}
 	
 	private void printaIsso(Field[][] f) {
