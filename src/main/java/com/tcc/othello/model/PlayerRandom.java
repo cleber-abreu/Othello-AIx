@@ -21,4 +21,10 @@ public class PlayerRandom extends Player {
 			}
 		}).start();
 	}
+
+	@Override
+	public void gameOver(boolean won) {
+		// TODO Auto-generated method stub
+		
+	}
 }

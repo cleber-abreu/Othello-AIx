@@ -191,4 +191,10 @@ public class PlayerMinmax extends Player {
 			return "[row: " + locale.getRow() + " col:" + locale.getCol() + "]: " + value ;
 		}
 	}
+
+	@Override
+	public void gameOver(boolean won) {
+		// TODO Auto-generated method stub
+		
+	}
 }

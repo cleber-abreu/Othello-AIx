@@ -69,17 +69,22 @@ public class Game implements PlayerObservable, BoardObservable{
 				paintMoveOptions(activePlayer.getColor(), moveOptions);
 				activePlayer.takeTurn(moveOptions, fields);
 			}
+			// game over
 			else {
-				int countBlackField = Rules.countDiscs(FieldStatus.BLACK, fields);
-				int countWhiteField = Rules.countDiscs(FieldStatus.WHITE, fields);
-				
-				if (countBlackField > countWhiteField) {
+				int countactivePlayer = Rules.countDiscs(activePlayer.getColor(), fields);
+				int countOpponent = Rules.countDiscs(activePlayer.getOpponent().getColor(), fields);
+
+				if (countactivePlayer > countOpponent) {
 //					System.out.println("Preto ganhou com " + countBlackField + " x " + countWhiteField);
-					gameOver(FieldStatus.BLACK);
+					gameOver(activePlayer.getColor());
+					activePlayer.gameOver(true);
+					activePlayer.getOpponent().gameOver(false);
 				}
-				else if (countBlackField < countWhiteField) {
+				else if (countactivePlayer < countOpponent) {
 //					System.out.println("Branco ganhou com " + countWhiteField + " x " + countBlackField);
-					gameOver(FieldStatus.WHITE);
+					gameOver(activePlayer.getOpponent().getColor());
+					activePlayer.gameOver(false);
+					activePlayer.getOpponent().gameOver(true);
 				}
 				else {
 					gameOver(FieldStatus.VOID);

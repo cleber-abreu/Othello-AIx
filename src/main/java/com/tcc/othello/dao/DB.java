@@ -23,6 +23,38 @@ public abstract class DB {
 				Statement stmt = connection.createStatement();
 				
 				stmt.executeUpdate(GameBoardDAO.createGameBoardTable());
+				
+				stmt = connection.createStatement();
+				String sql = "CREATE TABLE BOARD4 (ID TEXT PRIMARY KEY NOT NULL";
+				for (int i = 0; i < 28; i++) {
+					sql += ",ROW" + i + " INT NULL," +
+							"COL" + i + " INT NULL," +
+							"RATE" + i + "INT NULL";
+				}
+				sql += ")";
+				stmt.executeUpdate(sql);
+				
+				stmt = connection.createStatement();
+				sql = "CREATE TABLE BOARD6 (ID TEXT PRIMARY KEY NOT NULL";
+				for (int i = 0; i < 28; i++) {
+					sql += ",ROW" + i + " INT NULL," +
+							"COL" + i + " INT NULL," +
+							"RATE" + i + "INT NULL";
+				}
+				sql += ")";
+				stmt.executeUpdate(sql);
+				
+				stmt = connection.createStatement();
+				sql = "CREATE TABLE BOARD8 (ID TEXT PRIMARY KEY NOT NULL";
+				for (int i = 0; i < 28; i++) {
+					sql += ",ROW" + i + " INT NULL," +
+							"COL" + i + " INT NULL," +
+							"RATE" + i + "INT NULL";
+				}
+				sql += ")";
+				stmt.executeUpdate(sql);
+				
+				connection.commit();
 				stmt.close();
 			}
 		}catch (Exception e) {

@@ -13,12 +13,15 @@ public abstract class Player {
 			return new PlayerRandom();
 		case MINIMAX:
 			return new PlayerMinmax();
+		case QLEARNING:
+			return new PlayerQLearning();
 		default :
 			return new PlayerHuman();
 		}
 	}
 
 	public abstract void takeTurn(ArrayList<Locale> moveOptions, Field[][] fields);
+	public abstract void gameOver(boolean won);
 
 	public void setPlayerObservable(PlayerObservable playerObservable) {
 		this.playerObservable = playerObservable;

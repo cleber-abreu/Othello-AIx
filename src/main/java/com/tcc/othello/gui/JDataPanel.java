@@ -213,8 +213,8 @@ public class JDataPanel extends JPanel{
 	
 	public void newGame() {
 		// limitar quantidade de partida
-//		if (1000 == Integer.parseInt(lblPointsPlayer1.getText()) + Integer.parseInt(lblPointsPlayer2.getText()))
-//			return;
+		if (1000 == Integer.parseInt(lblPointsPlayer1.getText()) + Integer.parseInt(lblPointsPlayer2.getText()))
+			return;
 		if (gameCounter > 0) {
 			changeFirstPlayer();
 		}
